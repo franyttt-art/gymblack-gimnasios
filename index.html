@@ -26,21 +26,10 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--f);-webkit-font-smoothing:antialiased}
 body{padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(92px + env(safe-area-inset-bottom,0px));max-width:620px;margin:0 auto;min-height:100vh;background:radial-gradient(120% 320px at 50% -60px,var(--acGlow),transparent 70%) no-repeat,var(--bg)}
-/* Brillo plateado que recorre el logo (solo sobre las partes del logo) */
-.brillo{position:relative;display:inline-block;line-height:0}
-.brillo::after{content:"";position:absolute;inset:0;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;pointer-events:none;
-  background:linear-gradient(112deg,transparent 36%,rgba(203,213,225,.35) 44%,rgba(248,250,252,.98) 50%,rgba(203,213,225,.35) 56%,transparent 64%);
-  background-size:260% 100%;background-position:100% 0;animation:brillo 3.8s ease-in-out .9s infinite}
 @keyframes brillo{0%,40%{background-position:100% 0}80%,100%{background-position:0% 0}}
-/* Acabado metálico (luces y sombras horizontales) sobre el logo */
-.brillo::before{content:"";position:absolute;inset:0;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;pointer-events:none;mix-blend-mode:soft-light;
-  background:linear-gradient(180deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 22%,rgba(0,0,0,.35) 46%,rgba(255,255,255,.55) 62%,rgba(0,0,0,.3) 82%,rgba(255,255,255,.4) 100%)}
-/* En la presentación el reflejo pasa dos veces mientras se ve el logo */
-#intro .brillo::after{animation:brilloIntro 1.05s cubic-bezier(.45,0,.25,1) .45s 2 both}
-@keyframes brilloIntro{from{background-position:100% 0}to{background-position:0% 0}}
 .logo{position:relative;overflow:hidden}
 .logo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 38%,rgba(241,245,249,.55) 50%,transparent 62%);background-size:260% 100%;background-position:100% 0;animation:brillo 5s ease-in-out 1.5s infinite;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.brillo::after,#intro .brillo::after,.logo::after{animation:none;opacity:0}}
+@media (prefers-reduced-motion:reduce){.logo::after{animation:none;opacity:0}}
 /* Marca de agua con el emblema del gimnasio en el fondo */
 body::before{content:"";position:fixed;left:50%;bottom:4vh;width:min(125vw,760px);aspect-ratio:941/774;transform:translateX(-50%) rotate(-8deg);background:url(fondo-emblema.webp) center/contain no-repeat;opacity:.05;pointer-events:none;z-index:0}
 #app{position:relative;z-index:1}
@@ -55,12 +44,12 @@ input,select,textarea{font:inherit;color:var(--ink)}
 svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .tab{font-variant-numeric:tabular-nums}
 #intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(55% 40% at 50% 45%,rgba(255,212,0,.10),transparent 70%),var(--bg);transition:opacity .5s ease}
-#intro img.lg{width:min(62vw,270px);height:auto;opacity:0;transform:scale(.94);animation:introLogo .9s .1s cubic-bezier(.2,.8,.2,1) forwards}
+#intro .lg{display:block;width:min(62vw,270px);height:auto;opacity:0;transform:scale(.94);animation:introLogo .9s .1s cubic-bezier(.2,.8,.2,1) forwards}
 #intro.fuera{opacity:0;pointer-events:none}
 .introZw{position:absolute;left:0;right:0;bottom:calc(34px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;opacity:0;animation:introLogo .8s .7s forwards}
 .introZw img{height:20px;width:auto}
 @keyframes introLogo{to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){#intro img.lg,.introZw{animation:none;opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#intro .lg,.introZw{animation:none;opacity:1;transform:none}}
 /* Barra superior y títulos */
 .top{display:flex;align-items:center;gap:10px;padding:8px 0 4px}
 .logo{flex:none;width:34px;height:34px;border-radius:9px;background:#000 center/cover no-repeat;box-shadow:0 0 0 1px var(--acLine),0 0 18px var(--acGlow)}
@@ -217,12 +206,12 @@ details summary{list-style:none;cursor:pointer}details summary::-webkit-details-
 </style>
 </head>
 <body>
-<div id="intro" aria-hidden="true"><span class="brillo" style="--m:url(logo-gym.webp)"><img class="lg" src="logo-gym.webp" alt=""></span><div class="introZw">Desarrollado por <img src="zafiroweb.png" alt="ZafiroWeb"></div></div>
+<div id="intro" aria-hidden="true"><canvas class="lg" id="introLogo" aria-label="Cibao Power"></canvas><div class="introZw">Desarrollado por <img src="zafiroweb.png" alt="ZafiroWeb"></div></div>
 <div id="app"></div>
 <nav class="nav" id="nav"><div></div></nav>
 <div id="capa"></div>
 <div id="hoja"></div>
-<script src="catalogo.js?v=20260930155632"></script>
+<script src="catalogo.js?v=20260930170215"></script>
 <script src="qrcode.min.js"></script>
 <script>
 "use strict";
@@ -534,17 +523,48 @@ function abrirCapa(html){ document.body.style.overflow = "hidden"; $("#capa").in
 function cerrarCapa(){ document.body.style.overflow = ""; $("#capa").innerHTML = ""; }
 const cerrarX = (a = "cerrarCapa") => `<button class="ibtn" data-a="${a}" aria-label="Cerrar">${ic("x")}</button>`;
 
+/* ================= LOGO METÁLICO ================= */
+// Dibuja el logo en un canvas: acabado metálico fijo + un reflejo plateado que lo cruza.
+// Solo pinta sobre las partes del logo (source-atop), así el fondo queda transparente.
+const IMG_LOGO = new Image(); IMG_LOGO.src = "logo-gym.webp";
+function logoMetal(cv, repetir){
+  const arrancar = () => {
+    const img = IMG_LOGO, dpr = Math.min(2, window.devicePixelRatio || 1), W = cv.clientWidth || 200, H = Math.round(W * img.naturalHeight / img.naturalWidth);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.height = H + "px";
+    const x = cv.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const inicio = performance.now(), espera = repetir ? 700 : 450, dur = 1100, pausa = repetir ? 2800 : 150, ciclo = dur + pausa, veces = repetir ? Infinity : 2;
+    const cuadro = ahora => {
+      if (!cv.isConnected) return;
+      x.globalCompositeOperation = "source-over"; x.clearRect(0, 0, W, H); x.drawImage(img, 0, 0, W, H);
+      x.globalCompositeOperation = "source-atop";
+      const m = x.createLinearGradient(0, 0, 0, H);
+      [[0, "rgba(255,255,255,.30)"], [.22, "rgba(255,255,255,0)"], [.46, "rgba(0,0,0,.20)"], [.6, "rgba(255,255,255,.22)"], [.82, "rgba(0,0,0,.16)"], [1, "rgba(255,255,255,.18)"]].forEach(([o, c]) => m.addColorStop(o, c));
+      x.fillStyle = m; x.fillRect(0, 0, W, H);
+      const t = ahora - inicio - espera, n = Math.floor(t / ciclo), p = (t - n * ciclo) / dur;
+      if (t > 0 && n < veces && p <= 1) {
+        const cx = -W * .5 + p * W * 2, g = x.createLinearGradient(cx - W * .32, 0, cx + W * .32, H * .45);
+        g.addColorStop(0, "rgba(226,232,240,0)"); g.addColorStop(.42, "rgba(226,232,240,.35)"); g.addColorStop(.5, "rgba(250,251,252,.97)"); g.addColorStop(.58, "rgba(226,232,240,.35)"); g.addColorStop(1, "rgba(226,232,240,0)");
+        x.fillStyle = g; x.fillRect(0, 0, W, H);
+      }
+      if (repetir || t < ciclo * veces) requestAnimationFrame(cuadro);
+    };
+    requestAnimationFrame(cuadro);
+  };
+  if (IMG_LOGO.complete && IMG_LOGO.naturalWidth) arrancar(); else IMG_LOGO.addEventListener("load", arrancar, {once:true});
+}
+
 /* ================= ENTRADA (elegir quién sos) ================= */
 let teclado = null;   // {modo:"dni"|"pin"|"kiosco"|"salirKiosco", val:""}
 function pantallaEntrada(){
   if (teclado) return pintarTeclado();
   $("#app").innerHTML = `<div class="bienv">
-    <div class="centro" style="margin-bottom:18px">${DB.gym.logo ? `<div class="logo" style="width:72px;height:72px;border-radius:18px;margin:0 auto 16px;${logoCss()}"></div><h1>${esc(DB.gym.nombre)}</h1>` : `<span class="brillo" style="--m:url(logo-gym.webp);display:block;width:min(52vw,200px);margin:0 auto"><img src="logo-gym.webp" alt="${esc(DB.gym.nombre)}" style="width:100%;height:auto;display:block"></span>`}<p class="muted small" style="margin:14px 0 0">${esc(textoHorario())}</p></div>
+    <div class="centro" style="margin-bottom:18px">${DB.gym.logo ? `<div class="logo" style="width:72px;height:72px;border-radius:18px;margin:0 auto 16px;${logoCss()}"></div><h1>${esc(DB.gym.nombre)}</h1>` : `<canvas class="logoEntrada" aria-label="${esc(DB.gym.nombre)}" style="display:block;width:min(52vw,200px);margin:0 auto"></canvas>`}<p class="muted small" style="margin:14px 0 0">${esc(textoHorario())}</p></div>
     <button class="bigBtn" data-a="entrarSocio"><span class="e">${ic("usuario")}</span><span class="sp"><b>Soy socio</b><span class="sub">Rutina, cuota, clases y pase de entrada</span></span><span class="muted">${ic("der")}</span></button>
     <button class="bigBtn" data-a="entrarStaff"><span class="e">${ic("candado")}</span><span class="sp"><b>Soy del gimnasio</b><span class="sub">Socios, cobros, rutinas y estadísticas</span></span><span class="muted">${ic("der")}</span></button>
     <button class="bigBtn" data-a="entrarKiosco"><span class="e">${ic("monitor")}</span><span class="sp"><b>Modo recepción</b><span class="sub">Para una tablet en la entrada del gimnasio</span></span><span class="muted">${ic("der")}</span></button>
     ${DB.demo ? `<div class="consejo small">Versión de demostración con datos de ejemplo. Socio: DNI <b>35123456</b> · Gimnasio: PIN <b>1234</b>.</div>` : ""}
     ${firma()}</div>`;
+  const cv = $(".logoEntrada"); if (cv) logoMetal(cv, true);
 }
 function pintarTeclado(){
   const T = teclado, esKiosco = T.modo === "kiosco";
@@ -1377,7 +1397,7 @@ function leerPlanes(){ DB.planes.forEach((p, i) => { const n = $("#plN" + i), v 
 
 /* ================= ARRANQUE ================= */
 render();
-(() => { const i = $("#intro"); if (!i) return; let ido = false;
+(() => { const i = $("#intro"); if (!i) return; let ido = false; const cvI = $("#introLogo"); if (cvI) logoMetal(cvI, false);
   const irse = () => { if (ido) return; ido = true; i.classList.add("fuera"); setTimeout(() => i.remove(), 550); };
   i.onclick = irse; setTimeout(irse, 2800); })();
 if (YO && YO.rol === "socio" && socioYo()) { const ss = entrenoDe(YO.id).sesion; if (ss && ss.f === hoyStr() && ss.descansoHasta) abrirGuia(); }
@@ -1389,7 +1409,7 @@ setInterval(() => {
 }, 60000);
 </script>
 <script>
-const VERSION_APP = "20260930155632";
+const VERSION_APP = "20260930170215";
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
 }).catch(() => {}));
