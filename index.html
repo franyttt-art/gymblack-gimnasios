@@ -179,6 +179,14 @@ select.campo{appearance:none;background-image:linear-gradient(45deg,transparent 
 .hero-num{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
 .enlace{background:none;border:0;padding:0;color:var(--ink2);font-weight:500;font-size:13px;display:inline-flex;align-items:center;gap:4px}
 .enlace svg.i{width:14px;height:14px}
+.acceso{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:14px;background:var(--s1);border:1px solid var(--line);border-radius:14px;text-align:left;color:inherit;width:100%}
+.acceso .e{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--s2);color:var(--ink)}
+.acceso b{display:block;font-size:14px}
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pasos div{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:12px 10px}
+.pasos .n{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--acSoft);color:var(--ink);font-size:12px;font-weight:600;margin-bottom:8px}
+.pasos b{display:block;font-size:13px;line-height:1.25;margin-bottom:3px}.pasos .sub{font-size:12px;display:block}
+.kpi .k{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
 details summary{list-style:none;cursor:pointer}details summary::-webkit-details-marker{display:none}
 </style>
 </head>
@@ -188,7 +196,7 @@ details summary{list-style:none;cursor:pointer}details summary::-webkit-details-
 <nav class="nav" id="nav"><div></div></nav>
 <div id="capa"></div>
 <div id="hoja"></div>
-<script src="catalogo.js?v=20260930115141"></script>
+<script src="catalogo.js?v=20260930122117"></script>
 <script src="qrcode.min.js"></script>
 <script>
 "use strict";
@@ -598,15 +606,39 @@ function leido(sid, modo){
 
 /* ================= SOCIO: INICIO ================= */
 function saludo(){ const h = new Date().getHours(); return h < 13 ? "Buen día" : h < 20 ? "Buenas tardes" : "Buenas noches"; }
+const pasos = L => `<div class="pasos">${L.map(([t, d], k) => `<div><span class="n tab">${k + 1}</span><b>${t}</b><span class="sub">${d}</span></div>`).join("")}</div>`;
+const acceso = (i, t, d, a, tab) => `<button class="acceso" data-a="${a}"${tab ? ` data-t="${tab}"` : ""}><span class="e">${ic(i)}</span><span><b>${t}</b><span class="sub">${d}</span></span></button>`;
 function pInicio(){
+  const s = socioYo(), c = estadoCuota(s), o = nivelOcupacion(), mio = ranking().find(x => x[0] === s.id), vis = mio ? mio[1] : 0, meta = DB.desafio.meta;
+  return cabecera(`${saludo()}, ${esc(s.nombre.split(" ")[0])}`, may(new Date().toLocaleDateString("es-AR", {weekday:"long", day:"numeric", month:"long"})), `<button class="ibtn" data-a="pase" aria-label="Mi pase">${ic("qr")}</button>`) + `
+    <div class="kpis">
+      <button class="kpi" data-a="cuota"><span class="k">Cuota</span><span class="v" style="font-size:17px;color:${c.k === "ok" ? "var(--ink)" : c.col}">${c.k === "pronto" ? (c.d === 0 ? "Hoy" : `${c.d} día${c.d === 1 ? "" : "s"}`) : c.corto}</span><span class="l">${c.k === "venc" ? "desde el " : c.k === "pronto" ? "vence el " : "hasta el "}${fCorta(s.vence)}</span></button>
+      <button class="kpi" data-a="ocupacion"><span class="k">Gimnasio</span><span class="v" style="font-size:17px">${o.txt}</span><span class="l">${o.cerrado ? "fuera de horario" : `<span class="dot" style="background:${o.col};width:6px;height:6px"></span>${o.n} ${o.n === 1 ? "persona" : "personas"}`}</span></button>
+      <button class="kpi" data-a="desafio"><span class="k">Desafío</span><span class="v" style="font-size:17px">${Math.min(vis, meta)}/${meta}</span><span class="l">visitas del mes</span></button>
+    </div>
+    ${c.k !== "ok" ? alertaCuota(s, c) : ""}
+    ${tarjetaHoyToca(s)}
+    <div class="lbl">Accesos rápidos</div>
+    <div class="grid2" style="margin-bottom:12px">
+      ${acceso("qr", "Mi pase", "Para ingresar al gimnasio", "pase")}
+      ${acceso("calendario", "Clases", "Reservá tu lugar", "tab", "clases")}
+      ${acceso("rutina", "Mi rutina", "Días y ejercicios", "tab", "entrenar")}
+      ${acceso("progreso", "Mi progreso", "Visitas y récords", "tab", "progreso")}
+    </div>
+    ${tarjetaMiClase(s)}${tarjetaAvisos()}`;
+}
+function alertaCuota(s, c){
+  return `<div class="card" style="border-color:${c.k === "venc" ? "rgba(239,68,68,.4)" : "rgba(245,158,11,.4)"}"><div class="ct" style="color:${c.col}">${ic("alerta")} Tu cuota ${c.txt.toLowerCase()}</div>
+    <p class="sub" style="margin:6px 0 12px">Abonala en recepción o por transferencia al alias <b style="color:var(--ink2)">${esc(DB.gym.alias)}</b>.</p>
+    <a class="btn sec chico" style="width:100%" target="_blank" rel="noopener" href="${linkWa(DB.gym.whatsapp, `Hola, soy ${s.nombre} (DNI ${s.dni}). Les aviso que aboné la cuota por transferencia.`)}">${ic("mensaje")} Avisar que pagué</a></div>`;
+}
+function hojaCuota(){
   const s = socioYo(), c = estadoCuota(s), p = planDe(s);
-  return cabecera(`${saludo()}, ${esc(s.nombre.split(" ")[0])}`, "", `<button class="ibtn" data-a="pase" aria-label="Mi pase">${ic("qr")}</button>`) + `
-    <div class="card"><div class="row"><div class="sp"><div class="lbl" style="margin:0 0 6px">Cuota</div><div class="row" style="gap:8px"><span class="dot" style="background:${c.col}"></span><h2 style="color:${c.k === "ok" ? "var(--ink)" : c.col}">${c.txt}</h2></div>
-      <div class="sub" style="margin-top:4px">${esc(p.n)} · ${plata(p.precio)} por mes</div></div></div>
-      ${c.k !== "ok" ? `<div class="consejo ${c.k === "venc" ? "rojo" : "amar"}">Podés abonarla en recepción o por transferencia al alias <b>${esc(DB.gym.alias)}</b>.</div>
-        <a class="btn sec chico" style="margin-top:12px;width:100%" target="_blank" rel="noopener" href="${linkWa(DB.gym.whatsapp, `Hola, soy ${s.nombre} (DNI ${s.dni}). Les aviso que aboné la cuota por transferencia.`)}">${ic("mensaje")} Avisar que pagué</a>` : ""}
-      <button class="btn" data-a="pase" style="margin-top:12px">${ic("qr")} Mostrar pase de entrada</button></div>
-    ${tarjetaHoyToca(s)}${tarjetaOcupacion()}${tarjetaDesafio(s)}${tarjetaMiClase(s)}${tarjetaAvisos()}`;
+  abrirHoja(`<h2>Tu cuota</h2><div class="row" style="margin-top:14px;gap:8px"><span class="dot" style="background:${c.col}"></span><b style="font-size:18px">${c.txt}</b></div>
+    <div class="sub" style="margin-top:4px">${esc(p.n)} · ${plata(p.precio)} por mes</div>
+    <div class="consejo">Podés abonar en efectivo en recepción o por transferencia al alias <b>${esc(DB.gym.alias)}</b>.</div>
+    ${c.k !== "ok" ? `<a class="btn sec" style="margin-top:12px" target="_blank" rel="noopener" href="${linkWa(DB.gym.whatsapp, `Hola, soy ${s.nombre} (DNI ${s.dni}). Les aviso que aboné la cuota por transferencia.`)}">${ic("mensaje")} Avisar que pagué</a>` : ""}
+    <button class="btn" data-a="pase" style="margin-top:10px">${ic("qr")} Mostrar pase de entrada</button>`);
 }
 function tarjetaHoyToca(s){
   const R = s.rutina && rutinaDe(s.rutina.id);
@@ -619,6 +651,7 @@ function tarjetaHoyToca(s){
     <p class="sub" style="margin:4px 0 14px">${esc(R.n)} · ${D.ej.length} ejercicios · ${duracionDia(D)} min aprox.</p>
     <button class="btn" data-a="empezar" data-d="${i}">${ic("play")} Empezar</button></div>`;
 }
+function hojaOcupacion(){ abrirHoja(`<h2>Ocupación</h2><p class="sub" style="margin:4px 0 14px">Personas que ingresaron en la última hora y media.</p>` + tarjetaOcupacion() + `<div class="sub">Horario de atención: ${esc(textoHorario())}</div>`); }
 function tarjetaOcupacion(){
   const o = nivelOcupacion();
   return `<div class="card"><div class="row"><div class="ct sp">${ic("pulso")} Ocupación ahora</div>${o.cerrado ? "" : `<span class="muted small tab">${o.n} ${o.n === 1 ? "persona" : "personas"}</span>`}</div>
@@ -626,14 +659,15 @@ function tarjetaOcupacion(){
     ${o.cerrado ? `<div class="sub">${esc(textoHorario())}</div>` : `<div class="barra"><i style="width:${Math.max(3, Math.min(100, o.p * 100))}%;background:${o.col}"></i></div>`}
     <div class="sub" style="margin-top:10px">Horario más tranquilo: ${mejorHorario()}</div></div>`;
 }
+function hojaDesafio(){ abrirHoja(`<h2>Desafío del mes</h2><p class="sub" style="margin:4px 0 14px">Cada ingreso al gimnasio suma una visita.</p>` + tarjetaDesafio(socioYo())); }
 function tarjetaDesafio(s){
   const rk = ranking(), mio = rk.find(x => x[0] === s.id), vis = mio ? mio[1] : 0, pos = mio ? rk.indexOf(mio) + 1 : null, meta = DB.desafio.meta;
   return `<div class="card"><div class="row"><div class="ct sp">${ic("trofeo")} Desafío de ${MES[new Date().getMonth()]}</div><span class="muted small tab">${Math.min(vis, meta)} / ${meta}</span></div>
     <p class="sub" style="margin:8px 0 12px">${meta} visitas en el mes para participar por <b style="color:var(--ink2)">${esc(DB.desafio.premio)}</b>.</p>
     <div class="barra"><i style="width:${Math.min(100, vis / meta * 100)}%"></i></div>
     <div class="row small" style="margin-top:10px"><span class="sp muted">${vis >= meta ? "Objetivo cumplido: ya estás participando." : `Te faltan ${meta - vis} visitas.`}</span>${pos ? `<span class="muted">Posición <b style="color:var(--ink)">${pos}</b></span>` : ""}</div>
-    <details style="margin-top:10px"><summary class="enlace">Ver ranking ${ic("der")}</summary>
-    ${rk.slice(0, 5).map(([id, n], k) => `<div class="row small" style="padding:7px 0;border-top:1px solid var(--line);${id === s.id ? "color:var(--ink)" : "color:var(--ink2)"}"><span class="muted tab" style="width:20px">${k + 1}</span><span class="sp">${esc(corto(socio(id).nombre))}${id === s.id ? " (vos)" : ""}</span><b class="tab">${n}</b></div>`).join("")}</details></div>`;
+    <div class="lbl">Ranking del mes</div><div>
+    ${rk.slice(0, 5).map(([id, n], k) => `<div class="row small" style="padding:7px 0;border-top:1px solid var(--line);${id === s.id ? "color:var(--ink)" : "color:var(--ink2)"}"><span class="muted tab" style="width:20px">${k + 1}</span><span class="sp">${esc(corto(socio(id).nombre))}${id === s.id ? " (vos)" : ""}</span><b class="tab">${n}</b></div>`).join("")}</div></div>`;
 }
 function proximaReserva(sid){
   for (let k = 0; k < 8; k++) {
@@ -672,11 +706,24 @@ function pEntrenar(){
   if (!R) return cabecera("Elegí tu rutina", "Rutinas armadas por profesores. Tu profe también puede asignarte una a medida.") +
     DB.rutinas.map(t => tarjetaRutina(t, "verPlantilla")).join("");
   const sig = (s.rutina.sig || 0) % R.dias.length, E = entrenoDe(s.id);
-  return cabecera(esc(R.n), `${s.rutina.por === "profe" ? "Asignada por tu profesor" : "Elegida por vos"} · ${R.dias.length} días · ${esc(R.nivel)}`, `<button class="ibtn" data-a="cambiarRutina" aria-label="Cambiar rutina">${ic("cambiar")}</button>`) +
-    R.dias.map((D, i) => `<div class="card" style="${i === sig ? "border-color:var(--line2);box-shadow:inset 3px 0 0 var(--ac)" : ""}">
-      <div class="row"><div class="sp">${i === sig ? `<div class="lbl" style="margin:0 0 4px;color:var(--ink2)">Próxima sesión</div>` : ""}<h3>${esc(D.n)}</h3><div class="sub">${D.ej.length} ejercicios · ${duracionDia(D)} min aprox.</div></div></div>
-      <div style="margin-top:6px">${D.ej.map(x => { const e = itemEj(x); return `<button class="fila" data-a="fichaEj" data-id="${e.id}"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(e.n)}</b><div class="sub">${objetivoTxt(e)} · ${esc(GRUPOS[e.g])}</div></div><span class="der">${ic("der")}</span></button>`; }).join("")}</div>
-      <button class="btn ${i === sig ? "" : "sec"}" data-a="empezar" data-d="${i}" style="margin-top:12px">${ic("play")} ${E.sesion && E.sesion.dia === i && E.sesion.f === hoyStr() ? "Continuar" : "Empezar " + esc(D.n)}</button></div>`).join("");
+  const enCurso = E.sesion && E.sesion.f === hoyStr() && E.sesion.rid === R.id, idx = enCurso ? E.sesion.dia : sig, D = R.dias[idx];
+  const ultima = n => Object.keys(E.dias).filter(f => E.dias[f] === n).sort().pop();
+  return cabecera("Mi rutina", `${esc(R.n)} · ${R.dias.length} días · ${s.rutina.por === "profe" ? "asignada por tu profesor" : "elegida por vos"}`, `<button class="ibtn" data-a="cambiarRutina" aria-label="Cambiar rutina">${ic("cambiar")}</button>`) + `
+    <div class="card"><div class="lbl" style="margin:0 0 6px">${enCurso ? "Entrenamiento en curso" : E.dias[hoyStr()] ? "Próxima sesión" : "Te toca hoy"}</div><h2>${esc(D.n)}</h2>
+      <p class="sub" style="margin:4px 0 0">${D.ej.length} ejercicios · ${duracionDia(D)} min aprox.</p>
+      <div class="row" style="gap:6px;margin:14px 0;overflow:hidden">${D.ej.slice(0, 6).map(x => `<img class="mini" style="width:46px;height:36px" src="${rutaFoto(CATALOGO[x[0]].img, 1)}" alt="" loading="lazy">`).join("")}</div>
+      <button class="btn" data-a="${enCurso ? "continuar" : "empezar"}" data-d="${idx}">${ic("play")} ${enCurso ? "Continuar" : "Empezar"}</button>
+      ${E.dias[hoyStr()] && !enCurso ? `<p class="sub centro" style="margin:10px 0 0">Hoy ya completaste ${esc(E.dias[hoyStr()])}.</p>` : ""}</div>
+    <div class="lbl">Cómo funciona</div>
+    ${pasos([["Empezá el día", "Cada ejercicio con fotos de cómo hacerlo."], ["Anotá cada serie", "Peso y repeticiones. Te sugiere cuánto levantar."], ["Descansá", "Un reloj te avisa cuándo seguir."]])}
+    <div class="lbl">Días de la rutina</div>
+    <div class="card" style="padding:2px 16px">${R.dias.map((Di, i) => { const u = ultima(Di.n); return `<button class="fila" data-a="verDia" data-d="${i}"><span class="av tab">${i + 1}</span><div class="sp"><b style="font-size:14px">${esc(Di.n)}</b><div class="sub">${Di.ej.length} ejercicios · ${duracionDia(Di)} min${u ? ` · último ${fCorta(u)}` : ""}</div></div>${i === sig ? `<span class="pill p-gris" style="color:var(--ink)">Próximo</span>` : ""}<span class="der">${ic("der")}</span></button>`; }).join("")}</div>`;
+}
+function hojaDia(i){
+  const s = socioYo(), R = rutinaDe(s.rutina.id), D = R.dias[i];
+  abrirHoja(`<h2>${esc(D.n)}</h2><p class="sub" style="margin:4px 0 4px">${D.ej.length} ejercicios · ${duracionDia(D)} min aprox. Tocá un ejercicio para ver cómo se hace.</p>
+    ${D.ej.map(x => { const e = itemEj(x); return `<button class="fila" data-a="fichaEj" data-id="${e.id}" data-dia="${i}"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(e.n)}</b><div class="sub">${objetivoTxt(e)} · ${esc(GRUPOS[e.g])}</div></div><span class="der">${ic("der")}</span></button>`; }).join("")}
+    <button class="btn" data-a="empezar" data-d="${i}" style="margin-top:16px">${ic("play")} Empezar ${esc(D.n)}</button>`);
 }
 function tarjetaRutina(t, accionV){
   const usan = DB.socios.filter(s => s.rutina && s.rutina.id === t.id).length;
@@ -693,9 +740,9 @@ function hojaRutina(id, modo){
       `<div class="grid2" style="margin-top:16px"><button class="btn" data-a="asignar" data-id="${t.id}">${ic("socios")} Asignar</button><button class="btn sec" data-a="editarRutina" data-id="${t.id}">${ic("lapiz")} Editar</button></div>
        <div class="grid2" style="margin-top:10px"><button class="btn sec" data-a="duplicarRutina" data-id="${t.id}">${ic("copiar")} Duplicar</button><button class="btn no" data-a="borrarRutina" data-id="${t.id}">${ic("basura")} Eliminar</button></div>`}`);
 }
-function hojaFicha(id){
+function hojaFicha(id, dia){
   const e = CATALOGO[id]; if (!e) return;
-  abrirHoja(`<h2>${esc(e.n)}</h2><div class="row w" style="margin-top:8px;gap:6px"><span class="chip">${ic("herramienta")} ${esc(e.eq)}</span><span class="chip">${ic("objetivo")} ${esc(GRUPOS[e.g])}</span></div>
+  abrirHoja(`${dia != null ? `<button class="enlace" data-a="verDia" data-d="${dia}" style="margin-bottom:12px">${ic("izq")} Volver</button>` : ""}<h2>${esc(e.n)}</h2><div class="row w" style="margin-top:8px;gap:6px"><span class="chip">${ic("herramienta")} ${esc(e.eq)}</span><span class="chip">${ic("objetivo")} ${esc(GRUPOS[e.g])}</span></div>
     ${fotoEj(e)}<p style="margin:12px 0 0;color:var(--ink2);font-size:14px">${esc(e.tip)}</p>`);
 }
 const fotoEj = e => `<div class="foto"><img src="${rutaFoto(e.img, 0)}" alt=""><img class="b" src="${rutaFoto(e.img, 1)}" alt=""><span class="et a2">INICIO</span><span class="et b">FINAL</span></div>`;
@@ -887,19 +934,23 @@ function pPanel(){
   const hoyE = DB.asistencias.filter(a => a.t >= hoy0 && a.t <= Date.now());
   const o = nivelOcupacion(), fecha = new Date().toLocaleDateString("es-AR", {weekday:"long", day:"numeric", month:"long"});
   return cabecera("Panel", may(fecha)) + `
-    <div class="grid2" style="margin-bottom:12px"><button class="btn" data-a="hojaEntrada">${ic("entrar")} Entrada</button><button class="btn sec" data-a="nuevoSocio">${ic("mas")} Nuevo socio</button></div>
-    <div class="kpis" style="margin-bottom:8px">
-      <button class="kpi" data-a="verSocios" data-f="todos"><span class="v">${act}</span><span class="l">Socios activos</span></button>
-      <div class="kpi"><span class="v">${o.n}</span><span class="l"><span class="dot" style="background:${o.col};width:6px;height:6px"></span>En el gimnasio</span></div>
-      <div class="kpi"><span class="v">${hoyE.length}</span><span class="l">Entradas hoy</span></div></div>
-    <div class="kpis">
-      <button class="kpi" data-a="verSocios" data-f="venc"><span class="v" style="color:var(--rojoT)">${venc}</span><span class="l">Cuotas vencidas</span></button>
-      <button class="kpi" data-a="verSocios" data-f="pronto"><span class="v" style="color:var(--amarT)">${pronto}</span><span class="l">Vencen pronto</span></button>
-      <div class="kpi"><span class="v" style="font-size:18px;line-height:1.5">${plata(ingresosMes())}</span><span class="l">Cobrado en ${MES[new Date().getMonth()]}</span></div></div>
-    ${venc + pronto ? `<button class="btn sec" data-a="recordatorios" style="margin-bottom:12px">${ic("mensaje")} Enviar recordatorios de cuota (${venc + pronto})</button>` : ""}
-    <div class="card"><div class="ct">${ic("panel")} Entradas · últimos 14 días</div>${graficoDias()}</div>
-    <div class="card"><div class="ct">${ic("reloj")} Horas pico · ${plural(DIA[new Date().getDay()].toLowerCase())}</div><p class="sub" style="margin:4px 0 0">Promedio de entradas por hora en las últimas 4 semanas.</p>${graficoHoras()}</div>
-    <div class="card"><div class="ct">${ic("entrar")} Últimas entradas</div>${hoyE.slice(-6).reverse().map(a => { const s = socio(a.s); return s ? `<button class="fila" data-a="verSocio" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b style="font-size:14px">${esc(s.nombre)}</b><div class="sub tab">${hora(a.t)} h</div></div>${pillCuota(s)}</button>` : ""; }).join("") || `<p class="sub" style="margin:8px 0 0">Todavía no hay entradas hoy.</p>`}</div>`;
+    <div class="lbl" style="margin-top:0">Hoy</div>
+    <div class="kpis" style="margin-bottom:10px">
+      <div class="kpi"><span class="k">En el gimnasio</span><span class="v">${o.n}</span><span class="l"><span class="dot" style="background:${o.col};width:6px;height:6px"></span>${o.txt}</span></div>
+      <div class="kpi"><span class="k">Ingresos</span><span class="v">${hoyE.length}</span><span class="l">en el día</span></div>
+      <button class="kpi" data-a="verSocios" data-f="todos"><span class="k">Socios</span><span class="v">${act}</span><span class="l">activos</span></button></div>
+    <div class="grid2"><button class="btn" data-a="hojaEntrada">${ic("entrar")} Entrada</button><button class="btn sec" data-a="nuevoSocio">${ic("mas")} Nuevo socio</button></div>
+    <div class="lbl">Cobros</div>
+    <div class="kpis" style="margin-bottom:10px">
+      <button class="kpi" data-a="verSocios" data-f="venc"><span class="k">Vencidas</span><span class="v" style="color:var(--rojoT)">${venc}</span><span class="l">ver lista</span></button>
+      <button class="kpi" data-a="verSocios" data-f="pronto"><span class="k">Por vencer</span><span class="v" style="color:var(--amarT)">${pronto}</span><span class="l">próximos 5 días</span></button>
+      <div class="kpi"><span class="k">Cobrado</span><span class="v" style="font-size:17px;line-height:1.55">${plata(ingresosMes())}</span><span class="l">en ${MES[new Date().getMonth()]}</span></div></div>
+    ${venc + pronto ? `<button class="btn sec" data-a="recordatorios">${ic("mensaje")} Enviar recordatorios por WhatsApp (${venc + pronto})</button>` : ""}
+    <div class="lbl">Asistencia</div>
+    <div class="card"><div class="ct">${ic("panel")} Ingresos por día · últimas 2 semanas</div>${graficoDias()}</div>
+    <div class="card"><div class="ct">${ic("reloj")} Horas pico · ${plural(DIA[new Date().getDay()].toLowerCase())}</div><p class="sub" style="margin:4px 0 0">Promedio de ingresos por hora, últimas 4 semanas.</p>${graficoHoras()}</div>
+    <div class="lbl">Últimos ingresos</div>
+    <div class="card" style="padding:2px 16px">${hoyE.slice(-6).reverse().map(a => { const s = socio(a.s); return s ? `<button class="fila" data-a="verSocio" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b style="font-size:14px">${esc(s.nombre)}</b><div class="sub tab">${hora(a.t)} h</div></div>${pillCuota(s)}</button>` : ""; }).join("") || `<p class="sub" style="padding:12px 0">Todavía no hay ingresos hoy.</p>`}</div>`;
 }
 function barras(vals, etiquetas, resaltar){
   const W = 560, H = 140, n = vals.length, max = Math.max(1, ...vals), bw = W / n;
@@ -1009,9 +1060,12 @@ function hojaElegirRutinaSocio(id){
 
 /* ================= GIMNASIO: RUTINAS ================= */
 function pRutinas(){
-  return cabecera("Rutinas", "Asigná una plantilla o creá rutinas propias con el catálogo de ejercicios.", `<button class="ibtn" data-a="nuevaRutina" aria-label="Nueva rutina">${ic("mas")}</button>`) +
-    `<button class="btn" data-a="nuevaRutina" style="margin-bottom:14px">${ic("mas")} Crear rutina</button>` +
-    DB.rutinas.map(t => tarjetaRutina(t, "verRutina")).join("");
+  const propias = DB.rutinas.filter(t => !t.base), base = DB.rutinas.filter(t => t.base);
+  return cabecera("Rutinas", "Cada socio ve su rutina en la app y la sigue con guía paso a paso.", `<button class="ibtn" data-a="nuevaRutina" aria-label="Nueva rutina">${ic("mas")}</button>`) +
+    pasos([["Elegí o creá", "Usá una plantilla o armá la tuya."], ["Asigná", "A uno o a varios socios."], ["El socio entrena", "La ve en su app con fotos y guía."]]) +
+    `<button class="btn" data-a="nuevaRutina" style="margin-top:12px">${ic("mas")} Crear rutina</button>
+    ${propias.length ? `<div class="lbl">Creadas por el gimnasio</div>${propias.map(t => tarjetaRutina(t, "verRutina")).join("")}` : ""}
+    <div class="lbl">Plantillas listas para usar</div>${base.map(t => tarjetaRutina(t, "verRutina")).join("")}`;
 }
 let asigRutina = null, asigSel = new Set();
 function hojaAsignar(id){ asigRutina = id; asigSel = new Set(DB.socios.filter(s => s.rutina && s.rutina.id === id).map(s => s.id));
@@ -1115,29 +1169,44 @@ function leerClase(){ const c = borrClase; c.n = $("#cN").value.trim(); c.h = $(
 /* ================= GIMNASIO: AJUSTES ================= */
 let confirmarReinicio = false;
 function pMas(){
-  const g = DB.gym;
-  return cabecera("Ajustes") + `
-    <div class="card"><div class="ct">${ic("megafono")} Avisos</div><p class="sub" style="margin:4px 0 12px">Se muestran a todos los socios en el inicio de la app.</p>
+  const fila = (k, i, t, d) => `<button class="fila" data-a="ajuste" data-k="${k}"><span class="av">${ic(i)}</span><div class="sp"><b style="font-size:14px">${t}</b><div class="sub">${d}</div></div><span class="der">${ic("der")}</span></button>`;
+  const grupo = (n, filas) => `<div class="lbl">${n}</div><div class="card" style="padding:2px 16px">${filas}</div>`;
+  return cabecera("Ajustes", "Configuración del gimnasio.") +
+    grupo("Comunicación", fila("avisos", "megafono", "Avisos", `${DB.avisos.length} publicado${DB.avisos.length === 1 ? "" : "s"}`) + fila("desafio", "trofeo", "Desafío del mes", `${DB.desafio.meta} visitas · ${esc(DB.desafio.premio)}`)) +
+    grupo("Gimnasio", fila("marca", "imagen", "Marca", "Nombre, logo y color de la app") + fila("datos", "reloj", "Datos y horarios", esc(textoHorario())) + fila("planes", "etiqueta", "Planes y precios", `${DB.planes.length} planes`)) +
+    grupo("Acceso", fila("recepcion", "monitor", "Modo recepción", "Tablet en la entrada para registrar ingresos") + fila("pin", "candado", "PIN de acceso", "Para ingresar como gimnasio")) +
+    (DB.demo ? grupo("Demostración", fila("demo", "info", "Datos de ejemplo", "Restaurar la demostración")) : "") +
+    `<button class="btn ghost" data-a="salir" style="margin-top:18px">${ic("salir")} Cerrar sesión</button>${firma()}`;
+}
+function hojaAjuste(k){
+  const g = DB.gym, H = {
+    avisos:`<h2>Avisos</h2><p class="sub" style="margin:4px 0 14px">Se muestran a todos los socios en el inicio de la app.</p>
       <textarea class="campo" id="aviso" placeholder="Ej.: El lunes feriado abrimos de 9 a 13"></textarea><button class="btn" data-a="publicarAviso" style="margin-top:10px">Publicar aviso</button>
-      ${DB.avisos.map(a => `<div class="fila"><div class="sp" style="font-size:14px;color:var(--ink2)">${esc(a.txt)}<div class="sub tab">${fCorta(a.f)}</div></div><button class="ibtn" data-a="borrarAviso" data-id="${a.id}" aria-label="Eliminar">${ic("basura")}</button></div>`).join("")}</div>
-    <div class="card"><div class="ct">${ic("trofeo")} Desafío del mes</div><p class="sub" style="margin:4px 0 0">Las visitas se cuentan automáticamente con cada entrada.</p>
+      ${DB.avisos.length ? `<div class="lbl">Publicados</div>` : ""}${DB.avisos.map(a => `<div class="fila"><div class="sp" style="font-size:14px;color:var(--ink2)">${esc(a.txt)}<div class="sub tab">${fCorta(a.f)}</div></div><button class="ibtn" data-a="borrarAviso" data-id="${a.id}" aria-label="Eliminar">${ic("basura")}</button></div>`).join("")}`,
+    desafio:`<h2>Desafío del mes</h2><p class="sub" style="margin:4px 0 0">Las visitas se cuentan automáticamente con cada ingreso. Los socios ven su avance y el ranking.</p>
       <div class="grid2"><div><div class="lbl">Visitas objetivo</div><input class="campo tab" id="dMeta" type="number" inputmode="numeric" value="${DB.desafio.meta}"></div><div><div class="lbl">Premio</div><input class="campo" id="dPremio" value="${esc(DB.desafio.premio)}"></div></div>
-      <button class="btn sec" data-a="guardarDesafio" style="margin-top:12px">Guardar desafío</button></div>
-    <div class="card"><div class="ct">${ic("imagen")} Identidad del gimnasio</div><p class="sub" style="margin:4px 0 12px">La app se muestra con el nombre, el logo y el color de tu marca.</p>
+      <button class="btn" data-a="guardarDesafio" style="margin-top:16px">Guardar</button>`,
+    marca:`<h2>Marca</h2><p class="sub" style="margin:4px 0 14px">La app se muestra con el nombre, el logo y el color de tu gimnasio.</p>
       <div class="row"><div class="logo" style="width:56px;height:56px;border-radius:14px;${logoCss()}"></div><label class="btn sec chico" style="cursor:pointer">${ic("camara")} Cambiar logo<input type="file" accept="image/*" id="logoIn" hidden></label>${g.logo ? `<button class="enlace" data-a="quitarLogo">Quitar</button>` : ""}</div>
       <div class="lbl">Nombre</div><input class="campo" id="gNombre" value="${esc(g.nombre)}">
       <div class="lbl">Color de marca</div><div class="row w" style="gap:8px">${Object.entries(COLORES).map(([n, c]) => `<button class="sw ${c.toLowerCase() === (g.color || "").toLowerCase() ? "on" : ""}" data-a="color" data-c="${c}" title="${n}" aria-label="${n}" style="background:${c}"></button>`).join("")}</div>
+      <button class="btn" data-a="guardarMarca" style="margin-top:16px">Guardar</button>`,
+    datos:`<h2>Datos y horarios</h2>
       <div class="lbl">Dirección</div><input class="campo" id="gDir" value="${esc(g.direccion)}">
       <div class="grid2"><div><div class="lbl">WhatsApp</div><input class="campo" id="gWa" inputmode="tel" value="${esc(g.whatsapp)}"></div><div><div class="lbl">Alias de cobro</div><input class="campo" id="gAlias" value="${esc(g.alias)}"></div></div>
       <div class="lbl">Capacidad simultánea</div><input class="campo tab" id="gCap" type="number" inputmode="numeric" value="${g.capacidad}">
       <div class="lbl">Horario de atención</div>${[1,2,3,4,5,6,0].map(d => { const h = g.horario[d]; return `<div class="row" style="margin-top:6px"><span style="width:40px;font-size:13px;color:var(--ink2)">${DIA3[d]}</span><select class="campo" id="hA${d}" style="height:40px">${horasOpt(h ? h[0] : -1, true)}</select><span class="muted small">a</span><select class="campo" id="hC${d}" style="height:40px">${horasOpt(h ? h[1] : -1)}</select></div>`; }).join("")}
-      <button class="btn" data-a="guardarMarca" style="margin-top:14px">Guardar cambios</button></div>
-    <div class="card"><div class="ct">${ic("etiqueta")} Planes y precios</div>${DB.planes.map((p, i) => `<div class="row" style="margin-top:10px"><input class="campo" id="plN${i}" value="${esc(p.n)}" style="flex:2"><input class="campo tab" id="plP${i}" type="number" inputmode="numeric" value="${p.precio}" style="flex:1"></div>`).join("")}
-      <div class="grid2" style="margin-top:12px"><button class="btn sec" data-a="agregarPlan">${ic("mas")} Agregar plan</button><button class="btn" data-a="guardarPlanes">Guardar precios</button></div></div>
-    <div class="card"><div class="ct">${ic("monitor")} Modo recepción</div><p class="sub" style="margin:4px 0 12px">Dejá una tablet en la entrada: cada socio ingresa su DNI o muestra su QR y la entrada queda registrada. Si la cuota está vencida, se lo indica.</p><button class="btn sec" data-a="entrarKiosco">Activar modo recepción</button></div>
-    <div class="card"><div class="ct">${ic("candado")} PIN de acceso</div><div class="row" style="margin-top:12px"><input class="campo" id="nuevoPin" inputmode="numeric" placeholder="Nuevo PIN (4 a 6 números)"><button class="btn sec chico" data-a="cambiarPin" style="flex:none">Cambiar</button></div></div>
-    ${DB.demo ? `<div class="card"><div class="ct">${ic("info")} Demostración</div><p class="sub" style="margin:4px 0 12px">La app está cargada con datos de ejemplo.</p><button class="btn no" data-a="reiniciar">${confirmarReinicio ? "Confirmar: restaurar datos de ejemplo" : "Restaurar datos de ejemplo"}</button></div>` : ""}
-    <button class="btn ghost" data-a="salir">${ic("salir")} Cerrar sesión</button>${firma()}`;
+      <button class="btn" data-a="guardarMarca" style="margin-top:16px">Guardar</button>`,
+    planes:`<h2>Planes y precios</h2><p class="sub" style="margin:4px 0 4px">Nombre del plan y precio mensual.</p>${DB.planes.map((p, i) => `<div class="row" style="margin-top:10px"><input class="campo" id="plN${i}" value="${esc(p.n)}" style="flex:2"><input class="campo tab" id="plP${i}" type="number" inputmode="numeric" value="${p.precio}" style="flex:1"></div>`).join("")}
+      <div class="grid2" style="margin-top:14px"><button class="btn sec" data-a="agregarPlan">${ic("mas")} Agregar plan</button><button class="btn" data-a="guardarPlanes">Guardar</button></div>`,
+    recepcion:`<h2>Modo recepción</h2><p class="sub" style="margin:4px 0 14px">Dejá una tablet o un celular en la entrada. Cada socio ingresa su DNI o muestra su QR y el ingreso queda registrado. Si la cuota está vencida, se lo indica. Para salir se pide el PIN.</p>
+      <button class="btn" data-a="entrarKiosco">${ic("monitor")} Activar en este dispositivo</button>`,
+    pin:`<h2>PIN de acceso</h2><p class="sub" style="margin:4px 0 14px">Es el código para entrar como gimnasio y para salir del modo recepción.</p>
+      <input class="campo" id="nuevoPin" inputmode="numeric" placeholder="Nuevo PIN (4 a 6 números)"><button class="btn" data-a="cambiarPin" style="margin-top:12px">Cambiar PIN</button>`,
+    demo:`<h2>Datos de ejemplo</h2><p class="sub" style="margin:4px 0 14px">La app está cargada con socios, pagos y clases de ejemplo. Podés volver a los datos originales cuando quieras.</p>
+      <button class="btn no" data-a="reiniciar">${confirmarReinicio ? "Confirmar: restaurar datos de ejemplo" : "Restaurar datos de ejemplo"}</button>`
+  };
+  abrirHoja(H[k]);
 }
 function horasOpt(sel, conCerrado){ return (conCerrado ? `<option value="-1" ${sel === -1 ? "selected" : ""}>Cerrado</option>` : `<option value="-1" ${sel === -1 ? "selected" : ""}>—</option>`) + Array.from({length:24}, (_, h) => `<option value="${h}" ${h === sel ? "selected" : ""}>${pad(h)}:00</option>`).join(""); }
 document.addEventListener("change", e => {
@@ -1146,7 +1215,7 @@ document.addEventListener("change", e => {
   fr.onload = () => { const im = new Image(); im.onload = () => {
     const c = document.createElement("canvas"), L = 256; c.width = c.height = L; const x = c.getContext("2d");
     const s = Math.max(L / im.width, L / im.height), w = im.width * s, h = im.height * s; x.fillStyle = "#000"; x.fillRect(0, 0, L, L); x.drawImage(im, (L - w) / 2, (L - h) / 2, w, h);
-    DB.gym.logo = c.toDataURL("image/jpeg", .85); guardar(); render(); toast("Logo actualizado");
+    DB.gym.logo = c.toDataURL("image/jpeg", .85); guardar(); render(); hojaAjuste("marca"); toast("Logo actualizado");
   }; im.src = fr.result; };
   fr.readAsDataURL(e.target.files[0]);
 });
@@ -1171,10 +1240,15 @@ function accion(a, b, ev){
     case "cerrarCam": return cerrarCam();
     case "cerrarCapa": return cerrarCapa();
     // socio
-    case "pase": return hojaPase();
-    case "empezar": return empezar(+b.dataset.d);
+    case "pase": cerrarHoja(); return hojaPase();
+    case "cuota": return hojaCuota();
+    case "ocupacion": return hojaOcupacion();
+    case "desafio": return hojaDesafio();
+    case "verDia": return hojaDia(+b.dataset.d);
+    case "ajuste": confirmarReinicio = false; return hojaAjuste(b.dataset.k);
+    case "empezar": cerrarHoja(); return empezar(+b.dataset.d);
     case "continuar": return abrirGuia();
-    case "fichaEj": return hojaFicha(id);
+    case "fichaEj": return hojaFicha(id, b.dataset.dia);
     case "verPlantilla": return hojaRutina(id, "socio");
     case "cambiarRutina": { const s = socioYo(); abrirHoja(`<h2>Cambiar rutina</h2><p class="sub" style="margin:4px 0 6px">${s.rutina.por === "profe" ? "Esta rutina te la asignó tu profesor. Si la cambiás, avisale." : "Elegí otra rutina del gimnasio."}</p>${DB.rutinas.map(t => `<button class="fila" data-a="verPlantilla" data-id="${t.id}"><span class="av" style="${t.id === s.rutina.id ? "background:var(--ac);color:var(--acTxt)" : ""}">${ic(t.id === s.rutina.id ? "check" : "rutina")}</span><div class="sp"><b style="font-size:14px">${esc(t.n)}</b><div class="sub">${t.dias.length} días · ${esc(t.nivel)}</div></div><span class="der">${ic("der")}</span></button>`).join("")}`); return; }
     case "usarRutina": { const s = socioYo(); s.rutina = {id, sig:0, por:"socio"}; guardar(); cerrarHoja(); toast("Rutina seleccionada"); return ir("entrenar"); }
@@ -1252,23 +1326,26 @@ function accion(a, b, ev){
     case "borrarClase":
       if (b.dataset.ok !== "1") { b.dataset.ok = "1"; b.textContent = "Confirmar eliminación"; return; }
       DB.clases = DB.clases.filter(x => x.id !== borrClase.id); guardar(); cerrarHoja(); toast("Clase eliminada", "info"); return render();
-    case "publicarAviso": { const t = $("#aviso").value.trim(); if (t.length < 3) return toast("Escribí el aviso", "info"); DB.avisos.unshift({id:uid("a"), f:hoyStr(), txt:t}); guardar(); toast("Aviso publicado"); return render(); }
-    case "borrarAviso": DB.avisos = DB.avisos.filter(x => x.id !== id); guardar(); return render();
-    case "guardarDesafio": DB.desafio = {meta:Math.max(1, +$("#dMeta").value || 12), premio:$("#dPremio").value.trim() || "Premio sorpresa"}; guardar(); return toast("Desafío guardado");
+    case "publicarAviso": { const t = $("#aviso").value.trim(); if (t.length < 3) return toast("Escribí el aviso", "info"); DB.avisos.unshift({id:uid("a"), f:hoyStr(), txt:t}); guardar(); toast("Aviso publicado"); render(); return hojaAjuste("avisos"); }
+    case "borrarAviso": DB.avisos = DB.avisos.filter(x => x.id !== id); guardar(); render(); return hojaAjuste("avisos");
+    case "guardarDesafio": DB.desafio = {meta:Math.max(1, +$("#dMeta").value || 12), premio:$("#dPremio").value.trim() || "Premio sorpresa"}; guardar(); cerrarHoja(); render(); return toast("Desafío guardado");
     case "color": DB.gym.color = b.dataset.c; guardar(); aplicarMarca(); $$(".sw").forEach(x => x.classList.toggle("on", x === b)); return;
-    case "quitarLogo": DB.gym.logo = null; guardar(); return render();
+    case "quitarLogo": DB.gym.logo = null; guardar(); render(); return hojaAjuste("marca");
     case "guardarMarca": {
-      const g = DB.gym, n = $("#gNombre").value.trim(); if (n.length < 2) return toast("Ingresá el nombre del gimnasio", "info");
-      const hor = {}; for (const d of [0,1,2,3,4,5,6]) { const a1 = +$("#hA" + d).value, c1 = +$("#hC" + d).value; if (a1 < 0) { hor[d] = null; continue; } if (c1 <= a1) return toast(`Revisá el horario del ${DIA[d].toLowerCase()}`, "alerta"); hor[d] = [a1, c1]; }
-      Object.assign(g, {nombre:n, direccion:$("#gDir").value.trim(), whatsapp:$("#gWa").value.trim(), alias:$("#gAlias").value.trim(), capacidad:Math.max(1, +$("#gCap").value || 35), horario:hor});
-      guardar(); toast("Cambios guardados"); return render();
+      const g = DB.gym;
+      if ($("#gNombre")) { const n = $("#gNombre").value.trim(); if (n.length < 2) return toast("Ingresá el nombre del gimnasio", "info"); g.nombre = n; }
+      if ($("#hA1")) {
+        const hor = {}; for (const d of [0,1,2,3,4,5,6]) { const a1 = +$("#hA" + d).value, c1 = +$("#hC" + d).value; if (a1 < 0) { hor[d] = null; continue; } if (c1 <= a1) return toast(`Revisá el horario del ${DIA[d].toLowerCase()}`, "alerta"); hor[d] = [a1, c1]; }
+        Object.assign(g, {direccion:$("#gDir").value.trim(), whatsapp:$("#gWa").value.trim(), alias:$("#gAlias").value.trim(), capacidad:Math.max(1, +$("#gCap").value || 35), horario:hor});
+      }
+      guardar(); cerrarHoja(); toast("Cambios guardados"); return render();
     }
-    case "agregarPlan": leerPlanes(); DB.planes.push({id:uid("p"), n:"Plan nuevo", precio:30000}); guardar(); return render();
-    case "guardarPlanes": leerPlanes(); guardar(); return toast("Precios guardados");
-    case "cambiarPin": { const p = $("#nuevoPin").value.replace(/\D/g, ""); if (p.length < 4 || p.length > 6) return toast("El PIN debe tener de 4 a 6 números", "info"); DB.pin = p; guardar(); $("#nuevoPin").value = ""; return toast("PIN actualizado"); }
+    case "agregarPlan": leerPlanes(); DB.planes.push({id:uid("p"), n:"Plan nuevo", precio:30000}); guardar(); render(); return hojaAjuste("planes");
+    case "guardarPlanes": leerPlanes(); guardar(); cerrarHoja(); render(); return toast("Precios guardados");
+    case "cambiarPin": { const p = $("#nuevoPin").value.replace(/\D/g, ""); if (p.length < 4 || p.length > 6) return toast("El PIN debe tener de 4 a 6 números", "info"); DB.pin = p; guardar(); cerrarHoja(); return toast("PIN actualizado"); }
     case "reiniciar":
-      if (!confirmarReinicio) { confirmarReinicio = true; return render(); }
-      confirmarReinicio = false; DB = semilla(); guardar(); simular(); toast("Datos de ejemplo restaurados"); return render();
+      if (!confirmarReinicio) { confirmarReinicio = true; return hojaAjuste("demo"); }
+      confirmarReinicio = false; DB = semilla(); guardar(); simular(); cerrarHoja(); toast("Datos de ejemplo restaurados"); return render();
   }
 }
 function leerPlanes(){ DB.planes.forEach((p, i) => { const n = $("#plN" + i), v = $("#plP" + i); if (n) p.n = n.value.trim() || p.n; if (v) p.precio = +v.value || p.precio; }); }
@@ -1287,7 +1364,7 @@ setInterval(() => {
 }, 60000);
 </script>
 <script>
-const VERSION_APP = "20260930115141";
+const VERSION_APP = "20260930122117";
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
 }).catch(() => {}));
