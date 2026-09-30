@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GymBlack · Gimnasios</title>
+<title>Cibao Power</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.webmanifest">
@@ -11,15 +11,15 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="GymBlack">
-<link rel="apple-touch-icon" href="icon-192.png?v=2">
-<link rel="icon" type="image/png" href="icon-192.png?v=2">
+<meta name="apple-mobile-web-app-title" content="Cibao Power">
+<link rel="apple-touch-icon" href="icon-192.png?v=3">
+<link rel="icon" type="image/png" href="icon-192.png?v=3">
 
 <style>
 :root{
   --bg:#09090B;--s1:#111113;--s2:#18181B;--s3:#212126;--line:#232328;--line2:#2E2E35;
   --ink:#FAFAFA;--ink2:#D4D4D8;--muted:#8B8B94;
-  --ac:#E5E7EB;--acTxt:#09090B;--acSoft:rgba(229,231,235,.12);
+  --ac:#FFD400;--acTxt:#09090B;--acSoft:rgba(255,212,0,.14);
   --ok:#22C55E;--okT:#4ADE80;--amar:#F59E0B;--amarT:#FBBF24;--rojo:#EF4444;--rojoT:#F87171;
   --f:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
@@ -34,11 +34,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 input,select,textarea{font:inherit;color:var(--ink)}
 svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .tab{font-variant-numeric:tabular-nums}
-#intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);transition:opacity .5s ease}
-#intro img{width:min(64vw,300px);height:auto;opacity:0;transform:scale(.94);animation:introLogo .9s .1s cubic-bezier(.2,.8,.2,1) forwards}
+#intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(55% 40% at 50% 45%,rgba(255,212,0,.10),transparent 70%),var(--bg);transition:opacity .5s ease}
+#intro img.lg{width:min(62vw,270px);height:auto;opacity:0;transform:scale(.94);animation:introLogo .9s .1s cubic-bezier(.2,.8,.2,1) forwards}
 #intro.fuera{opacity:0;pointer-events:none}
+.introZw{position:absolute;left:0;right:0;bottom:calc(34px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;opacity:0;animation:introLogo .8s .7s forwards}
+.introZw img{height:20px;width:auto}
 @keyframes introLogo{to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){#intro img{animation:none;opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#intro img.lg,.introZw{animation:none;opacity:1;transform:none}}
 /* Barra superior y títulos */
 .top{display:flex;align-items:center;gap:10px;padding:8px 0 4px}
 .logo{flex:none;width:34px;height:34px;border-radius:9px;background:#000 center/cover no-repeat;box-shadow:0 0 0 1px var(--line2)}
@@ -163,7 +165,7 @@ select.campo{appearance:none;background-image:linear-gradient(45deg,transparent 
 .ctl button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line2);background:var(--s1);display:grid;place-items:center;color:var(--ink2)}
 .ctl button svg.i{width:14px;height:14px}
 .inChico{width:64px;height:30px;padding:0 6px;border-radius:8px;border:1px solid var(--line2);background:var(--s1);text-align:center;font-weight:600;font-size:13px;outline:none}
-.bienv{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;gap:10px}
+.bienv{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;gap:10px;background:radial-gradient(70% 35% at 50% 18%,rgba(255,212,0,.07),transparent 70%)}
 .bigBtn{display:flex;gap:14px;align-items:center;width:100%;text-align:left;padding:16px;border-radius:16px;background:var(--s1);border:1px solid var(--line);color:inherit}
 .bigBtn .e{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--s2);color:var(--ink)}
 .bigBtn .e svg.i{width:22px;height:22px}
@@ -174,8 +176,8 @@ select.campo{appearance:none;background-image:linear-gradient(45deg,transparent 
 .resultado h1{font-size:34px}
 .resultado p{font-size:18px;color:var(--ink2);margin:10px 0 0;line-height:1.5}
 #cam video{width:100%;border-radius:16px;background:#000;aspect-ratio:3/4;object-fit:cover;margin-top:12px}
-.firma{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;margin-top:10px}
-.firma img{height:18px;width:auto;opacity:.85}
+.firma{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;margin-top:14px}
+.firma img{height:20px;width:auto}
 .hero-num{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
 .enlace{background:none;border:0;padding:0;color:var(--ink2);font-weight:500;font-size:13px;display:inline-flex;align-items:center;gap:4px}
 .enlace svg.i{width:14px;height:14px}
@@ -191,12 +193,12 @@ details summary{list-style:none;cursor:pointer}details summary::-webkit-details-
 </style>
 </head>
 <body>
-<div id="intro" aria-hidden="true"><img src="zafiroweb-intro.webp" alt=""></div>
+<div id="intro" aria-hidden="true"><img class="lg" src="logo-gym.webp" alt=""><div class="introZw">Desarrollado por <img src="zafiroweb.png" alt="ZafiroWeb"></div></div>
 <div id="app"></div>
 <nav class="nav" id="nav"><div></div></nav>
 <div id="capa"></div>
 <div id="hoja"></div>
-<script src="catalogo.js?v=20260930122117"></script>
+<script src="catalogo.js?v=20260930153229"></script>
 <script src="qrcode.min.js"></script>
 <script>
 "use strict";
@@ -286,8 +288,8 @@ function azar(semilla){ let a = semilla >>> 0; return () => { a |= 0; a = a + 0x
 
 /* ================= DATOS ================= */
 // Todo queda guardado en este dispositivo (versión de demostración). Con un servidor, DB pasa a vivir en la nube.
-const K = "gbgym-v1", KS = "gbgym-yo", VERSION_DATOS = 2;
-const COLORES = {Plata:"#E5E7EB", Lima:"#A3E635", Naranja:"#F97316", Rojo:"#EF4444", Azul:"#3B82F6", Verde:"#22C55E", Violeta:"#8B5CF6", Amarillo:"#EAB308"};
+const K = "gbgym-v1", KS = "gbgym-yo", VERSION_DATOS = 3;
+const COLORES = {"Amarillo Cibao":"#FFD400", Plata:"#E5E7EB", Lima:"#A3E635", Naranja:"#F97316", Rojo:"#EF4444", Azul:"#3B82F6", Verde:"#22C55E", Violeta:"#8B5CF6", Amarillo:"#EAB308"};
 let DB = cargar(), YO = cargarYo();
 function cargar(){ try { return JSON.parse(localStorage.getItem(K)); } catch { return null; } }
 function guardar(){ try { localStorage.setItem(K, JSON.stringify(DB)); } catch { toast("No se pudo guardar: memoria llena", "alerta"); } }
@@ -323,7 +325,7 @@ function semilla(){
     {id:"c4", n:"Cross training", ico:"pesa", dias:[1,3], h:"07:30", dur:45, cupo:10, profe:"Nicolás"},
     {id:"c5", n:"Yoga", ico:"hoja", dias:[6], h:"10:00", dur:60, cupo:10, profe:"Sol"}];
   const d = {v:VERSION_DATOS, demo:true, pin:"1234",
-    gym:{nombre:"Gimnasio Demo", color:"#E5E7EB", logo:null, direccion:"Av. San Martín 1234, Mendoza", whatsapp:"2604323056", alias:"GIMNASIO.DEMO.MP", capacidad:35, horario:HORARIO_BASE},
+    gym:{nombre:"Cibao Power", color:"#FFD400", logo:null, direccion:"Av. San Martín 1234, Mendoza", whatsapp:"2604323056", alias:"CIBAO.POWER.MP", capacidad:35, horario:HORARIO_BASE},
     planes, rutinas, socios, clases, reservas:{}, asistencias:[], pagos:[], entrenos:{},
     avisos:[
       {id:"a1", f:sumarDias(hoy, -1), txt:"Nueva clase de Yoga los sábados a las 10. Reservá tu lugar desde la app."},
@@ -454,7 +456,7 @@ function claseYaPaso(c, f){ if (f !== hoyStr()) return f < hoyStr(); const [h, m
 /* ================= MARCA DEL GIMNASIO ================= */
 function rgb(hex){ const n = parseInt(hex.slice(1), 16); return [n >> 16, n >> 8 & 255, n & 255]; }
 function aplicarMarca(){
-  const c = DB.gym.color || "#E5E7EB", [r, g, b] = rgb(c), st = document.documentElement.style;
+  const c = DB.gym.color || "#FFD400", [r, g, b] = rgb(c), st = document.documentElement.style;
   const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
   st.setProperty("--ac", c); st.setProperty("--acTxt", lum > .55 ? "#09090B" : "#FFFFFF"); st.setProperty("--acSoft", `rgba(${r},${g},${b},.16)`);
   document.title = DB.gym.nombre;
@@ -513,8 +515,7 @@ let teclado = null;   // {modo:"dni"|"pin"|"kiosco"|"salirKiosco", val:""}
 function pantallaEntrada(){
   if (teclado) return pintarTeclado();
   $("#app").innerHTML = `<div class="bienv">
-    <div class="centro" style="margin-bottom:18px"><div class="logo" style="width:72px;height:72px;border-radius:18px;margin:0 auto 16px;${logoCss()}"></div>
-    <h1>${esc(DB.gym.nombre)}</h1><p class="muted small" style="margin:6px 0 0">${esc(textoHorario())}</p></div>
+    <div class="centro" style="margin-bottom:18px">${DB.gym.logo ? `<div class="logo" style="width:72px;height:72px;border-radius:18px;margin:0 auto 16px;${logoCss()}"></div><h1>${esc(DB.gym.nombre)}</h1>` : `<img src="logo-gym.webp" alt="${esc(DB.gym.nombre)}" style="width:min(52vw,200px);height:auto;display:block;margin:0 auto">`}<p class="muted small" style="margin:14px 0 0">${esc(textoHorario())}</p></div>
     <button class="bigBtn" data-a="entrarSocio"><span class="e">${ic("usuario")}</span><span class="sp"><b>Soy socio</b><span class="sub">Rutina, cuota, clases y pase de entrada</span></span><span class="muted">${ic("der")}</span></button>
     <button class="bigBtn" data-a="entrarStaff"><span class="e">${ic("candado")}</span><span class="sp"><b>Soy del gimnasio</b><span class="sub">Socios, cobros, rutinas y estadísticas</span></span><span class="muted">${ic("der")}</span></button>
     <button class="bigBtn" data-a="entrarKiosco"><span class="e">${ic("monitor")}</span><span class="sp"><b>Modo recepción</b><span class="sub">Para una tablet en la entrada del gimnasio</span></span><span class="muted">${ic("der")}</span></button>
@@ -917,7 +918,7 @@ function pProgreso(){
   return cabecera("Progreso") + `<div class="kpis"><div class="kpi"><span class="v">${visMes}</span><span class="l">visitas en el mes</span></div><div class="kpi"><span class="v">${total}</span><span class="l">entrenamientos</span></div><div class="kpi"><span class="v">${racha}</span><span class="l">semanas seguidas</span></div></div>
     <div class="card"><div class="ct">${ic("calendario")} ${may(MES[new Date().getMonth()])}</div>${calendario(s.id)}<div class="row small muted" style="margin-top:12px;gap:14px"><span class="row" style="gap:6px"><span class="dot" style="background:var(--acSoft);box-shadow:inset 0 0 0 1px var(--line2)"></span>Visita</span><span class="row" style="gap:6px"><span class="dot" style="background:var(--ok);width:6px;height:6px"></span>Entrenamiento registrado</span></div></div>
     <div class="card"><div class="ct">${ic("trofeo")} Mejores marcas</div>${rec.length ? rec.map(r => `<div class="fila"><img class="mini" src="${rutaFoto(r.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(r.n)}</b><div class="sub tab">${fCorta(r.f)}</div></div><b class="tab" style="font-size:17px">${fmtKg(r.kg)} kg</b></div>`).join("") : `<p class="sub" style="margin:8px 0 0">Tus récords aparecen cuando entrenes con la app.</p>`}</div>
-    <button class="btn ghost" data-a="salir">${ic("salir")} Cerrar sesión</button>`;
+    <button class="btn ghost" data-a="salir">${ic("salir")} Cerrar sesión</button>${firma()}`;
 }
 function calendario(sid){
   const hoy = new Date(), y = hoy.getFullYear(), m = hoy.getMonth(), dias = new Date(y, m + 1, 0).getDate(), off = (new Date(y, m, 1).getDay() + 6) % 7;
@@ -1354,7 +1355,7 @@ function leerPlanes(){ DB.planes.forEach((p, i) => { const n = $("#plN" + i), v 
 render();
 (() => { const i = $("#intro"); if (!i) return; let ido = false;
   const irse = () => { if (ido) return; ido = true; i.classList.add("fuera"); setTimeout(() => i.remove(), 550); };
-  i.onclick = irse; setTimeout(irse, 1500); })();
+  i.onclick = irse; setTimeout(irse, 2300); })();
 if (YO && YO.rol === "socio" && socioYo()) { const ss = entrenoDe(YO.id).sesion; if (ss && ss.f === hoyStr() && ss.descansoHasta) abrirGuia(); }
 // En la demo, cada minuto entran socios nuevos (ocupación en vivo) y se refresca la pantalla si no estás escribiendo
 setInterval(() => {
@@ -1364,7 +1365,7 @@ setInterval(() => {
 }, 60000);
 </script>
 <script>
-const VERSION_APP = "20260930122117";
+const VERSION_APP = "20260930153229";
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
 }).catch(() => {}));
@@ -1380,7 +1381,7 @@ function avisarVersionNueva(){
   const d = document.createElement("div"); d.id = "versionNueva";
   d.style.cssText = "position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;gap:10px;align-items:center;" +
     "background:#E4E7EC;color:#0B0C0E;padding:12px 14px;border-radius:16px;font:800 15px system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.4)";
-  d.innerHTML = '<span style="flex:1">✨ Hay una versión nueva de GymBlack</span>';
+  d.innerHTML = '<span style="flex:1">Hay una versión nueva de la app</span>';
   const b = document.createElement("button"); b.textContent = "Actualizar";
   b.style.cssText = "border:0;border-radius:12px;padding:9px 14px;font:800 15px system-ui,sans-serif;background:#0B0C0E;color:#E4E7EC";
   b.onclick = () => location.reload();
