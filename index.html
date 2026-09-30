@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GymBlack · Gimnasios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#000000">
 <meta name="mobile-web-app-capable" content="yes">
@@ -17,135 +17,169 @@
 
 <style>
 :root{
-  --bg:#0A0A0B;--s1:#151618;--s2:#1F2023;--line:#2F3135;--ink:#F2F3F5;--muted:#9A9EA6;
-  --ac:#C9CED6;--ac2:#EDEFF3;--acOsc:#70757E;--ok:#3DDC84;--amar:#FFC24B;--rojo:#FF5C5C;--frio:#6FB7FF;
-  --f:"Barlow",system-ui,sans-serif;--fd:"Barlow Condensed","Barlow",system-ui,sans-serif;
+  --bg:#09090B;--s1:#111113;--s2:#18181B;--s3:#212126;--line:#232328;--line2:#2E2E35;
+  --ink:#FAFAFA;--ink2:#D4D4D8;--muted:#8B8B94;
+  --ac:#E5E7EB;--acTxt:#09090B;--acSoft:rgba(229,231,235,.12);
+  --ok:#22C55E;--okT:#4ADE80;--amar:#F59E0B;--amarT:#FBBF24;--rojo:#EF4444;--rojoT:#F87171;
+  --f:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:600 16px/1.4 var(--f)}
-body{padding:calc(env(safe-area-inset-top,0px) + 8px) 16px calc(96px + env(safe-area-inset-bottom,0px));max-width:620px;margin:0 auto;
-  background:radial-gradient(120% 60% at 50% -10%,#24272C 0%,transparent 60%),var(--bg);min-height:100vh}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--f);-webkit-font-smoothing:antialiased}
+body{padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(92px + env(safe-area-inset-bottom,0px));max-width:620px;margin:0 auto;min-height:100vh}
 body.sinNav{padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
-h1,h2,h3{font-family:var(--fd);letter-spacing:.3px;margin:0}
-h1{font-size:32px;font-weight:800}h2{font-size:24px;font-weight:800}h3{font-size:19px;font-weight:800}
+h1,h2,h3{margin:0;letter-spacing:-.02em;font-weight:700}
+h1{font-size:26px;line-height:1.15}h2{font-size:20px;line-height:1.2}h3{font-size:16px;line-height:1.3;font-weight:600}
+b{font-weight:600}
 button{font:inherit;color:inherit;cursor:pointer}
 input,select,textarea{font:inherit;color:var(--ink)}
-#intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(60% 40% at 50% 46%,#2A1E0B 0%,transparent 70%),var(--bg);transition:opacity .5s ease}
-#intro img{width:min(72vw,340px);height:auto;opacity:0;transform:scale(.9);animation:introLogo 1s .15s cubic-bezier(.2,.8,.2,1) forwards}
+svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tab{font-variant-numeric:tabular-nums}
+#intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);transition:opacity .5s ease}
+#intro img{width:min(64vw,300px);height:auto;opacity:0;transform:scale(.94);animation:introLogo .9s .1s cubic-bezier(.2,.8,.2,1) forwards}
 #intro.fuera{opacity:0;pointer-events:none}
 @keyframes introLogo{to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){#intro img{animation:none;opacity:1;transform:none}}
-.top{display:flex;align-items:center;gap:10px;padding:6px 0 12px}
-.logo{flex:none;width:42px;height:42px;border-radius:12px;background:#000 center/cover no-repeat;box-shadow:0 0 0 1px #3A3E46,0 4px 18px #0008}
-.top .t{flex:1;min-width:0}.top h1{font-size:25px;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.top small{display:block;color:var(--muted);font-weight:700;font-size:13px}
-.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;background:var(--s2);border:1px solid var(--line);font-weight:800;font-size:13px;white-space:nowrap}
-.chip.ac{background:color-mix(in srgb,var(--ac) 14%,transparent);border-color:color-mix(in srgb,var(--ac) 45%,transparent);color:var(--ac2)}
-.card{background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:16px;margin:0 0 14px}
-.card.hero{background:linear-gradient(160deg,#1E2025,#151618 70%);border-color:#3A3E46}
+/* Barra superior y títulos */
+.top{display:flex;align-items:center;gap:10px;padding:8px 0 4px}
+.logo{flex:none;width:34px;height:34px;border-radius:9px;background:#000 center/cover no-repeat;box-shadow:0 0 0 1px var(--line2)}
+.top .t{flex:1;min-width:0}.top .t b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .t small{display:block;color:var(--muted);font-size:12px;line-height:1.2}
+.tit{margin:18px 0 18px}.tit h1{font-size:28px}.tit p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 12px}
+.ct{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--ink)}
+.ct svg.i{width:16px;height:16px;color:var(--muted)}
 .muted{color:var(--muted)}.small{font-size:13px}.centro{text-align:center}
 .row{display:flex;gap:10px;align-items:center}.row.w{flex-wrap:wrap}.sp{flex:1;min-width:0}
-.btn{border:0;border-radius:16px;padding:14px 18px;font:800 17px var(--f);background:var(--ac);color:#0B0C0E;box-shadow:0 4px 0 var(--acOsc);width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--acOsc)}
-.btn.sec{background:var(--s2);color:var(--ink);box-shadow:0 4px 0 #0006;border:1px solid var(--line)}
-.btn.ok{background:var(--ok);box-shadow:0 4px 0 #1E8A4F;color:#04210F}
-.btn.wa{background:#25D366;box-shadow:0 4px 0 #128C4B;color:#04210F}
-.btn.no{background:#2A1416;color:#FF9C9C;box-shadow:0 4px 0 #0008;border:1px solid #5A2A2E}
-.btn.chico{width:auto;padding:9px 14px;font-size:15px}
-.btn[disabled]{opacity:.45;pointer-events:none}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;background:#0A0A0BF0;backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+.lbl{font-size:12px;color:var(--muted);font-weight:500;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.05em}
+/* Botones */
+.btn{border:0;border-radius:12px;height:48px;padding:0 18px;font:600 15px var(--f);background:var(--ac);color:var(--acTxt);width:100%;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:opacity .15s,transform .1s}
+.btn:active{opacity:.85;transform:scale(.99)}
+.btn.sec{background:var(--s2);color:var(--ink);border:1px solid var(--line2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+.btn.ok{background:var(--ok);color:#03150A}
+.btn.wa{background:#22C55E;color:#03150A}
+.btn.no{background:transparent;color:var(--rojoT);border:1px solid rgba(239,68,68,.35)}
+.btn.chico{height:38px;width:auto;padding:0 14px;font-size:14px;border-radius:10px}
+.ibtn{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--s2);border:1px solid var(--line);color:var(--ink2)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:999px;background:var(--s2);border:1px solid var(--line);font-weight:500;font-size:13px;color:var(--ink2);white-space:nowrap}
+.chip svg.i{width:14px;height:14px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:7px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.p-ok{background:rgba(34,197,94,.12);color:var(--okT)}.p-pronto{background:rgba(245,158,11,.12);color:var(--amarT)}.p-venc{background:rgba(239,68,68,.12);color:var(--rojoT)}
+.p-gris{background:var(--s2);color:var(--muted)}
+/* Navegación */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;background:rgba(9,9,11,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:4px 8px calc(4px + env(safe-area-inset-bottom,0px))}
 .nav div{display:flex;width:100%;max-width:620px}
-.nav button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;color:var(--muted);font-weight:800;font-size:12px;border-radius:14px}
-.nav button span{font-size:22px;filter:grayscale(1);opacity:.7}
-.nav button.on{color:var(--ac2);background:color-mix(in srgb,var(--ac) 9%,transparent)}.nav button.on span{filter:none;opacity:1}
-.lbl{font-size:13px;color:var(--muted);font-weight:800;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.5px}
-.campo{width:100%;padding:13px 14px;border-radius:14px;border:2px solid var(--line);background:var(--s2);font-size:17px;outline:none}
+.nav button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 7px;color:var(--muted);font-weight:500;font-size:11px;position:relative}
+.nav button svg.i{width:22px;height:22px;stroke-width:1.7}
+.nav button.on{color:var(--ink)}
+.nav button.on::before{content:"";position:absolute;top:-5px;left:30%;right:30%;height:2px;border-radius:2px;background:var(--ac)}
+/* Formularios */
+.campo{width:100%;height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line2);background:var(--s2);font-size:15px;outline:none;transition:border-color .15s}
 .campo:focus{border-color:var(--ac)}
-textarea.campo{resize:vertical;min-height:84px}
-.seg{display:flex;background:var(--bg);border-radius:12px;padding:3px;gap:3px}
-.seg button{flex:1;border:0;border-radius:9px;padding:9px 4px;background:none;font-weight:800;font-size:14px;color:var(--muted)}
-.seg button.on{background:var(--s2);color:var(--ink);box-shadow:0 0 0 1px var(--line) inset}
-.barra{height:10px;border-radius:99px;background:var(--s2);overflow:hidden}
-.barra i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .4s}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{background:var(--s2);border-radius:14px;padding:10px 6px;text-align:center;border:1px solid transparent}
-.stat b{display:block;font:800 26px/1.1 var(--fd)}.stat small{color:var(--muted);font-weight:700;font-size:12px}
-button.stat{width:100%}
-.dot{flex:none;width:12px;height:12px;border-radius:50%}
-.pill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:12px;font-weight:800;white-space:nowrap}
-.p-ok{background:#3DDC8420;color:var(--ok)}.p-pronto{background:#FFC24B22;color:var(--amar)}.p-venc{background:#FF5C5C22;color:#FF8A8A}
-.fila{display:flex;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0}
+textarea.campo{height:auto;min-height:88px;padding:12px 14px;resize:vertical}
+select.campo{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+.buscar{position:relative}.buscar svg.i{position:absolute;left:13px;top:14px;color:var(--muted)}.buscar .campo{padding-left:40px}
+.seg{display:flex;background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+.seg button{flex:1;border:0;border-radius:9px;height:36px;background:none;font-weight:500;font-size:13px;color:var(--muted)}
+.seg button.on{background:var(--s3);color:var(--ink)}
+.barra{height:6px;border-radius:99px;background:var(--s3);overflow:hidden}
+.barra i{display:block;height:100%;border-radius:99px;background:var(--ac);transition:width .4s}
+/* Números y listas */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.kpi{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:left;width:100%}
+.kpi .v{display:block;font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums}
+.kpi .l{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.25}
+.dot{flex:none;width:8px;height:8px;border-radius:50%}
+.fila{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;color:inherit;text-decoration:none}
 .fila:first-child{border-top:0}
-.av{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--s2);font:800 16px var(--fd);color:var(--ac2)}
-.mini{flex:none;width:62px;height:48px;border-radius:10px;object-fit:cover;background:#fff}
-.foto{position:relative;border-radius:16px;overflow:hidden;background:#fff;aspect-ratio:4/3;margin-top:12px}
+.fila .der{color:var(--muted)}
+.av{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--s3);font-weight:600;font-size:13px;color:var(--ink2)}
+.mini{flex:none;width:56px;height:42px;border-radius:8px;object-fit:cover;background:#fff}
+.sub{font-size:13px;color:var(--muted);line-height:1.35}
+.foto{position:relative;border-radius:14px;overflow:hidden;background:#fff;aspect-ratio:4/3;margin-top:14px}
 .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .foto .b{animation:ver 2.8s infinite}
 @keyframes ver{0%,38%{opacity:0}50%,88%{opacity:1}100%{opacity:0}}
 @keyframes ver2{0%,38%{opacity:1}50%,88%{opacity:0}100%{opacity:1}}
-.foto .et{position:absolute;left:8px;bottom:8px;padding:3px 9px;border-radius:8px;background:#000c;color:#fff;font-size:12px;font-weight:800}
+.foto .et{position:absolute;left:10px;bottom:10px;padding:3px 9px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em}
 .foto .et.a2{animation:ver2 2.8s infinite}.foto .et.b{animation:ver 2.8s infinite}
+/* Capas y hojas */
 .capa{position:fixed;inset:0;z-index:30;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 10px) 16px calc(24px + env(safe-area-inset-bottom,0px))}
 .capa .in{max-width:620px;margin:0 auto}
-.hojaF{position:fixed;inset:0;z-index:40;background:#000b;animation:fade .2s}
-.hojaF .in{position:absolute;left:0;right:0;bottom:0;max-height:90vh;overflow:auto;background:var(--s1);border-top:1px solid var(--line);border-radius:22px 22px 0 0;padding:16px 16px calc(22px + env(safe-area-inset-bottom,0px));max-width:620px;margin:0 auto;animation:subeH .25s}
-@keyframes fade{from{opacity:0}}@keyframes subeH{from{transform:translateY(40px)}}
-.agarre{width:44px;height:5px;border-radius:9px;background:var(--line);margin:-4px auto 12px}
-.prog{display:flex;gap:4px;margin:8px 0 14px}.prog i{flex:1;height:5px;border-radius:9px;background:var(--s2)}.prog i.ok{background:var(--ok)}.prog i.on{background:var(--ac)}
-.objetivo{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:14px 0}
-.objetivo div{background:var(--s2);border-radius:14px;padding:10px 6px;text-align:center}
-.objetivo b{display:block;font:800 28px var(--fd);color:var(--ac2)}.objetivo small{font-size:12px;color:var(--muted);font-weight:800}
-.num-in{display:flex;align-items:center;gap:8px;background:var(--s2);border-radius:16px;padding:6px}
-.num-in button{width:48px;height:48px;border-radius:12px;border:0;background:var(--s1);font:800 24px var(--fd)}
-.num-in input{flex:1;min-width:0;text-align:center;background:none;border:0;font:800 32px var(--fd);outline:none}
-.reloj{width:230px;height:230px;margin:18px auto;position:relative}
+.hojaF{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.66);animation:fade .2s}
+.hojaF .in{position:absolute;left:0;right:0;bottom:0;max-height:90vh;overflow:auto;background:var(--s1);border-top:1px solid var(--line2);border-radius:20px 20px 0 0;padding:14px 18px calc(22px + env(safe-area-inset-bottom,0px));max-width:620px;margin:0 auto;animation:subeH .25s cubic-bezier(.2,.8,.2,1)}
+@keyframes fade{from{opacity:0}}@keyframes subeH{from{transform:translateY(30px);opacity:.6}}
+.agarre{width:36px;height:4px;border-radius:9px;background:var(--line2);margin:0 auto 14px}
+/* Entrenamiento */
+.prog{display:flex;gap:4px;margin:12px 0 16px}.prog i{flex:1;height:3px;border-radius:9px;background:var(--s3)}.prog i.ok{background:var(--ok)}.prog i.on{background:var(--ac)}
+.objetivo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 4px}
+.objetivo div{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:12px}
+.objetivo b{display:block;font-size:24px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.objetivo small{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.num-in{display:flex;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:5px}
+.num-in button{width:44px;height:44px;border-radius:9px;border:0;background:var(--s3);display:grid;place-items:center;color:var(--ink)}
+.num-in input{flex:1;min-width:0;text-align:center;background:none;border:0;font-size:26px;font-weight:700;outline:none;font-variant-numeric:tabular-nums}
+.reloj{width:220px;height:220px;margin:22px auto;position:relative}
 .reloj svg{transform:rotate(-90deg)}
 .reloj .t{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-.reloj .t b{font:800 64px/1 var(--fd)}
-.consejo{background:color-mix(in srgb,var(--ac) 9%,transparent);border:1px solid color-mix(in srgb,var(--ac) 28%,transparent);border-radius:14px;padding:10px 12px;font-size:15px;margin-top:10px}
-.consejo.rojo{background:#FF5C5C14;border-color:#FF5C5C55}
-.series{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.serie{display:flex;justify-content:space-between;padding:8px 12px;border-radius:12px;background:#132218;color:var(--ok);font-weight:700}
-.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:90;background:#F2F3F5;color:#0B0C0E;padding:11px 16px;border-radius:14px;font-weight:800;box-shadow:0 8px 24px #0008;max-width:90vw;text-align:center;animation:sube .25s}
-@keyframes sube{from{opacity:0;transform:translate(-50%,10px)}}
-@keyframes late{50%{transform:scale(1.08)}}.late{animation:late 1s infinite}
-.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
-.chips button{flex:none;border:1px solid var(--line);background:var(--s2);color:var(--muted);border-radius:99px;padding:7px 13px;font-weight:800;font-size:14px}
-.chips button.on{background:var(--ac);color:#0B0C0E;border-color:var(--ac)}
+.reloj .t b{font-size:56px;font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.consejo{background:var(--s1);border:1px solid var(--line);border-left:3px solid var(--ac);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink2);margin-top:12px;line-height:1.45}
+.consejo.rojo{border-left-color:var(--rojo)}.consejo.amar{border-left-color:var(--amar)}
+.series{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.serie{display:flex;justify-content:space-between;padding:9px 12px;border-radius:10px;background:rgba(34,197,94,.08);color:var(--okT);font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:90;background:#FAFAFA;color:#09090B;padding:11px 16px;border-radius:12px;font-weight:500;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:90vw;text-align:center;animation:sube .25s;display:flex;gap:8px;align-items:center}
+@keyframes sube{from{opacity:0;transform:translate(-50%,8px)}}
+@keyframes late{50%{opacity:.55}}.late{animation:late 1s infinite}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;height:34px;border:1px solid var(--line);background:var(--s1);color:var(--ink2);border-radius:999px;padding:0 14px;font-weight:500;font-size:13px;display:flex;align-items:center;gap:6px}
+.chips button.on{background:var(--ac);color:var(--acTxt);border-color:var(--ac)}
 .dias7{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
-.dias7 button{padding:9px 0;border-radius:10px;background:var(--s2);font-size:13px;font-weight:800;color:var(--muted);border:1px solid var(--line)}
-.dias7 button.on{color:#0B0C0E;background:var(--ac);border-color:var(--ac)}
-.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
-.cal div{aspect-ratio:1;border-radius:9px;display:grid;place-items:center;font-size:13px;font-weight:800;background:var(--s2);color:var(--muted);position:relative}
-.cal div.v{background:color-mix(in srgb,var(--ac) 22%,var(--s2));color:var(--ink)}
-.cal div.e::after{content:"💪";position:absolute;font-size:9px;right:2px;top:1px}
-.cal div.hoy{outline:2px solid var(--ac)}.cal div.x{background:none}
-.cal .cab{background:none;aspect-ratio:auto;font-size:11px}
+.dias7 button{height:38px;border-radius:9px;background:var(--s2);font-size:12px;font-weight:500;color:var(--muted);border:1px solid var(--line)}
+.dias7 button.on{color:var(--acTxt);background:var(--ac);border-color:var(--ac)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
+.cal div{aspect-ratio:1;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:500;background:var(--s2);color:var(--muted);position:relative;font-variant-numeric:tabular-nums}
+.cal div.v{background:var(--acSoft);color:var(--ink)}
+.cal div.e::after{content:"";position:absolute;bottom:4px;width:4px;height:4px;border-radius:50%;background:var(--ok)}
+.cal div.hoy{box-shadow:inset 0 0 0 1.5px var(--ac)}.cal div.x{background:none}
+.cal .cab{background:none;aspect-ratio:auto;font-size:11px;padding-bottom:2px}
 .graf{width:100%;display:block}
-.clase{display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;background:var(--s2);border:1px solid var(--line);margin-bottom:8px}
-.clase .ico{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--s1)}
-.clase.mia{border-color:var(--ok);background:#132218}
-.tecla{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:340px;margin:14px auto 0}
-.tecla button{height:66px;border-radius:18px;border:1px solid var(--line);background:var(--s2);font:800 28px var(--fd)}
-.tecla button:active{background:var(--line)}
-.tecla .okb{background:var(--ok);color:#04210F;border-color:var(--ok)}
-.pantallaDni{font:800 44px/1 var(--fd);letter-spacing:4px;text-align:center;padding:16px 8px;border-radius:18px;background:var(--s2);border:2px solid var(--line);min-height:80px;margin-top:14px}
-.qr{background:#fff;border-radius:22px;padding:18px;width:max-content;margin:18px auto}
-.qr img,.qr canvas{display:block;width:240px!important;height:240px!important}
-.sw{width:40px;height:40px;border-radius:12px;border:3px solid transparent}
-.sw.on{border-color:#fff}
-.ejRow{display:flex;gap:10px;align-items:center;padding:10px;border-radius:14px;background:var(--s2);border:1px solid var(--line);margin-top:8px}
-.ejRow .ctl{display:flex;gap:4px}
-.ejRow .ctl button{width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:var(--s1);font-weight:800}
-.inChico{width:66px;padding:7px 8px;border-radius:10px;border:1px solid var(--line);background:var(--s1);text-align:center;font-weight:800;font-size:15px;outline:none}
-.bienv{min-height:calc(100vh - 60px);display:flex;flex-direction:column;justify-content:center;gap:12px}
-.bigBtn{display:flex;gap:14px;align-items:center;width:100%;text-align:left;padding:18px;border-radius:20px;background:var(--s1);border:1px solid var(--line)}
-.bigBtn .e{font-size:34px}.bigBtn b{display:block;font-size:19px}
-.resultado{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;animation:fade .2s}
-.resultado .e{font-size:96px;line-height:1}
-.resultado h1{font-size:44px;margin-top:10px}
-#cam video{width:100%;border-radius:18px;background:#000;aspect-ratio:3/4;object-fit:cover}
+.clase{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;background:var(--s1);border:1px solid var(--line);margin-bottom:8px;width:100%;text-align:left;color:inherit}
+.clase .ico{flex:none;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:var(--s2);color:var(--ink2)}
+.clase .ico svg.i{width:20px;height:20px}
+.clase.mia{border-color:rgba(34,197,94,.45)}
+.tecla{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:340px;margin:16px auto 0}
+.tecla button{height:60px;border-radius:14px;border:1px solid var(--line);background:var(--s1);font-size:24px;font-weight:500;display:grid;place-items:center}
+.tecla button:active{background:var(--s2)}
+.tecla .okb{background:var(--ac);color:var(--acTxt);border-color:var(--ac)}
+.pantallaDni{font-size:34px;font-weight:600;letter-spacing:.06em;text-align:center;padding:0 8px;height:72px;display:grid;place-items:center;border-radius:14px;background:var(--s1);border:1px solid var(--line2);margin-top:16px;font-variant-numeric:tabular-nums}
+.qr{background:#fff;border-radius:18px;padding:16px;width:max-content;margin:20px auto}
+.qr img,.qr canvas{display:block;width:230px!important;height:230px!important}
+.sw{width:36px;height:36px;border-radius:10px;border:2px solid transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.sw.on{border-color:var(--ink)}
+.ejRow{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:var(--s2);border:1px solid var(--line);margin-top:8px}
+.ctl{display:flex;gap:4px}
+.ctl button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line2);background:var(--s1);display:grid;place-items:center;color:var(--ink2)}
+.ctl button svg.i{width:14px;height:14px}
+.inChico{width:64px;height:30px;padding:0 6px;border-radius:8px;border:1px solid var(--line2);background:var(--s1);text-align:center;font-weight:600;font-size:13px;outline:none}
+.bienv{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;gap:10px}
+.bigBtn{display:flex;gap:14px;align-items:center;width:100%;text-align:left;padding:16px;border-radius:16px;background:var(--s1);border:1px solid var(--line);color:inherit}
+.bigBtn .e{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--s2);color:var(--ink)}
+.bigBtn .e svg.i{width:22px;height:22px}
+.bigBtn b{display:block;font-size:16px}
+.resultado{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:var(--bg);animation:fade .2s}
+.resultado .circ{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;margin-bottom:22px}
+.resultado .circ svg.i{width:60px;height:60px;stroke-width:2.2}
+.resultado h1{font-size:34px}
+.resultado p{font-size:18px;color:var(--ink2);margin:10px 0 0;line-height:1.5}
+#cam video{width:100%;border-radius:16px;background:#000;aspect-ratio:3/4;object-fit:cover;margin-top:12px}
+.firma{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;margin-top:10px}
+.firma img{height:18px;width:auto;opacity:.85}
+.hero-num{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.enlace{background:none;border:0;padding:0;color:var(--ink2);font-weight:500;font-size:13px;display:inline-flex;align-items:center;gap:4px}
+.enlace svg.i{width:14px;height:14px}
+details summary{list-style:none;cursor:pointer}details summary::-webkit-details-marker{display:none}
 </style>
 </head>
 <body>
@@ -154,10 +188,65 @@ button.stat{width:100%}
 <nav class="nav" id="nav"><div></div></nav>
 <div id="capa"></div>
 <div id="hoja"></div>
-<script src="catalogo.js?v=20260930112427"></script>
+<script src="catalogo.js?v=20260930115141"></script>
 <script src="qrcode.min.js"></script>
 <script>
 "use strict";
+/* ================= ÍCONOS (trazos estilo Lucide, licencia ISC) ================= */
+const ICO = {
+  inicio:'<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+  pesa:'<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',
+  calendario:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  progreso:'<path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/>',
+  panel:'<path d="M3 3v18h18"/><path d="M8 17v-4M13 17V8M18 17v-7"/>',
+  socios:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  rutina:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h6"/>',
+  ajustes:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
+  usuario:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  candado:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  qr:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM21 14v.01M14 21h.01M17 21h4v-4"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  checkC:'<circle cx="12" cy="12" r="10"/><path d="m8.5 12 2.5 2.5 5-5"/>',
+  x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  der:'<path d="m9 18 6-6-6-6"/>',
+  izq:'<path d="m15 18-6-6 6-6"/>',
+  arriba:'<path d="m18 15-6-6-6 6"/>',
+  mas:'<path d="M12 5v14M5 12h14"/>',
+  menos:'<path d="M5 12h14"/>',
+  buscar:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  mensaje:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  dinero:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/>',
+  tarjeta:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
+  trofeo:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2z"/>',
+  megafono:'<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+  pulso:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  reloj:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  play:'<path d="m7 4 13 8-13 8z"/>',
+  cambiar:'<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+  lapiz:'<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  basura:'<path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  copiar:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+  salir:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+  entrar:'<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>',
+  camara:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  imagen:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/>',
+  fuego:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.050 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  bici:'<circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>',
+  musica:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+  hoja:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  rayo:'<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+  corazon:'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  objetivo:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+  alerta:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/>',
+  etiqueta:'<path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><path d="M7 7h.01"/>',
+  herramienta:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  punto:'<circle cx="12" cy="12" r="3"/>'
+};
+const ic = (n, extra = "") => `<svg class="i" viewBox="0 0 24 24" ${extra}>${ICO[n] || ICO.punto}</svg>`;
+const ICONOS_CLASE = ["bici","fuego","musica","pesa","hoja","rayo","corazon","pulso","objetivo","reloj"];
+
 /* ================= UTILIDADES ================= */
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -169,16 +258,18 @@ const sumarDias = (s, n) => { const d = deStr(s); d.setDate(d.getDate() + n); re
 const sumarMes = s => { const d = deStr(s), dia = d.getDate(); d.setMonth(d.getMonth() + 1); if (d.getDate() !== dia) d.setDate(0); return fstr(d); };
 const diasEntre = (a, b) => Math.round((deStr(b) - deStr(a)) / 864e5);
 const fCorta = s => { const d = deStr(s); return pad(d.getDate()) + "/" + pad(d.getMonth() + 1); };
+const hora = t => { const d = new Date(t); return pad(d.getHours()) + ":" + pad(d.getMinutes()); };
 const plata = n => "$" + Math.round(n || 0).toLocaleString("es-AR");
 const fmtKg = kg => (Math.round(kg * 100) / 100).toString().replace(".", ",");
 const DIA = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"], DIA3 = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
 const MES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 const plural = d => /s$/.test(d) ? d : d + "s";
+const may = s => s[0].toUpperCase() + s.slice(1);
 const inicial = n => (n || "?").split(" ").map(p => p[0]).slice(0, 2).join("").toUpperCase();
 const corto = n => { const p = (n || "").split(" "); return p[0] + (p[1] ? " " + p[1][0] + "." : ""); };
 const rutaFoto = (img, n) => "ejercicios/" + img + "/" + n + ".jpg";
 const uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-function toast(t){ $$(".toast").forEach(x => x.remove()); const d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.append(d); setTimeout(() => d.remove(), 2800); }
+function toast(t, icono = "check"){ $$(".toast").forEach(x => x.remove()); const d = document.createElement("div"); d.className = "toast"; d.innerHTML = (icono ? ic(icono) : "") + `<span>${esc(t)}</span>`; document.body.append(d); setTimeout(() => d.remove(), 2800); }
 function vibrar(p){ try { navigator.vibrate && navigator.vibrate(p); } catch {} }
 const SND = {};
 function sonar(n){ try { const a = SND[n] || (SND[n] = new Audio("sonidos/" + n + ".wav")); a.currentTime = 0; a.play().catch(() => {}); } catch {} }
@@ -187,12 +278,11 @@ function azar(semilla){ let a = semilla >>> 0; return () => { a |= 0; a = a + 0x
 
 /* ================= DATOS ================= */
 // Todo queda guardado en este dispositivo (versión de demostración). Con un servidor, DB pasa a vivir en la nube.
-const K = "gbgym-v1", KS = "gbgym-yo";
-const COLORES = {Plata:"#C9CED6", Naranja:"#FF8A3D", Rojo:"#FF5C6C", Azul:"#4DA3FF", Verde:"#3DDC84", Violeta:"#A98BFF", Amarillo:"#FFD23F", Rosa:"#FF7AC0"};
-const ICONOS_CLASE = ["🚴","🔥","💃","🏋️","🧘","🥊","🤸","🏃","💪","🧗"];
+const K = "gbgym-v1", KS = "gbgym-yo", VERSION_DATOS = 2;
+const COLORES = {Plata:"#E5E7EB", Lima:"#A3E635", Naranja:"#F97316", Rojo:"#EF4444", Azul:"#3B82F6", Verde:"#22C55E", Violeta:"#8B5CF6", Amarillo:"#EAB308"};
 let DB = cargar(), YO = cargarYo();
 function cargar(){ try { return JSON.parse(localStorage.getItem(K)); } catch { return null; } }
-function guardar(){ try { localStorage.setItem(K, JSON.stringify(DB)); } catch { toast("No se pudo guardar: memoria llena"); } }
+function guardar(){ try { localStorage.setItem(K, JSON.stringify(DB)); } catch { toast("No se pudo guardar: memoria llena", "alerta"); } }
 function cargarYo(){ try { return JSON.parse(localStorage.getItem(KS)); } catch { return null; } }
 function setYo(y){ YO = y; try { y ? localStorage.setItem(KS, JSON.stringify(y)) : localStorage.removeItem(KS); } catch {} }
 
@@ -219,18 +309,18 @@ function semilla(){
       alta:sumarDias(hoy, -Math.floor(r() * 700) - 20), rutina:r() < .7 || i === 0 ? {id:i === 0 ? "t-hiper4" : rutinas[Math.floor(r() * rutinas.length)].id, sig:i === 0 ? 2 : 0, por:"profe"} : null});
   }
   const clases = [
-    {id:"c1", n:"Spinning", ico:"🚴", dias:[1,3,5], h:"19:00", dur:45, cupo:15, profe:"Caro"},
-    {id:"c2", n:"Funcional", ico:"🔥", dias:[2,4], h:"18:00", dur:50, cupo:12, profe:"Nico"},
-    {id:"c3", n:"Zumba", ico:"💃", dias:[2,4], h:"20:00", dur:50, cupo:20, profe:"Vale"},
-    {id:"c4", n:"Cross", ico:"🏋️", dias:[1,3], h:"07:30", dur:45, cupo:10, profe:"Nico"},
-    {id:"c5", n:"Yoga", ico:"🧘", dias:[6], h:"10:00", dur:60, cupo:10, profe:"Sol"}];
-  const d = {v:1, demo:true, pin:"1234",
-    gym:{nombre:"Gimnasio Demo", color:"#C9CED6", logo:null, direccion:"Av. San Martín 1234, Mendoza", whatsapp:"2604323056", alias:"GIMNASIO.DEMO.MP", capacidad:35, horario:HORARIO_BASE},
+    {id:"c1", n:"Spinning", ico:"bici", dias:[1,3,5], h:"19:00", dur:45, cupo:15, profe:"Carolina"},
+    {id:"c2", n:"Funcional", ico:"fuego", dias:[2,4], h:"18:00", dur:50, cupo:12, profe:"Nicolás"},
+    {id:"c3", n:"Zumba", ico:"musica", dias:[2,4], h:"20:00", dur:50, cupo:20, profe:"Valentina"},
+    {id:"c4", n:"Cross training", ico:"pesa", dias:[1,3], h:"07:30", dur:45, cupo:10, profe:"Nicolás"},
+    {id:"c5", n:"Yoga", ico:"hoja", dias:[6], h:"10:00", dur:60, cupo:10, profe:"Sol"}];
+  const d = {v:VERSION_DATOS, demo:true, pin:"1234",
+    gym:{nombre:"Gimnasio Demo", color:"#E5E7EB", logo:null, direccion:"Av. San Martín 1234, Mendoza", whatsapp:"2604323056", alias:"GIMNASIO.DEMO.MP", capacidad:35, horario:HORARIO_BASE},
     planes, rutinas, socios, clases, reservas:{}, asistencias:[], pagos:[], entrenos:{},
     avisos:[
-      {id:"a1", f:sumarDias(hoy, -1), txt:"🧘 ¡Nueva clase de Yoga los sábados a las 10! Reservá tu lugar desde la app."},
-      {id:"a2", f:sumarDias(hoy, -4), txt:"🕘 El próximo feriado abrimos de 9 a 13."},
-      {id:"a3", f:sumarDias(hoy, -9), txt:"🏆 Arrancó el desafío del mes: vení 12 veces y participás por una remera oficial."}],
+      {id:"a1", f:sumarDias(hoy, -1), txt:"Nueva clase de Yoga los sábados a las 10. Reservá tu lugar desde la app."},
+      {id:"a2", f:sumarDias(hoy, -4), txt:"El próximo feriado abrimos de 9 a 13."},
+      {id:"a3", f:sumarDias(hoy, -9), txt:"Arrancó el desafío del mes: vení 12 veces y participás por una remera oficial."}],
     desafio:{meta:12, premio:"Remera oficial del gimnasio"},
     simHasta:Date.now() - 35 * 864e5};
   // Pagos: cada socio pagó un mes antes de su vencimiento
@@ -286,7 +376,8 @@ function simular(){
   guardar();
 }
 
-if (!DB) { DB = semilla(); guardar(); }
+// Datos de ejemplo de la versión anterior (con emojis) → se regeneran con el diseño nuevo
+if (!DB || (DB.demo && DB.v !== VERSION_DATOS)) { DB = semilla(); guardar(); }
 simular();
 
 /* ================= REGLAS DEL GIMNASIO ================= */
@@ -296,9 +387,9 @@ const planDe = s => DB.planes.find(p => p.id === s.plan) || DB.planes[0] || {n:"
 const rutinaDe = id => DB.rutinas.find(t => t.id === id);
 function estadoCuota(s){
   const d = diasEntre(hoyStr(), s.vence);
-  if (d < 0) return {k:"venc", txt:`Vencida hace ${-d} día${d === -1 ? "" : "s"}`, corto:"Vencida", col:"var(--rojo)", d};
-  if (d <= 5) return {k:"pronto", txt:d === 0 ? "Vence hoy" : `Vence en ${d} día${d === 1 ? "" : "s"}`, corto:d === 0 ? "Vence hoy" : `Vence en ${d} d`, col:"var(--amar)", d};
-  return {k:"ok", txt:`Al día hasta el ${fCorta(s.vence)}`, corto:"Al día", col:"var(--ok)", d};
+  if (d < 0) return {k:"venc", txt:`Vencida hace ${-d} día${d === -1 ? "" : "s"}`, corto:"Vencida", col:"var(--rojoT)", d};
+  if (d <= 5) return {k:"pronto", txt:d === 0 ? "Vence hoy" : `Vence en ${d} día${d === 1 ? "" : "s"}`, corto:d === 0 ? "Vence hoy" : `Vence en ${d} d`, col:"var(--amarT)", d};
+  return {k:"ok", txt:`Al día hasta el ${fCorta(s.vence)}`, corto:"Al día", col:"var(--okT)", d};
 }
 const pillCuota = s => { const c = estadoCuota(s); return `<span class="pill p-${c.k}">${c.corto}</span>`; };
 const entradasDe = (sid, desde = 0) => DB.asistencias.filter(a => a.s === sid && a.t >= desde);
@@ -314,7 +405,7 @@ function abierto(d = new Date()){ const h = DB.gym.horario[d.getDay()]; const hh
 function textoHorario(){
   const H = DB.gym.horario, grupos = [];
   [1,2,3,4,5,6,0].forEach(d => { const h = H[d], k = h ? h.join("-") : "x", u = grupos[grupos.length - 1]; if (u && u.k === k) u.d.push(d); else grupos.push({k, d:[d], h}); });
-  return grupos.filter(g => g.h).map(g => `${DIA3[g.d[0]]}${g.d.length > 1 ? " a " + DIA3[g.d[g.d.length - 1]] : ""} ${g.h[0]} a ${g.h[1]} hs`).join(" · ");
+  return grupos.filter(g => g.h).map(g => `${DIA3[g.d[0]]}${g.d.length > 1 ? " a " + DIA3[g.d[g.d.length - 1]] : ""} ${g.h[0]} a ${g.h[1]} h`).join(" · ");
 }
 // Promedio de entradas por hora para un día de la semana (últimas 4 semanas)
 function promedioHoras(dow){
@@ -324,16 +415,16 @@ function promedioHoras(dow){
 }
 function mejorHorario(){
   const ahora = new Date(), h = DB.gym.horario[ahora.getDay()];
-  if (!h || ahora.getHours() >= h[1] - 1) return "mañana a primera hora suele estar tranquilo";
+  if (!h || ahora.getHours() >= h[1] - 1) return "mañana a primera hora";
   const prom = promedioHoras(ahora.getDay());
   let mejor = null;
   for (let x = Math.max(h[0], ahora.getHours() + 1); x < h[1] - 1; x++) if (mejor === null || (prom[x] || 0) < (prom[mejor] || 0)) mejor = x;
-  return mejor === null ? "mañana a primera hora" : `de ${mejor} a ${mejor + 1} hs`;
+  return mejor === null ? "mañana a primera hora" : `de ${mejor} a ${mejor + 1} h`;
 }
 function nivelOcupacion(){
-  if (!abierto()) return {txt:"Cerrado ahora", col:"var(--muted)", n:0, p:0, cerrado:true};
+  if (!abierto()) return {txt:"Cerrado", col:"var(--muted)", n:0, p:0, cerrado:true};
   const n = enGimnasio(), p = n / (DB.gym.capacidad || 35);
-  return p < .35 ? {txt:"Tranquilo", col:"var(--ok)", n, p} : p < .7 ? {txt:"Movido", col:"var(--amar)", n, p} : {txt:"Lleno", col:"var(--rojo)", n, p};
+  return p < .35 ? {txt:"Tranquilo", col:"var(--ok)", n, p} : p < .7 ? {txt:"Concurrido", col:"var(--amar)", n, p} : {txt:"Lleno", col:"var(--rojo)", n, p};
 }
 const ingresosMes = () => { const m = hoyStr().slice(0, 7); return DB.pagos.filter(p => p.f.startsWith(m)).reduce((t, p) => t + p.monto, 0); };
 function ranking(){
@@ -345,31 +436,33 @@ function telWa(t){ let d = String(t || "").replace(/\D/g, ""); if (d.startsWith(
 const linkWa = (tel, txt) => `https://wa.me/${telWa(tel)}?text=${encodeURIComponent(txt)}`;
 function mensajeCuota(s){
   const c = estadoCuota(s), nombre = s.nombre.split(" ")[0], g = DB.gym.nombre;
-  if (c.k === "venc") return `¡Hola ${nombre}! Te escribimos de ${g} 💪 Tu cuota venció el ${fCorta(s.vence)}. Podés pagarla en recepción o por transferencia al alias ${DB.gym.alias}. ¡Te esperamos!`;
-  if (c.k === "pronto") return `¡Hola ${nombre}! Te escribimos de ${g} 💪 Te recordamos que tu cuota vence el ${fCorta(s.vence)}. Podés pagarla en recepción o por transferencia al alias ${DB.gym.alias}. ¡Gracias!`;
-  return `¡Hola ${nombre}! Te escribimos de ${g} 💪 `;
+  if (c.k === "venc") return `Hola ${nombre}, te escribimos de ${g}. Tu cuota venció el ${fCorta(s.vence)}. Podés abonarla en recepción o por transferencia al alias ${DB.gym.alias}. ¡Te esperamos!`;
+  if (c.k === "pronto") return `Hola ${nombre}, te escribimos de ${g}. Te recordamos que tu cuota vence el ${fCorta(s.vence)}. Podés abonarla en recepción o por transferencia al alias ${DB.gym.alias}. ¡Gracias!`;
+  return `Hola ${nombre}, te escribimos de ${g}. `;
 }
 const claseReservas = (cid, f) => DB.reservas[cid + "|" + f] || [];
 function claseYaPaso(c, f){ if (f !== hoyStr()) return f < hoyStr(); const [h, m] = c.h.split(":").map(Number); const d = new Date(); return d.getHours() * 60 + d.getMinutes() > h * 60 + m; }
 
 /* ================= MARCA DEL GIMNASIO ================= */
-function oscurecer(hex, f){ const n = parseInt(hex.slice(1), 16); const c = [n >> 16, n >> 8 & 255, n & 255].map(v => Math.round(v * f)); return "#" + c.map(v => v.toString(16).padStart(2, "0")).join(""); }
-function aclarar(hex, f){ const n = parseInt(hex.slice(1), 16); const c = [n >> 16, n >> 8 & 255, n & 255].map(v => Math.round(v + (255 - v) * f)); return "#" + c.map(v => v.toString(16).padStart(2, "0")).join(""); }
+function rgb(hex){ const n = parseInt(hex.slice(1), 16); return [n >> 16, n >> 8 & 255, n & 255]; }
 function aplicarMarca(){
-  const c = DB.gym.color || "#C9CED6", st = document.documentElement.style;
-  st.setProperty("--ac", c); st.setProperty("--ac2", aclarar(c, .55)); st.setProperty("--acOsc", oscurecer(c, .55));
-  document.title = DB.gym.nombre + " · GymBlack";
+  const c = DB.gym.color || "#E5E7EB", [r, g, b] = rgb(c), st = document.documentElement.style;
+  const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  st.setProperty("--ac", c); st.setProperty("--acTxt", lum > .55 ? "#09090B" : "#FFFFFF"); st.setProperty("--acSoft", `rgba(${r},${g},${b},.16)`);
+  document.title = DB.gym.nombre;
 }
 const logoCss = () => `background-image:url(${DB.gym.logo || "logo-app.png"})`;
-function cabecera(sub){
-  return `<div class="top"><div class="logo" style="${logoCss()}"></div><div class="t"><h1>${esc(DB.gym.nombre)}</h1><small>${sub}</small></div>
-    <img src="zafiroweb.png" alt="ZafiroWeb" style="width:78px;height:auto;opacity:.8"></div>`;
+function cabecera(titulo, sub, derecha = ""){
+  const quien = YO && YO.rol === "staff" ? "Administración" : socioYo() ? socioYo().nombre : "";
+  return `<div class="top"><div class="logo" style="${logoCss()}"></div><div class="t"><b>${esc(DB.gym.nombre)}</b><small>${esc(quien)}</small></div>${derecha}</div>
+    <div class="tit"><h1>${titulo}</h1>${sub ? `<p>${sub}</p>` : ""}</div>`;
 }
+const firma = () => `<div class="firma">Desarrollado por <img src="zafiroweb.png" alt="ZafiroWeb"></div>`;
 
 /* ================= NAVEGACIÓN ================= */
 const TABS = {
-  socio:[["inicio","🏠","Inicio"],["entrenar","🏋️","Entrenar"],["clases","📅","Clases"],["progreso","📈","Progreso"]],
-  staff:[["panel","📊","Panel"],["socios","👥","Socios"],["rutinas","📋","Rutinas"],["clasesG","📅","Clases"],["mas","⚙️","Más"]]
+  socio:[["inicio","inicio","Inicio"],["entrenar","pesa","Entrenar"],["clases","calendario","Clases"],["progreso","progreso","Progreso"]],
+  staff:[["panel","panel","Panel"],["socios","socios","Socios"],["rutinas","rutina","Rutinas"],["clasesG","calendario","Clases"],["mas","ajustes","Ajustes"]]
 };
 let pestana = null, filtroSocios = "todos", busca = "", diaClase = 0;
 function ir(t){ pestana = t; render(); scrollTo(0, 0); }
@@ -385,7 +478,7 @@ function render(){
   document.body.classList.remove("sinNav"); nav.style.display = "";
   const tabs = TABS[YO.rol];
   if (!tabs.some(t => t[0] === pestana)) pestana = tabs[0][0];
-  nav.firstElementChild.innerHTML = tabs.map(([k, e, n]) => `<button data-a="tab" data-t="${k}" class="${k === pestana ? "on" : ""}"><span>${e}</span>${n}</button>`).join("");
+  nav.firstElementChild.innerHTML = tabs.map(([k, i, n]) => `<button data-a="tab" data-t="${k}" class="${k === pestana ? "on" : ""}">${ic(i)}${n}</button>`).join("");
   const P = {inicio:pInicio, entrenar:pEntrenar, clases:pClases, progreso:pProgreso, panel:pPanel, socios:pSocios, rutinas:pRutinas, clasesG:pClasesG, mas:pMas};
   $("#app").innerHTML = P[pestana]();
   if (pestana === "socios") { const b = $("#busca"); if (b && busca) { b.focus(); b.setSelectionRange(busca.length, busca.length); } }
@@ -405,34 +498,36 @@ function abrirHoja(html){ $("#hoja").innerHTML = `<div class="hojaF"><div class=
 function cerrarHoja(){ $("#hoja").innerHTML = ""; }
 function abrirCapa(html){ document.body.style.overflow = "hidden"; $("#capa").innerHTML = `<div class="capa"><div class="in">${html}</div></div>`; }
 function cerrarCapa(){ document.body.style.overflow = ""; $("#capa").innerHTML = ""; }
+const cerrarX = (a = "cerrarCapa") => `<button class="ibtn" data-a="${a}" aria-label="Cerrar">${ic("x")}</button>`;
 
 /* ================= ENTRADA (elegir quién sos) ================= */
 let teclado = null;   // {modo:"dni"|"pin"|"kiosco"|"salirKiosco", val:""}
 function pantallaEntrada(){
   if (teclado) return pintarTeclado();
   $("#app").innerHTML = `<div class="bienv">
-    <div class="centro"><div class="logo" style="width:84px;height:84px;border-radius:22px;margin:0 auto 12px;${logoCss()}"></div>
-    <h1>${esc(DB.gym.nombre)}</h1><p class="muted" style="margin:4px 0 8px">${esc(textoHorario())}</p></div>
-    <button class="bigBtn" data-a="entrarSocio"><span class="e">🙋</span><span class="sp"><b>Soy socio</b><span class="muted small">Tu rutina, tu cuota, clases y tu pase de entrada</span></span><span>›</span></button>
-    <button class="bigBtn" data-a="entrarStaff"><span class="e">🛠️</span><span class="sp"><b>Soy del gimnasio</b><span class="muted small">Dueño, recepción o profe: socios, cuotas, rutinas y estadísticas</span></span><span>›</span></button>
-    <button class="btn sec" data-a="entrarKiosco" style="margin-top:4px">🖥️ Modo recepción (tablet en la entrada)</button>
-    ${DB.demo ? `<div class="consejo small">🧪 <b>Modo demostración.</b> Todos los datos son de ejemplo. Probá como socio con el DNI <b>35123456</b> y como gimnasio con el PIN <b>1234</b>.</div>` : ""}
-    <p class="small muted centro" style="margin-top:6px">GymBlack · hecho por ZafiroWeb</p></div>`;
+    <div class="centro" style="margin-bottom:18px"><div class="logo" style="width:72px;height:72px;border-radius:18px;margin:0 auto 16px;${logoCss()}"></div>
+    <h1>${esc(DB.gym.nombre)}</h1><p class="muted small" style="margin:6px 0 0">${esc(textoHorario())}</p></div>
+    <button class="bigBtn" data-a="entrarSocio"><span class="e">${ic("usuario")}</span><span class="sp"><b>Soy socio</b><span class="sub">Rutina, cuota, clases y pase de entrada</span></span><span class="muted">${ic("der")}</span></button>
+    <button class="bigBtn" data-a="entrarStaff"><span class="e">${ic("candado")}</span><span class="sp"><b>Soy del gimnasio</b><span class="sub">Socios, cobros, rutinas y estadísticas</span></span><span class="muted">${ic("der")}</span></button>
+    <button class="bigBtn" data-a="entrarKiosco"><span class="e">${ic("monitor")}</span><span class="sp"><b>Modo recepción</b><span class="sub">Para una tablet en la entrada del gimnasio</span></span><span class="muted">${ic("der")}</span></button>
+    ${DB.demo ? `<div class="consejo small">Versión de demostración con datos de ejemplo. Socio: DNI <b>35123456</b> · Gimnasio: PIN <b>1234</b>.</div>` : ""}
+    ${firma()}</div>`;
 }
 function pintarTeclado(){
   const T = teclado, esKiosco = T.modo === "kiosco";
-  const tit = {dni:"Ingresá tu DNI", pin:"PIN del gimnasio", kiosco:"Ingresá tu DNI para entrar", salirKiosco:"PIN para salir del modo recepción"}[T.modo];
+  const tit = {dni:"Ingresá tu DNI", pin:"PIN del gimnasio", kiosco:"Ingresá tu DNI", salirKiosco:"PIN para salir del modo recepción"}[T.modo];
   const oculto = T.modo === "pin" || T.modo === "salirKiosco";
-  const cont = `${esKiosco ? `<div class="centro" style="margin-top:8px"><div class="logo" style="width:70px;height:70px;border-radius:20px;margin:0 auto 10px;${logoCss()}"></div><h1>${esc(DB.gym.nombre)}</h1><p class="muted" id="relojK" style="margin:2px 0 0">${new Date().toLocaleTimeString("es-AR", {hour:"2-digit", minute:"2-digit"})}</p></div>` :
-      `<div class="row"><button class="chip" data-a="tecCancelar">← Volver</button></div>`}
-    <h2 class="centro" style="margin-top:${esKiosco ? 18 : 30}px">${tit}</h2>
-    <div class="pantallaDni">${T.val ? (oculto ? "•".repeat(T.val.length) : T.val.replace(/\B(?=(\d{3})+(?!\d))/g, ".")) : `<span class="muted" style="font-size:22px;letter-spacing:0">${oculto ? "••••" : "sin puntos"}</span>`}</div>
-    <div class="tecla">${[1,2,3,4,5,6,7,8,9].map(n => `<button data-a="tec" data-n="${n}">${n}</button>`).join("")}<button data-a="tecBorrar">⌫</button><button data-a="tec" data-n="0">0</button><button class="okb" data-a="tecOk">✓</button></div>
-    ${T.modo === "dni" && DB.demo ? `<button class="btn sec" data-a="socioDemo" style="margin-top:18px">🧪 Entrar como socio de ejemplo (Martín)</button>` : ""}
-    ${T.modo === "pin" && DB.demo ? `<p class="centro muted small" style="margin-top:14px">PIN de prueba: 1234</p>` : ""}
-    ${esKiosco ? `<div class="row" style="margin-top:18px">${"BarcodeDetector" in window ? `<button class="btn sec" data-a="escanear" data-modo="kiosco">📷 Escanear mi pase QR</button>` : ""}</div>
-      <button class="chip" data-a="salirKiosco" style="margin:22px auto 0;display:flex">🔒 Salir del modo recepción</button>` : ""}`;
-  $("#app").innerHTML = `<div style="max-width:420px;margin:0 auto">${cont}</div>`;
+  const cont = `${esKiosco ? `<div class="centro" style="margin-top:20px"><div class="logo" style="width:56px;height:56px;border-radius:14px;margin:0 auto 12px;${logoCss()}"></div><h2>${esc(DB.gym.nombre)}</h2><p class="muted small tab" id="relojK" style="margin:2px 0 0">${hora(Date.now())}</p></div>` :
+      `<div class="row" style="padding-top:8px"><button class="ibtn" data-a="tecCancelar" aria-label="Volver">${ic("izq")}</button></div>`}
+    <h2 class="centro" style="margin-top:${esKiosco ? 26 : 30}px">${tit}</h2>
+    ${T.modo === "dni" || esKiosco ? `<p class="centro muted small" style="margin:6px 0 0">Sin puntos ni espacios</p>` : ""}
+    <div class="pantallaDni">${T.val ? (oculto ? "•".repeat(T.val.length) : T.val.replace(/\B(?=(\d{3})+(?!\d))/g, ".")) : `<span class="muted" style="font-size:20px;font-weight:500;letter-spacing:0">${oculto ? "• • • •" : "—"}</span>`}</div>
+    <div class="tecla">${[1,2,3,4,5,6,7,8,9].map(n => `<button data-a="tec" data-n="${n}">${n}</button>`).join("")}<button data-a="tecBorrar" aria-label="Borrar">${ic("izq")}</button><button data-a="tec" data-n="0">0</button><button class="okb" data-a="tecOk" aria-label="Aceptar">${ic("check")}</button></div>
+    ${T.modo === "dni" && DB.demo ? `<button class="btn ghost" data-a="socioDemo" style="margin-top:20px">Entrar como socio de ejemplo</button>` : ""}
+    ${T.modo === "pin" && DB.demo ? `<p class="centro muted small" style="margin-top:16px">PIN de demostración: 1234</p>` : ""}
+    ${esKiosco ? `${"BarcodeDetector" in window ? `<button class="btn sec" data-a="escanear" data-modo="kiosco" style="margin-top:18px">${ic("qr")} Escanear pase QR</button>` : ""}
+      <button class="enlace" data-a="salirKiosco" style="margin:24px auto 0;display:flex">${ic("candado")} Salir del modo recepción</button>` : ""}`;
+  $("#app").innerHTML = `<div style="max-width:400px;margin:0 auto">${cont}</div>`;
 }
 function tecla(a, b){
   const T = teclado; if (!T) return;
@@ -442,13 +537,13 @@ function tecla(a, b){
   else if (a === "tecOk") {
     if (T.modo === "dni") {
       const s = DB.socios.find(x => x.dni === T.val);
-      if (!s) { toast("No encontramos ese DNI. Consultá en recepción."); T.val = ""; }
+      if (!s) { toast("No encontramos ese DNI. Consultá en recepción.", "alerta"); T.val = ""; }
       else { teclado = null; setYo({rol:"socio", id:s.id}); pestana = "inicio"; sonar("listo"); }
     } else if (T.modo === "pin") {
-      if (T.val === DB.pin) { teclado = null; setYo({rol:"staff"}); pestana = "panel"; sonar("listo"); } else { toast("PIN incorrecto"); T.val = ""; vibrar(120); }
+      if (T.val === DB.pin) { teclado = null; setYo({rol:"staff"}); pestana = "panel"; sonar("listo"); } else { toast("PIN incorrecto", "alerta"); T.val = ""; vibrar(120); }
     } else if (T.modo === "kiosco") { const v = T.val; T.val = ""; return entradaKiosco(DB.socios.find(x => x.dni === v)); }
     else if (T.modo === "salirKiosco") {
-      if (T.val === DB.pin) { teclado = null; setYo({rol:"staff"}); pestana = "panel"; } else { toast("PIN incorrecto"); teclado = {modo:"kiosco", val:""}; }
+      if (T.val === DB.pin) { teclado = null; setYo({rol:"staff"}); pestana = "panel"; } else { toast("PIN incorrecto", "alerta"); teclado = {modo:"kiosco", val:""}; }
     }
   }
   render();
@@ -460,20 +555,20 @@ function pantallaKiosco(){
   if (!teclado || (teclado.modo !== "kiosco" && teclado.modo !== "salirKiosco")) teclado = {modo:"kiosco", val:""};
   pintarTeclado();
   clearInterval(relojKiosco);
-  relojKiosco = setInterval(() => { const r = $("#relojK"); if (r) r.textContent = new Date().toLocaleTimeString("es-AR", {hour:"2-digit", minute:"2-digit"}); else clearInterval(relojKiosco); }, 15000);
+  relojKiosco = setInterval(() => { const r = $("#relojK"); if (r) r.textContent = hora(Date.now()); else clearInterval(relojKiosco); }, 15000);
 }
 function entradaKiosco(s){
-  let e, tit, txt, fondo;
-  if (!s) { e = "🤔"; tit = "No encontramos ese DNI"; txt = "Revisalo o consultá en recepción."; fondo = "#1F2023"; sonar("toque"); }
+  let icono, col, tit, txt;
+  if (!s) { icono = "alerta"; col = "var(--muted)"; tit = "DNI no encontrado"; txt = "Revisalo o consultá en recepción."; sonar("toque"); }
   else {
     const c = estadoCuota(s), nueva = registrarEntrada(s.id), vis = entradasDe(s.id, inicioMes()).length;
-    const nombre = s.nombre.split(" ")[0];
-    if (c.k === "venc") { e = "💳"; tit = `¡Hola, ${esc(nombre)}!`; txt = `Tu cuota venció el ${fCorta(s.vence)}.<br>Pasá por recepción para renovarla.`; fondo = "#3A1418"; }
-    else { e = c.k === "pronto" ? "👋" : "💪"; tit = `¡Hola, ${esc(nombre)}!`; txt = `${c.k === "pronto" ? `⚠️ Tu cuota ${c.txt.toLowerCase()}` : `Cuota al día hasta el ${fCorta(s.vence)}`}<br>${nueva ? `Visita n.º ${vis} del mes · Desafío ${Math.min(vis, DB.desafio.meta)}/${DB.desafio.meta} 🏆` : "Ya registramos tu entrada de hoy"}`; fondo = c.k === "pronto" ? "#3A2E0E" : "#0F2A1A"; }
+    tit = esc(s.nombre.split(" ")[0]);
+    if (c.k === "venc") { icono = "tarjeta"; col = "var(--rojo)"; txt = `Tu cuota venció el ${fCorta(s.vence)}.<br>Pasá por recepción para renovarla.`; }
+    else { icono = "checkC"; col = c.k === "pronto" ? "var(--amar)" : "var(--ok)"; txt = `${c.k === "pronto" ? `Tu cuota ${c.txt.toLowerCase()}` : `Cuota al día hasta el ${fCorta(s.vence)}`}<br><span class="muted">${nueva ? `Visita ${vis} del mes · Desafío ${Math.min(vis, DB.desafio.meta)} de ${DB.desafio.meta}` : "Tu entrada de hoy ya estaba registrada"}</span>`; tit = "Hola, " + tit; }
     sonar(c.k === "venc" ? "toque" : "fin"); vibrar(c.k === "venc" ? [200, 100, 200] : 60);
   }
-  const d = document.createElement("div"); d.className = "resultado"; d.style.background = fondo;
-  d.innerHTML = `<div class="e">${e}</div><h1>${tit}</h1><p style="font-size:22px;margin:10px 0 0">${txt}</p>`;
+  const d = document.createElement("div"); d.className = "resultado";
+  d.innerHTML = `<div class="circ" style="background:color-mix(in srgb, ${col} 16%, transparent);color:${col}">${ic(icono)}</div><h1>${tit}</h1><p>${txt}</p>`;
   d.onclick = () => d.remove(); document.body.append(d); setTimeout(() => d.remove(), 4000);
   pintarTeclado();
 }
@@ -481,11 +576,11 @@ function entradaKiosco(s){
 /* ================= ESCANEAR QR (cámara) ================= */
 let camStream = null;
 async function escanear(modo){
-  if (!("BarcodeDetector" in window)) return toast("Este navegador no puede escanear: buscá al socio por nombre o DNI");
-  let det; try { det = new BarcodeDetector({formats:["qr_code"]}); } catch { return toast("No se puede escanear en este dispositivo"); }
-  abrirCapa(`<div id="cam"><div class="row"><h2 class="sp">📷 Escaneá el pase</h2><button class="chip" data-a="cerrarCam">✕ Cerrar</button></div>
-    <p class="muted">Apuntá la cámara al código QR del socio.</p><video playsinline muted></video></div>`);
-  try { camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}); } catch { cerrarCam(); return toast("No se pudo abrir la cámara (revisá el permiso)"); }
+  if (!("BarcodeDetector" in window)) return toast("Este navegador no puede escanear. Buscá al socio por nombre o DNI.", "info");
+  let det; try { det = new BarcodeDetector({formats:["qr_code"]}); } catch { return toast("No se puede escanear en este dispositivo", "alerta"); }
+  abrirCapa(`<div id="cam"><div class="row"><h2 class="sp">Escanear pase</h2>${cerrarX("cerrarCam")}</div>
+    <p class="muted small" style="margin:4px 0 0">Apuntá la cámara al código QR del socio.</p><video playsinline muted></video></div>`);
+  try { camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}); } catch { cerrarCam(); return toast("No se pudo abrir la cámara. Revisá el permiso.", "alerta"); }
   const v = $("#cam video"); v.srcObject = camStream; await v.play().catch(() => {});
   const buscar = async () => {
     if (!camStream) return;
@@ -496,48 +591,49 @@ async function escanear(modo){
 }
 function cerrarCam(){ if (camStream) camStream.getTracks().forEach(t => t.stop()); camStream = null; cerrarCapa(); }
 function leido(sid, modo){
-  const s = socio(sid); if (!s) return toast("Ese pase no es de este gimnasio");
+  const s = socio(sid); if (!s) return toast("Ese pase no pertenece a este gimnasio", "alerta");
   if (modo === "kiosco") return entradaKiosco(s);
   confirmarEntrada(s.id);
 }
 
 /* ================= SOCIO: INICIO ================= */
+function saludo(){ const h = new Date().getHours(); return h < 13 ? "Buen día" : h < 20 ? "Buenas tardes" : "Buenas noches"; }
 function pInicio(){
   const s = socioYo(), c = estadoCuota(s), p = planDe(s);
-  return cabecera(`Hola, ${esc(s.nombre.split(" ")[0])} 👋`) + `
-    <div class="card hero"><div class="row"><div class="sp"><div class="lbl" style="margin:0 0 2px">Tu cuota</div><h2 style="color:${c.col}">${c.txt}</h2>
-      <div class="small muted">${esc(p.n)} · ${plata(p.precio)} por mes</div></div></div>
-      ${c.k !== "ok" ? `<div class="consejo">💳 Pagala en recepción o por transferencia al alias <b>${esc(DB.gym.alias)}</b>.</div>
-        <a class="btn wa chico" style="margin-top:10px;width:100%;text-decoration:none" target="_blank" rel="noopener" href="${linkWa(DB.gym.whatsapp, `¡Hola! Soy ${s.nombre} (DNI ${s.dni}). Les aviso que pagué la cuota por transferencia 🙌`)}">💬 Avisar que pagué</a>` : ""}
-      <button class="btn" data-a="pase" style="margin-top:12px">🎫 Mostrar mi pase de entrada</button></div>
+  return cabecera(`${saludo()}, ${esc(s.nombre.split(" ")[0])}`, "", `<button class="ibtn" data-a="pase" aria-label="Mi pase">${ic("qr")}</button>`) + `
+    <div class="card"><div class="row"><div class="sp"><div class="lbl" style="margin:0 0 6px">Cuota</div><div class="row" style="gap:8px"><span class="dot" style="background:${c.col}"></span><h2 style="color:${c.k === "ok" ? "var(--ink)" : c.col}">${c.txt}</h2></div>
+      <div class="sub" style="margin-top:4px">${esc(p.n)} · ${plata(p.precio)} por mes</div></div></div>
+      ${c.k !== "ok" ? `<div class="consejo ${c.k === "venc" ? "rojo" : "amar"}">Podés abonarla en recepción o por transferencia al alias <b>${esc(DB.gym.alias)}</b>.</div>
+        <a class="btn sec chico" style="margin-top:12px;width:100%" target="_blank" rel="noopener" href="${linkWa(DB.gym.whatsapp, `Hola, soy ${s.nombre} (DNI ${s.dni}). Les aviso que aboné la cuota por transferencia.`)}">${ic("mensaje")} Avisar que pagué</a>` : ""}
+      <button class="btn" data-a="pase" style="margin-top:12px">${ic("qr")} Mostrar pase de entrada</button></div>
     ${tarjetaHoyToca(s)}${tarjetaOcupacion()}${tarjetaDesafio(s)}${tarjetaMiClase(s)}${tarjetaAvisos()}`;
 }
 function tarjetaHoyToca(s){
   const R = s.rutina && rutinaDe(s.rutina.id);
-  if (!R) return `<div class="card"><b>🏋️ Todavía no tenés rutina</b><p class="muted small" style="margin:4px 0 10px">Elegí una lista para empezar hoy o pedile una a medida a tu profe.</p><button class="btn sec" data-a="tab" data-t="entrenar">Elegir rutina</button></div>`;
+  if (!R) return `<div class="card"><div class="ct">${ic("rutina")} Todavía no tenés rutina</div><p class="sub" style="margin:6px 0 12px">Elegí una de las rutinas del gimnasio o pedile una a medida a tu profesor.</p><button class="btn sec" data-a="tab" data-t="entrenar">Elegir rutina</button></div>`;
   const E = entrenoDe(s.id);
-  if (E.sesion && E.sesion.f === hoyStr()) return `<div class="card"><b>⏸️ Tenés un entrenamiento a medias</b><p class="muted small" style="margin:4px 0 10px">${esc(R.dias[E.sesion.dia].n)} · seguí donde lo dejaste.</p><button class="btn ok" data-a="continuar">Continuar ▶</button></div>`;
-  if (E.dias[hoyStr()]) return `<div class="card"><b>✅ Hoy ya entrenaste: ${esc(E.dias[hoyStr()])}</b><p class="muted small" style="margin:4px 0 0">¡Bien ahí! La próxima te toca ${esc(R.dias[(s.rutina.sig || 0) % R.dias.length].n)}.</p></div>`;
+  if (E.sesion && E.sesion.f === hoyStr()) return `<div class="card"><div class="ct">${ic("pesa")} Entrenamiento en curso</div><p class="sub" style="margin:6px 0 12px">${esc(R.dias[E.sesion.dia].n)} · retomalo donde lo dejaste.</p><button class="btn ok" data-a="continuar">${ic("play")} Continuar</button></div>`;
+  if (E.dias[hoyStr()]) return `<div class="card"><div class="ct" style="color:var(--okT)">${ic("checkC")} Entrenamiento de hoy completado</div><p class="sub" style="margin:6px 0 0">${esc(E.dias[hoyStr()])}. La próxima sesión es ${esc(R.dias[(s.rutina.sig || 0) % R.dias.length].n)}.</p></div>`;
   const i = (s.rutina.sig || 0) % R.dias.length, D = R.dias[i];
-  return `<div class="card"><div class="lbl" style="margin:0 0 2px">Hoy te toca</div><h2>${esc(D.n)}</h2>
-    <p class="muted small" style="margin:2px 0 10px">${esc(R.n)} · ${D.ej.length} ejercicios · ~${duracionDia(D)} min</p>
-    <button class="btn ok" data-a="empezar" data-d="${i}">▶ Empezar entrenamiento</button></div>`;
+  return `<div class="card"><div class="lbl" style="margin:0 0 6px">Entrenamiento de hoy</div><h2>${esc(D.n)}</h2>
+    <p class="sub" style="margin:4px 0 14px">${esc(R.n)} · ${D.ej.length} ejercicios · ${duracionDia(D)} min aprox.</p>
+    <button class="btn" data-a="empezar" data-d="${i}">${ic("play")} Empezar</button></div>`;
 }
 function tarjetaOcupacion(){
   const o = nivelOcupacion();
-  return `<div class="card"><b>📍 ¿Cómo está el gimnasio ahora?</b>
-    <div class="row" style="margin:10px 0 8px"><span class="dot" style="background:${o.col}"></span><b style="font-size:21px">${o.txt}</b><span class="sp"></span>${o.cerrado ? "" : `<span class="muted">${o.n} ${o.n === 1 ? "persona" : "personas"}</span>`}</div>
-    ${o.cerrado ? `<div class="small muted">🕐 ${esc(textoHorario())}</div>` : `<div class="barra"><i style="width:${Math.max(4, Math.min(100, o.p * 100))}%;background:${o.col}"></i></div>`}
-    <div class="small muted" style="margin-top:8px">💡 Mejor momento para venir: ${mejorHorario()}</div></div>`;
+  return `<div class="card"><div class="row"><div class="ct sp">${ic("pulso")} Ocupación ahora</div>${o.cerrado ? "" : `<span class="muted small tab">${o.n} ${o.n === 1 ? "persona" : "personas"}</span>`}</div>
+    <div class="row" style="margin:12px 0 10px;gap:8px"><span class="dot" style="background:${o.col}"></span><b style="font-size:18px">${o.txt}</b></div>
+    ${o.cerrado ? `<div class="sub">${esc(textoHorario())}</div>` : `<div class="barra"><i style="width:${Math.max(3, Math.min(100, o.p * 100))}%;background:${o.col}"></i></div>`}
+    <div class="sub" style="margin-top:10px">Horario más tranquilo: ${mejorHorario()}</div></div>`;
 }
 function tarjetaDesafio(s){
   const rk = ranking(), mio = rk.find(x => x[0] === s.id), vis = mio ? mio[1] : 0, pos = mio ? rk.indexOf(mio) + 1 : null, meta = DB.desafio.meta;
-  return `<div class="card"><div class="row"><b class="sp">🏆 Desafío de ${MES[new Date().getMonth()]}</b><span class="chip ac">${Math.min(vis, meta)}/${meta}</span></div>
-    <p class="small muted" style="margin:4px 0 8px">Vení ${meta} veces este mes y participás por: <b style="color:var(--ink)">${esc(DB.desafio.premio)}</b></p>
+  return `<div class="card"><div class="row"><div class="ct sp">${ic("trofeo")} Desafío de ${MES[new Date().getMonth()]}</div><span class="muted small tab">${Math.min(vis, meta)} / ${meta}</span></div>
+    <p class="sub" style="margin:8px 0 12px">${meta} visitas en el mes para participar por <b style="color:var(--ink2)">${esc(DB.desafio.premio)}</b>.</p>
     <div class="barra"><i style="width:${Math.min(100, vis / meta * 100)}%"></i></div>
-    <p class="small" style="margin:8px 0 0">${vis >= meta ? "🎉 ¡Lo cumpliste! Ya estás participando." : `Te faltan <b>${meta - vis}</b> visitas.`}${pos ? ` Vas <b>${pos}.º</b> en el ranking.` : ""}</p>
-    <details style="margin-top:8px"><summary class="small muted">Ver ranking del mes</summary>
-    ${rk.slice(0, 5).map(([id, n], k) => `<div class="row small" style="padding:5px 0;${id === s.id ? "color:var(--ac2)" : ""}"><b style="width:22px">${["🥇","🥈","🥉"][k] || k + 1 + "."}</b><span class="sp">${esc(corto(socio(id).nombre))}${id === s.id ? " (vos)" : ""}</span><b>${n}</b></div>`).join("")}</details></div>`;
+    <div class="row small" style="margin-top:10px"><span class="sp muted">${vis >= meta ? "Objetivo cumplido: ya estás participando." : `Te faltan ${meta - vis} visitas.`}</span>${pos ? `<span class="muted">Posición <b style="color:var(--ink)">${pos}</b></span>` : ""}</div>
+    <details style="margin-top:10px"><summary class="enlace">Ver ranking ${ic("der")}</summary>
+    ${rk.slice(0, 5).map(([id, n], k) => `<div class="row small" style="padding:7px 0;border-top:1px solid var(--line);${id === s.id ? "color:var(--ink)" : "color:var(--ink2)"}"><span class="muted tab" style="width:20px">${k + 1}</span><span class="sp">${esc(corto(socio(id).nombre))}${id === s.id ? " (vos)" : ""}</span><b class="tab">${n}</b></div>`).join("")}</details></div>`;
 }
 function proximaReserva(sid){
   for (let k = 0; k < 8; k++) {
@@ -550,61 +646,59 @@ function proximaReserva(sid){
 function tarjetaMiClase(s){
   const r = proximaReserva(s.id); if (!r) return "";
   const k = diasEntre(hoyStr(), r.f);
-  return `<div class="card"><div class="row"><span style="font-size:28px">${r.c.ico}</span><div class="sp"><div class="lbl" style="margin:0">Tu próxima clase</div><b>${esc(r.c.n)} · ${k === 0 ? "hoy" : k === 1 ? "mañana" : DIA[deStr(r.f).getDay()].toLowerCase()} ${r.c.h}</b></div><button class="chip" data-a="tab" data-t="clases">Ver</button></div></div>`;
+  return `<button class="clase" data-a="tab" data-t="clases"><div class="ico">${ic(r.c.ico)}</div><div class="sp"><div class="sub">Próxima clase reservada</div><b>${esc(r.c.n)} · ${k === 0 ? "hoy" : k === 1 ? "mañana" : DIA[deStr(r.f).getDay()].toLowerCase()} ${r.c.h} h</b></div><span class="muted">${ic("der")}</span></button>`;
 }
 function tarjetaAvisos(){
   if (!DB.avisos.length) return "";
-  return `<div class="card"><b>📣 Avisos del gimnasio</b>${DB.avisos.slice(0, 3).map(a => `<div class="fila" style="display:block"><div>${esc(a.txt)}</div><div class="small muted">${fCorta(a.f)}</div></div>`).join("")}</div>`;
+  return `<div class="card"><div class="ct">${ic("megafono")} Avisos del gimnasio</div>${DB.avisos.slice(0, 3).map(a => `<div class="fila" style="display:block"><div style="font-size:14px;color:var(--ink2)">${esc(a.txt)}</div><div class="sub tab" style="margin-top:2px">${fCorta(a.f)}</div></div>`).join("")}</div>`;
 }
 function hojaPase(){
   const s = socioYo(), c = estadoCuota(s);
-  abrirCapa(`<div class="row"><span class="sp"></span><button class="chip" data-a="cerrarCapa">✕ Cerrar</button></div>
-    <div class="centro"><div class="logo" style="width:56px;height:56px;margin:6px auto 8px;${logoCss()}"></div><h2>${esc(DB.gym.nombre)}</h2>
-    <div class="qr" id="qrPase"></div><h1>${esc(s.nombre)}</h1><p class="muted" style="margin:2px 0 10px">DNI ${esc(s.dni)}</p>
-    <span class="pill p-${c.k}" style="font-size:16px;padding:7px 14px">${c.txt}</span>
-    <p class="muted small" style="margin-top:16px">Mostrá este código en la entrada. También podés entrar con tu DNI.</p></div>`);
-  try { new QRCode($("#qrPase"), {text:"GBGYM:" + s.id, width:240, height:240, correctLevel:QRCode.CorrectLevel.M}); } catch { $("#qrPase").innerHTML = `<p style="color:#000;width:240px">DNI ${esc(s.dni)}</p>`; }
+  abrirCapa(`<div class="row"><span class="sp"></span>${cerrarX()}</div>
+    <div class="centro"><div class="logo" style="width:48px;height:48px;border-radius:12px;margin:4px auto 10px;${logoCss()}"></div><div class="muted small">${esc(DB.gym.nombre)}</div>
+    <div class="qr" id="qrPase"></div><h1>${esc(s.nombre)}</h1><p class="muted tab" style="margin:4px 0 14px">DNI ${esc(s.dni)}</p>
+    <span class="pill p-${c.k}" style="font-size:14px;padding:6px 12px">${c.txt}</span>
+    <p class="sub" style="margin-top:20px">Mostrá este código en la entrada. También podés ingresar con tu DNI.</p></div>`);
+  try { new QRCode($("#qrPase"), {text:"GBGYM:" + s.id, width:230, height:230, correctLevel:QRCode.CorrectLevel.M}); } catch { $("#qrPase").innerHTML = `<p style="color:#000;width:230px">DNI ${esc(s.dni)}</p>`; }
 }
 
 /* ================= SOCIO: ENTRENAR ================= */
 function entrenoDe(sid){ return DB.entrenos[sid] || (DB.entrenos[sid] = {hist:{}, dias:{}, sesion:null}); }
 const itemEj = x => ({id:x[0], s:x[1], r:String(x[2]), d:x[3], ...CATALOGO[x[0]], tipo:CATALOGO[x[0]].tipo || "kg"});
 function duracionDia(D){ return Math.round(D.ej.reduce((t, x) => { const e = itemEj(x); return t + (e.tipo === "min" ? +e.r || 10 : e.s * (0.8 + (e.d || 60) / 60)); }, 0) + 8); }
-function objetivoTxt(e){ return e.tipo === "min" ? `${e.r} min` : e.tipo === "seg" ? `${e.s} × ${e.r} seg` : `${e.s} × ${e.r}`; }
+function objetivoTxt(e){ return e.tipo === "min" ? `${e.r} min` : e.tipo === "seg" ? `${e.s} × ${e.r} s` : `${e.s} × ${e.r}`; }
 function pEntrenar(){
   const s = socioYo(), R = s.rutina && rutinaDe(s.rutina.id);
-  if (!R) return cabecera("Entrenar") + `<div class="card hero"><h2>Elegí una rutina para empezar</h2><p class="muted" style="margin:4px 0 0">Son rutinas armadas por profesores. Tu profe también te puede asignar una a medida y te aparece acá sola.</p></div>` +
+  if (!R) return cabecera("Elegí tu rutina", "Rutinas armadas por profesores. Tu profe también puede asignarte una a medida.") +
     DB.rutinas.map(t => tarjetaRutina(t, "verPlantilla")).join("");
   const sig = (s.rutina.sig || 0) % R.dias.length, E = entrenoDe(s.id);
-  return cabecera("Entrenar") + `<div class="card hero"><div class="lbl" style="margin:0">Tu rutina</div><h2>${esc(R.n)}</h2>
-    <p class="muted small" style="margin:2px 0 8px">${s.rutina.por === "profe" ? "👨‍🏫 Asignada por tu profe" : "Elegida por vos"} · ${R.dias.length} días · ${esc(R.nivel)}</p>
-    <button class="chip" data-a="cambiarRutina">🔄 Cambiar de rutina</button></div>
-    ${R.dias.map((D, i) => `<div class="card" style="${i === sig ? "border-color:var(--ac)" : ""}">
-      <div class="row"><div class="sp">${i === sig ? `<div class="lbl" style="margin:0;color:var(--ac2)">👉 Te toca hoy</div>` : ""}<h3>${esc(D.n)}</h3><div class="small muted">${D.ej.length} ejercicios · ~${duracionDia(D)} min</div></div></div>
-      ${D.ej.map(x => { const e = itemEj(x); return `<button class="fila" data-a="fichaEj" data-id="${e.id}"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b>${esc(e.n)}</b><div class="small muted">${objetivoTxt(e)} · ${esc(GRUPOS[e.g])}</div></div><span class="muted">›</span></button>`; }).join("")}
-      <button class="btn ${i === sig ? "ok" : "sec"}" data-a="empezar" data-d="${i}" style="margin-top:10px">${E.sesion && E.sesion.dia === i && E.sesion.f === hoyStr() ? "Continuar ▶" : "▶ Empezar " + esc(D.n)}</button></div>`).join("")}`;
+  return cabecera(esc(R.n), `${s.rutina.por === "profe" ? "Asignada por tu profesor" : "Elegida por vos"} · ${R.dias.length} días · ${esc(R.nivel)}`, `<button class="ibtn" data-a="cambiarRutina" aria-label="Cambiar rutina">${ic("cambiar")}</button>`) +
+    R.dias.map((D, i) => `<div class="card" style="${i === sig ? "border-color:var(--line2);box-shadow:inset 3px 0 0 var(--ac)" : ""}">
+      <div class="row"><div class="sp">${i === sig ? `<div class="lbl" style="margin:0 0 4px;color:var(--ink2)">Próxima sesión</div>` : ""}<h3>${esc(D.n)}</h3><div class="sub">${D.ej.length} ejercicios · ${duracionDia(D)} min aprox.</div></div></div>
+      <div style="margin-top:6px">${D.ej.map(x => { const e = itemEj(x); return `<button class="fila" data-a="fichaEj" data-id="${e.id}"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(e.n)}</b><div class="sub">${objetivoTxt(e)} · ${esc(GRUPOS[e.g])}</div></div><span class="der">${ic("der")}</span></button>`; }).join("")}</div>
+      <button class="btn ${i === sig ? "" : "sec"}" data-a="empezar" data-d="${i}" style="margin-top:12px">${ic("play")} ${E.sesion && E.sesion.dia === i && E.sesion.f === hoyStr() ? "Continuar" : "Empezar " + esc(D.n)}</button></div>`).join("");
 }
 function tarjetaRutina(t, accionV){
   const usan = DB.socios.filter(s => s.rutina && s.rutina.id === t.id).length;
-  return `<button class="card" data-a="${accionV}" data-id="${t.id}" style="display:block;width:100%;text-align:left">
-    <div class="row"><div class="sp"><h3>${esc(t.n)}</h3><div class="small muted">${t.dias.length} días · ${esc(t.nivel)}${YO.rol === "staff" ? ` · ${usan} socio${usan === 1 ? "" : "s"}` : ""}</div></div><span class="chip">${t.base ? "Lista" : "Del gimnasio"}</span></div>
-    <p class="small" style="margin:8px 0 0">${esc(t.meta || "")}</p>
-    <div class="row" style="margin-top:10px;gap:6px">${t.dias[0].ej.slice(0, 5).map(x => `<img class="mini" style="width:48px;height:38px" src="${rutaFoto(CATALOGO[x[0]].img, 1)}" alt="" loading="lazy">`).join("")}</div></button>`;
+  return `<button class="card" data-a="${accionV}" data-id="${t.id}" style="display:block;width:100%;text-align:left;color:inherit">
+    <div class="row" style="align-items:flex-start"><div class="sp"><h3>${esc(t.n)}</h3><div class="sub" style="margin-top:2px">${t.dias.length} días · ${esc(t.nivel)}${YO.rol === "staff" ? ` · ${usan} socio${usan === 1 ? "" : "s"}` : ""}</div></div><span class="pill p-gris">${t.base ? "Plantilla" : "Personalizada"}</span></div>
+    ${t.meta ? `<p class="small" style="margin:10px 0 0;color:var(--ink2)">${esc(t.meta)}</p>` : ""}
+    <div class="row" style="margin-top:12px;gap:6px">${t.dias[0].ej.slice(0, 5).map(x => `<img class="mini" style="width:46px;height:36px" src="${rutaFoto(CATALOGO[x[0]].img, 1)}" alt="" loading="lazy">`).join("")}</div></button>`;
 }
 function hojaRutina(id, modo){
   const t = rutinaDe(id); if (!t) return;
-  abrirHoja(`<h2>${esc(t.n)}</h2><p class="muted small" style="margin:2px 0 6px">${t.dias.length} días · ${esc(t.nivel)} · ${esc(t.meta || "")}</p>
-    ${t.dias.map(D => `<div class="lbl">${esc(D.n)} · ~${duracionDia(D)} min</div>${D.ej.map(x => { const e = itemEj(x); return `<div class="fila"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b>${esc(e.n)}</b><div class="small muted">${objetivoTxt(e)}</div></div></div>`; }).join("")}`).join("")}
-    ${modo === "socio" ? `<button class="btn ok" data-a="usarRutina" data-id="${t.id}" style="margin-top:14px">✓ Usar esta rutina</button>` :
-      `<div class="grid2" style="margin-top:14px"><button class="btn" data-a="asignar" data-id="${t.id}">👥 Asignar</button><button class="btn sec" data-a="editarRutina" data-id="${t.id}">✏️ Editar</button></div>
-       <div class="grid2" style="margin-top:10px"><button class="btn sec" data-a="duplicarRutina" data-id="${t.id}">📄 Duplicar</button><button class="btn no" data-a="borrarRutina" data-id="${t.id}">🗑 Borrar</button></div>`}`);
+  abrirHoja(`<h2>${esc(t.n)}</h2><p class="sub" style="margin:4px 0 4px">${t.dias.length} días · ${esc(t.nivel)}${t.meta ? " · " + esc(t.meta) : ""}</p>
+    ${t.dias.map(D => `<div class="lbl">${esc(D.n)} · ${duracionDia(D)} min</div>${D.ej.map(x => { const e = itemEj(x); return `<div class="fila"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(e.n)}</b><div class="sub">${objetivoTxt(e)}</div></div></div>`; }).join("")}`).join("")}
+    ${modo === "socio" ? `<button class="btn" data-a="usarRutina" data-id="${t.id}" style="margin-top:16px">Usar esta rutina</button>` :
+      `<div class="grid2" style="margin-top:16px"><button class="btn" data-a="asignar" data-id="${t.id}">${ic("socios")} Asignar</button><button class="btn sec" data-a="editarRutina" data-id="${t.id}">${ic("lapiz")} Editar</button></div>
+       <div class="grid2" style="margin-top:10px"><button class="btn sec" data-a="duplicarRutina" data-id="${t.id}">${ic("copiar")} Duplicar</button><button class="btn no" data-a="borrarRutina" data-id="${t.id}">${ic("basura")} Eliminar</button></div>`}`);
 }
 function hojaFicha(id){
   const e = CATALOGO[id]; if (!e) return;
-  abrirHoja(`<h2>${esc(e.n)}</h2><div class="row w" style="margin-top:6px"><span class="chip">🛠️ ${esc(e.eq)}</span><span class="chip">🎯 ${esc(GRUPOS[e.g])}</span></div>
-    ${fotoEj(e)}<p style="margin:10px 0 0">💬 ${esc(e.tip)}</p>`);
+  abrirHoja(`<h2>${esc(e.n)}</h2><div class="row w" style="margin-top:8px;gap:6px"><span class="chip">${ic("herramienta")} ${esc(e.eq)}</span><span class="chip">${ic("objetivo")} ${esc(GRUPOS[e.g])}</span></div>
+    ${fotoEj(e)}<p style="margin:12px 0 0;color:var(--ink2);font-size:14px">${esc(e.tip)}</p>`);
 }
-const fotoEj = e => `<div class="foto"><img src="${rutaFoto(e.img, 0)}" alt=""><img class="b" src="${rutaFoto(e.img, 1)}" alt=""><span class="et a2">① Inicio</span><span class="et b">② Final</span></div>`;
+const fotoEj = e => `<div class="foto"><img src="${rutaFoto(e.img, 0)}" alt=""><img class="b" src="${rutaFoto(e.img, 1)}" alt=""><span class="et a2">INICIO</span><span class="et b">FINAL</span></div>`;
 
 /* ----- Entrenamiento guiado ----- */
 let reloj = null, wake = null;
@@ -625,67 +719,66 @@ function abrirGuia(){ pedirPantalla(); pintarGuia(); }
 function cerrarGuia(){ clearInterval(reloj); reloj = null; try { wake && wake.release(); } catch {} wake = null; cerrarCapa(); cerrarHoja(); render(); }
 function ultimaVez(id){ const h = entrenoDe(YO.id).hist[id]; return h && h.length ? h[h.length - 1] : null; }
 const rangoReps = r => { const p = String(r).split(/[–-]/).map(n => parseInt(n, 10)); return [p[0] || 10, p[p.length - 1] || p[0] || 10]; };
+const pasoKg = e => ["hombros","biceps","triceps"].includes(e.g) ? 1 : 2.5;
 function sugerencia(e){
   const u = ultimaVez(e.id); if (!u || !u.sets.length) return null;
-  const [, rmax] = rangoReps(e.r), kg = Math.max(...u.sets.map(x => x.kg || 0)), paso = ["hombros","biceps","triceps"].includes(e.g) ? 1 : 2.5;
-  const txtU = e.tipo === "pc" ? u.sets.map(x => x.reps).join(" · ") + " reps" : `${fmtKg(kg)} kg × ${u.sets.map(x => x.reps).join(" · ")}`;
+  const [, rmax] = rangoReps(e.r), kg = Math.max(...u.sets.map(x => x.kg || 0)), paso = pasoKg(e);
+  const txtU = e.tipo === "pc" ? u.sets.map(x => x.reps).join(" · ") + " repeticiones" : `${fmtKg(kg)} kg × ${u.sets.map(x => x.reps).join(" · ")}`;
   const todas = u.sets.length >= e.s && u.sets.every(x => x.reps >= rmax);
-  if (e.tipo === "pc") return {txtU, kg:0, txt:todas ? "La vez pasada completaste todo: intentá sumar 1 o 2 repeticiones." : "Buscá sumar al menos una repetición."};
-  return todas ? {txtU, kg:kg + paso, txt:`La vez pasada completaste todo: probá con ${fmtKg(kg + paso)} kg.`} : {txtU, kg, txt:`Repetí ${fmtKg(kg)} kg y buscá sumar una repetición.`};
+  if (e.tipo === "pc") return {txtU, kg:0, txt:todas ? "Completaste todo: intentá sumar 1 o 2 repeticiones." : "Intentá sumar al menos una repetición."};
+  return todas ? {txtU, kg:kg + paso, txt:`Completaste todas las repeticiones: probá con ${fmtKg(kg + paso)} kg.`} : {txtU, kg, txt:`Mantené ${fmtKg(kg)} kg y buscá sumar una repetición.`};
 }
 function pintarGuia(){
   clearInterval(reloj); reloj = null;
   const ss = S(); if (!ss) return cerrarGuia();
   const R = rutinaDe(ss.rid), D = R && R.dias[ss.dia]; if (!D) { entrenoDe(YO.id).sesion = null; guardar(); return cerrarGuia(); }
-  const arriba = `<div class="row"><button class="chip" data-a="gSalir">✕ Salir</button><span class="sp"></span><span class="chip">${esc(D.n)}</span></div>
+  const arriba = `<div class="row">${cerrarX("gSalir")}<span class="sp centro small muted">${esc(D.n)}</span><span style="width:38px"></span></div>
     <div class="prog">${D.ej.map((_, i) => `<i class="${i < ss.i ? "ok" : i === ss.i ? "on" : ""}"></i>`).join("")}</div>`;
   if (ss.descansoHasta) return pintarDescanso(arriba, D);
   if (ss.i >= D.ej.length) return resumenFinal(D);
   let h;
   if (ss.i === -1) {
-    h = `${arriba}<div class="centro" style="padding:14px 0"><div style="font-size:60px">🔥</div><h1>Entrada en calor</h1><p class="muted">10 minutos. Cuida tus articulaciones y rendís más.</p></div>
-      <div class="card"><div class="fila"><span class="av">1</span><div><b>5 min de cardio suave</b><div class="small muted">Bici o cinta, a un ritmo en el que puedas charlar.</div></div></div>
-      <div class="fila"><span class="av">2</span><div><b>3 min de movilidad</b><div class="small muted">Círculos de hombros, cadera, rodillas y muñecas.</div></div></div>
-      <div class="fila"><span class="av">3</span><div><b>1 o 2 series livianas</b><div class="small muted">Del primer ejercicio: ${esc(ejSesion(ss, 0).n)}.</div></div></div></div>
-      <button class="btn" data-a="gArrancar">Listo, arranquemos 💪</button>`;
+    h = `${arriba}<div style="padding:10px 0 16px"><div class="lbl" style="margin:0 0 6px">Antes de empezar</div><h1>Entrada en calor</h1><p class="sub" style="margin:6px 0 0">10 minutos para cuidar las articulaciones y rendir más.</p></div>
+      <div class="card">${[["5 min de cardio suave","Bicicleta o cinta, a un ritmo que te permita hablar."],["3 min de movilidad","Círculos de hombros, cadera, rodillas y muñecas."],["1 o 2 series livianas",`Del primer ejercicio: ${esc(ejSesion(ss, 0).n)}.`]].map(([t, d], k) => `<div class="fila"><span class="av tab">${k + 1}</span><div><b style="font-size:14px">${t}</b><div class="sub">${d}</div></div></div>`).join("")}</div>
+      <button class="btn" data-a="gArrancar">Comenzar entrenamiento</button>`;
   } else {
     const e = ejSesion(ss, ss.i), hechos = ss.sets[e.id] || [], sg = sugerencia(e);
     const kgPrevio = hechos.length ? hechos[hechos.length - 1].kg : sg ? sg.kg : "";
     const [, rmax] = rangoReps(e.r), repsPrevio = hechos.length ? hechos[hechos.length - 1].reps : rmax;
-    const tiempo = e.tipo === "seg" || e.tipo === "min";
-    h = `${arriba}<div class="small muted" style="font-weight:800">EJERCICIO ${ss.i + 1} DE ${D.ej.length}</div>
-      <h1 style="font-size:30px;line-height:1.05;margin:4px 0 8px">${esc(e.n)}</h1>
-      <div class="row w"><span class="chip">🛠️ ${esc(e.eq)}</span>${e.orig ? `<span class="chip ac">🔁 reemplazo</span>` : ""}</div>
-      ${fotoEj(e)}<p class="small" style="margin:8px 0 0">💬 ${esc(e.tip)}</p>
-      <button class="btn no chico" data-a="gCambiar" style="width:100%;margin-top:10px">🔁 La máquina está ocupada / no puedo hacerlo</button>
-      <div class="objetivo"><div><b>${e.tipo === "min" ? "—" : `${Math.min(ss.serie + 1, e.s)}/${e.s}`}</b><small>SERIE</small></div><div><b>${e.tipo === "min" ? e.r + " min" : e.tipo === "seg" ? e.r + " s" : e.r}</b><small>${e.tipo === "min" ? "TIEMPO" : e.tipo === "seg" ? "SOSTENER" : "REPETICIONES"}</small></div></div>
-      ${sg ? `<div class="consejo">🕘 La vez pasada: <b>${sg.txtU}</b><br>💡 ${sg.txt}</div>` : e.tipo === "kg" ? `<div class="consejo">💡 Primera vez: elegí un peso que puedas mover ${e.r} veces con buena técnica, dejando 2 repeticiones de reserva.</div>` : ""}
-      ${tiempo ? `<button class="btn sec" data-a="gCrono" data-t="${e.tipo === "min" ? (+e.r || 10) * 60 : +e.r || 30}" style="margin-top:14px">⏱️ Iniciar ${e.tipo === "min" ? e.r + " minutos" : e.r + " segundos"}</button><div id="crono" class="centro" style="font:800 48px var(--fd);margin-top:8px"></div>` :
-        `${e.tipo === "kg" ? `<div class="lbl">Peso que usaste (kg)</div><div class="num-in"><button data-a="gMas" data-c="gKg" data-d="-${["hombros","biceps","triceps"].includes(e.g) ? 1 : 2.5}">−</button><input id="gKg" type="number" inputmode="decimal" step="0.5" value="${kgPrevio}" placeholder="kg"><button data-a="gMas" data-c="gKg" data-d="${["hombros","biceps","triceps"].includes(e.g) ? 1 : 2.5}">+</button></div>` : ""}
-        <div class="lbl">Repeticiones que hiciste</div><div class="num-in"><button data-a="gMas" data-c="gRep" data-d="-1">−</button><input id="gRep" type="number" inputmode="numeric" value="${repsPrevio}"><button data-a="gMas" data-c="gRep" data-d="1">+</button></div>`}
-      <button class="btn ok" data-a="gSerie" style="margin-top:16px">✓ ${e.tipo === "min" ? "Terminé el cardio" : `Terminé la serie ${Math.min(ss.serie + 1, e.s)}`}</button>
-      ${hechos.length ? `<div class="series">${hechos.map((x, i) => `<div class="serie"><span>Serie ${i + 1}</span><span>${e.tipo === "kg" ? `${fmtKg(x.kg)} kg × ${x.reps}` : e.tipo === "pc" ? `${x.reps} reps` : "✓"}</span></div>`).join("")}</div>` : ""}
-      <div class="row" style="margin-top:14px"><button class="btn sec chico" data-a="gAtras">← Anterior</button><span class="sp"></span><button class="btn sec chico" data-a="gSaltar">Saltar →</button></div>`;
+    const tiempo = e.tipo === "seg" || e.tipo === "min", p = pasoKg(e);
+    h = `${arriba}<div class="lbl" style="margin:0 0 4px">Ejercicio ${ss.i + 1} de ${D.ej.length}</div>
+      <h1>${esc(e.n)}</h1>
+      <div class="row w" style="margin-top:10px;gap:6px"><span class="chip">${ic("herramienta")} ${esc(e.eq)}</span>${e.orig ? `<span class="chip">${ic("cambiar")} Reemplazo</span>` : ""}</div>
+      ${fotoEj(e)}<p style="margin:10px 0 0;font-size:14px;color:var(--ink2)">${esc(e.tip)}</p>
+      <button class="enlace" data-a="gCambiar" style="margin-top:10px">${ic("cambiar")} Máquina ocupada o no puedo hacerlo</button>
+      <div class="objetivo"><div><small>Serie</small><b>${e.tipo === "min" ? "—" : `${Math.min(ss.serie + 1, e.s)} de ${e.s}`}</b></div><div><small>${e.tipo === "min" ? "Tiempo" : e.tipo === "seg" ? "Sostener" : "Repeticiones"}</small><b>${e.tipo === "min" ? e.r + " min" : e.tipo === "seg" ? e.r + " s" : e.r}</b></div></div>
+      ${sg ? `<div class="consejo">Última vez: <b>${sg.txtU}</b><br>${sg.txt}</div>` : e.tipo === "kg" ? `<div class="consejo">Primera vez: elegí un peso que puedas mover ${e.r} veces con buena técnica, dejando 2 repeticiones de reserva.</div>` : ""}
+      ${tiempo ? `<button class="btn sec" data-a="gCrono" data-t="${e.tipo === "min" ? (+e.r || 10) * 60 : +e.r || 30}" style="margin-top:14px">${ic("reloj")} Iniciar ${e.tipo === "min" ? e.r + " minutos" : e.r + " segundos"}</button><div id="crono" class="centro tab" style="font-size:44px;font-weight:700;letter-spacing:-.03em;margin-top:10px"></div>` :
+        `${e.tipo === "kg" ? `<div class="lbl">Peso (kg)</div><div class="num-in"><button data-a="gMas" data-c="gKg" data-d="-${p}" aria-label="Menos">${ic("menos")}</button><input id="gKg" type="number" inputmode="decimal" step="0.5" value="${kgPrevio}" placeholder="0"><button data-a="gMas" data-c="gKg" data-d="${p}" aria-label="Más">${ic("mas")}</button></div>` : ""}
+        <div class="lbl">Repeticiones</div><div class="num-in"><button data-a="gMas" data-c="gRep" data-d="-1" aria-label="Menos">${ic("menos")}</button><input id="gRep" type="number" inputmode="numeric" value="${repsPrevio}"><button data-a="gMas" data-c="gRep" data-d="1" aria-label="Más">${ic("mas")}</button></div>`}
+      <button class="btn ok" data-a="gSerie" style="margin-top:16px">${ic("check")} ${e.tipo === "min" ? "Terminé" : `Registrar serie ${Math.min(ss.serie + 1, e.s)}`}</button>
+      ${hechos.length ? `<div class="series">${hechos.map((x, i) => `<div class="serie"><span>Serie ${i + 1}</span><span>${e.tipo === "kg" ? `${fmtKg(x.kg)} kg × ${x.reps}` : e.tipo === "pc" ? `${x.reps} rep.` : "Completada"}</span></div>`).join("")}</div>` : ""}
+      <div class="row" style="margin-top:14px"><button class="btn ghost chico" data-a="gAtras">${ic("izq")} Anterior</button><span class="sp"></span><button class="btn ghost chico" data-a="gSaltar">Saltar ${ic("der")}</button></div>`;
   }
   abrirCapa(h);
 }
 function pintarDescanso(arriba, D){
   const ss = S(), total = ss.descansoTotal || 60;
   let prox;
-  if (ss.i >= D.ej.length) prox = "¡Era la última serie! 🏁";
-  else if (ss.serie === 0) { const e = ejSesion(ss, ss.i); prox = `Próximo ejercicio:<br><b style="font-size:20px">${esc(e.n)}</b><br><span class="small muted">🛠️ ${esc(e.eq)}</span><br><img class="mini" style="width:140px;height:105px;margin-top:10px" src="${rutaFoto(e.img, 1)}" alt="">`; }
-  else prox = `Próximo: <b>serie ${ss.serie + 1} de ${ejSesion(ss, ss.i).s}</b>`;
-  abrirCapa(`${arriba}<div class="centro"><div class="lbl" style="margin-top:6px">DESCANSO</div>
-    <div class="reloj"><svg width="230" height="230"><circle cx="115" cy="115" r="104" stroke="#1F2023" stroke-width="14" fill="none"/>
-    <circle id="arco" cx="115" cy="115" r="104" stroke="var(--ac)" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="653.5" stroke-dashoffset="0"/></svg>
+  if (ss.i >= D.ej.length) prox = `<b>Última serie completada</b>`;
+  else if (ss.serie === 0) { const e = ejSesion(ss, ss.i); prox = `<div class="sub">Próximo ejercicio</div><b style="font-size:17px">${esc(e.n)}</b><div class="sub">${esc(e.eq)}</div><img class="mini" style="width:150px;height:112px;margin-top:12px;border-radius:12px" src="${rutaFoto(e.img, 1)}" alt="">`; }
+  else prox = `<div class="sub">A continuación</div><b>Serie ${ss.serie + 1} de ${ejSesion(ss, ss.i).s}</b>`;
+  abrirCapa(`${arriba}<div class="centro"><div class="lbl" style="margin-top:10px">Descanso</div>
+    <div class="reloj"><svg width="220" height="220"><circle cx="110" cy="110" r="100" stroke="#212126" stroke-width="8" fill="none"/>
+    <circle id="arco" cx="110" cy="110" r="100" stroke="var(--ac)" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="628.3" stroke-dashoffset="0"/></svg>
     <div class="t"><div><b id="seg">--</b><div class="muted small" id="segU">segundos</div></div></div></div>
-    <p style="font-size:17px">${prox}</p>
-    <div class="row"><button class="btn sec" data-a="gDesc" data-d="-15">−15 s</button><button class="btn sec" data-a="gDesc" data-d="15">+15 s</button></div>
-    <button class="btn" data-a="gYa" style="margin-top:12px">Listo, sigo →</button></div>`);
+    <div style="margin-bottom:18px">${prox}</div>
+    <div class="grid2"><button class="btn sec" data-a="gDesc" data-d="-15">−15 s</button><button class="btn sec" data-a="gDesc" data-d="15">+15 s</button></div>
+    <button class="btn" data-a="gYa" style="margin-top:10px">Continuar ${ic("der")}</button></div>`);
   const tic = () => {
     const q = Math.max(0, Math.ceil((ss.descansoHasta - Date.now()) / 1000)), s = $("#seg"); if (!s) return;
     s.textContent = q >= 60 ? Math.floor(q / 60) + ":" + pad(q % 60) : q; $("#segU").textContent = q >= 60 ? "minutos" : "segundos";
-    $("#arco").setAttribute("stroke-dashoffset", String(653.5 * (1 - q / total)));
+    $("#arco").setAttribute("stroke-dashoffset", String(628.3 * (1 - q / total)));
     s.parentElement.classList.toggle("late", q <= 5 && q > 0);
     if (q === 0) { clearInterval(reloj); reloj = null; sonar("fin"); vibrar([200, 100, 200]); ss.descansoHasta = null; guardar(); pintarGuia(); }
   };
@@ -697,7 +790,7 @@ function crono(seg){
   const b = $("[data-a=gCrono]"); if (b) b.style.display = "none";
   const tic = () => { const q = Math.max(0, Math.ceil((cronoFin - Date.now()) / 1000)), c = $("#crono"); if (!c) { clearInterval(reloj); return; }
     c.textContent = q >= 60 ? Math.floor(q / 60) + ":" + pad(q % 60) : q + " s";
-    if (q === 0) { clearInterval(reloj); reloj = null; sonar("fin"); vibrar([200, 100, 200]); c.textContent = "¡Listo! ✓"; } };
+    if (q === 0) { clearInterval(reloj); reloj = null; sonar("fin"); vibrar([200, 100, 200]); c.textContent = "Listo"; } };
   tic(); reloj = setInterval(tic, 250);
 }
 function accionGuia(a, b){
@@ -711,8 +804,8 @@ function accionGuia(a, b){
   if (a === "gSerie") {
     const e = ejSesion(ss, ss.i);
     let kg = 0, reps = 0;
-    if (e.tipo === "kg") { kg = parseFloat(String($("#gKg").value).replace(",", ".")) || 0; if (!kg) { toast("Anotá el peso que usaste (kg)"); return $("#gKg").focus(); } }
-    if (e.tipo === "kg" || e.tipo === "pc") { reps = parseInt($("#gRep").value, 10) || 0; if (!reps) return toast("Anotá cuántas repeticiones hiciste"); }
+    if (e.tipo === "kg") { kg = parseFloat(String($("#gKg").value).replace(",", ".")) || 0; if (!kg) { toast("Ingresá el peso que usaste", "info"); return $("#gKg").focus(); } }
+    if (e.tipo === "kg" || e.tipo === "pc") { reps = parseInt($("#gRep").value, 10) || 0; if (!reps) return toast("Ingresá las repeticiones", "info"); }
     else reps = +e.r || 0;
     (ss.sets[e.id] = ss.sets[e.id] || []).push({kg, reps});
     sonar("listo"); vibrar(30); ss.serie++;
@@ -730,25 +823,26 @@ function accionGuia(a, b){
 function hojaCambiar(ss){
   const e = ejSesion(ss, ss.i), orig = e.orig || e.id, grupo = CATALOGO[orig].g;
   const otros = Object.entries(CATALOGO).filter(([id, x]) => x.g === grupo && id !== e.id);
-  abrirHoja(`<h2>Cambiar ${esc(e.n)}</h2><p class="muted small" style="margin:4px 0 8px">Mismo músculo (${esc(GRUPOS[grupo])}). El cambio vale solo por hoy.</p>
-    ${e.orig ? `<button class="fila" data-a="gElegir" data-id=""><img class="mini" src="${rutaFoto(CATALOGO[orig].img, 1)}" alt=""><div class="sp"><b>↩ Volver al original</b><div class="small muted">${esc(CATALOGO[orig].n)}</div></div></button>` : ""}
-    ${otros.map(([id, x]) => `<button class="fila" data-a="gElegir" data-id="${id}"><img class="mini" src="${rutaFoto(x.img, 1)}" alt="" loading="lazy"><div class="sp"><b>${esc(x.n)}</b><div class="small muted">🛠️ ${esc(x.eq)}</div></div><span class="muted">›</span></button>`).join("")}`);
+  abrirHoja(`<h2>Reemplazar ejercicio</h2><p class="sub" style="margin:4px 0 6px">Opciones para ${esc(GRUPOS[grupo]).toLowerCase()}. El cambio vale solo para hoy.</p>
+    ${e.orig ? `<button class="fila" data-a="gElegir" data-id=""><img class="mini" src="${rutaFoto(CATALOGO[orig].img, 1)}" alt=""><div class="sp"><b style="font-size:14px">Volver al original</b><div class="sub">${esc(CATALOGO[orig].n)}</div></div></button>` : ""}
+    ${otros.map(([id, x]) => `<button class="fila" data-a="gElegir" data-id="${id}"><img class="mini" src="${rutaFoto(x.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(x.n)}</b><div class="sub">${esc(x.eq)}</div></div><span class="der">${ic("der")}</span></button>`).join("")}`);
 }
 function resumenFinal(D){
   const ss = S(); let vol = 0, series = 0;
   Object.entries(ss.sets).forEach(([id, a]) => a.forEach(x => { vol += (x.kg || 0) * x.reps; series++; }));
   const min = Math.max(1, Math.round((Date.now() - ss.desde) / 60000));
-  abrirCapa(`<div class="centro" style="padding-top:30px"><div style="font-size:80px">🏆</div><h1>¡Terminaste!</h1><p class="muted">${esc(D.n)}</p>
-    <div class="stats" style="margin:18px 0"><div class="stat"><b>${series}</b><small>series</small></div><div class="stat"><b>${Math.round(vol).toLocaleString("es-AR")}</b><small>kg movidos</small></div><div class="stat"><b>${min}</b><small>minutos</small></div></div>
-    <div class="consejo" style="text-align:left">💧 Tomá agua y comé algo con proteína en las próximas horas. ¡Nos vemos la próxima!</div>
-    <button class="btn ok" data-a="gTerminar" style="margin-top:16px">Guardar y salir</button></div>`);
+  abrirCapa(`<div class="centro" style="padding-top:40px"><div class="circ" style="width:88px;height:88px;border-radius:50%;display:grid;place-items:center;margin:0 auto 20px;background:rgba(34,197,94,.14);color:var(--ok)">${ic("check", 'style="width:42px;height:42px;stroke-width:2.4"')}</div>
+    <h1>Entrenamiento completado</h1><p class="muted" style="margin:6px 0 0">${esc(D.n)}</p></div>
+    <div class="kpis" style="margin:26px 0 12px"><div class="kpi"><span class="v">${series}</span><span class="l">series</span></div><div class="kpi"><span class="v">${Math.round(vol).toLocaleString("es-AR")}</span><span class="l">kg movidos</span></div><div class="kpi"><span class="v">${min}</span><span class="l">minutos</span></div></div>
+    <div class="consejo">Hidratate y sumá una comida con proteína en las próximas horas.</div>
+    <button class="btn" data-a="gTerminar" style="margin-top:18px">Guardar y salir</button>`);
 }
 function terminar(){
   const s = socioYo(), E = entrenoDe(s.id), ss = E.sesion, R = rutinaDe(ss.rid);
   Object.entries(ss.sets).forEach(([id, sets]) => { if (!sets.length) return; (E.hist[id] = E.hist[id] || []).push({f:ss.f, sets}); if (E.hist[id].length > 30) E.hist[id].shift(); });
   E.dias[ss.f] = R.dias[ss.dia].n;
   if (s.rutina && s.rutina.id === ss.rid) s.rutina.sig = (ss.dia + 1) % R.dias.length;
-  E.sesion = null; guardar(); sonar("fin"); vibrar([80, 60, 80]); cerrarGuia(); toast("💪 Entrenamiento guardado");
+  E.sesion = null; guardar(); sonar("fin"); vibrar([80, 60, 80]); cerrarGuia(); toast("Entrenamiento guardado");
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden && YO && YO.rol === "socio" && $("#capa .capa") && S()) { pedirPantalla(); pintarGuia(); } });
 
@@ -756,14 +850,14 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden && YO
 function pClases(){
   const s = socioYo(), f = sumarDias(hoyStr(), diaClase), dow = deStr(f).getDay();
   const cs = DB.clases.filter(c => c.dias.includes(dow)).sort((a, b) => a.h.localeCompare(b.h));
-  return cabecera("Clases") + `<div class="chips">${Array.from({length:7}, (_, k) => { const d = deStr(sumarDias(hoyStr(), k)); return `<button data-a="diaClase" data-k="${k}" class="${k === diaClase ? "on" : ""}">${k === 0 ? "Hoy" : k === 1 ? "Mañana" : DIA3[d.getDay()] + " " + d.getDate()}</button>`; }).join("")}</div>
+  return cabecera("Clases", "Reservá tu lugar hasta con una semana de anticipación.") + `<div class="chips">${Array.from({length:7}, (_, k) => { const d = deStr(sumarDias(hoyStr(), k)); return `<button data-a="diaClase" data-k="${k}" class="${k === diaClase ? "on" : ""}">${k === 0 ? "Hoy" : k === 1 ? "Mañana" : DIA3[d.getDay()] + " " + d.getDate()}</button>`; }).join("")}</div>
+    ${estadoCuota(s).k === "venc" ? `<div class="consejo rojo small" style="margin:0 0 12px">Con la cuota vencida no se pueden reservar clases.</div>` : ""}
     ${cs.length ? cs.map(c => {
       const res = claseReservas(c.id, f), mia = res.includes(s.id), lleno = res.length >= c.cupo, paso = claseYaPaso(c, f);
-      return `<div class="clase ${mia ? "mia" : ""}"><div class="ico">${c.ico}</div><div class="sp"><b>${esc(c.n)} · ${c.h}</b><div class="small muted">${c.dur} min · Profe ${esc(c.profe)}</div>
-        <div class="barra" style="height:6px;margin-top:6px"><i style="width:${res.length / c.cupo * 100}%;${lleno ? "background:var(--rojo)" : ""}"></i></div><div class="small muted" style="margin-top:3px">${res.length}/${c.cupo} lugares</div></div>
-        ${paso ? `<span class="pill" style="background:var(--s1);color:var(--muted)">Ya pasó</span>` : mia ? `<button class="btn sec chico" data-a="cancelarClase" data-id="${c.id}" data-f="${f}">Cancelar</button>` : lleno ? `<span class="pill p-venc">Lleno</span>` : `<button class="btn chico" data-a="reservar" data-id="${c.id}" data-f="${f}">Reservar</button>`}</div>`;
-    }).join("") : `<div class="card centro muted">No hay clases este día.</div>`}
-    ${estadoCuota(s).k === "venc" ? `<div class="consejo rojo small">💳 Con la cuota vencida no se pueden reservar clases.</div>` : ""}`;
+      return `<div class="clase ${mia ? "mia" : ""}"><div class="ico">${ic(c.ico)}</div><div class="sp"><b>${esc(c.n)}</b><div class="sub tab">${c.h} h · ${c.dur} min · ${esc(c.profe)}</div>
+        <div class="row" style="margin-top:8px;gap:8px"><div class="barra sp"><i style="width:${res.length / c.cupo * 100}%;${lleno ? "background:var(--rojo)" : ""}"></i></div><span class="sub tab">${res.length}/${c.cupo}</span></div></div>
+        ${paso ? `<span class="pill p-gris">Finalizada</span>` : mia ? `<button class="btn ghost chico" data-a="cancelarClase" data-id="${c.id}" data-f="${f}">Cancelar</button>` : lleno ? `<span class="pill p-venc">Completa</span>` : `<button class="btn chico" data-a="reservar" data-id="${c.id}" data-f="${f}">Reservar</button>`}</div>`;
+    }).join("") : `<div class="card centro sub">No hay clases programadas para este día.</div>`}`;
 }
 
 /* ================= SOCIO: PROGRESO ================= */
@@ -773,10 +867,10 @@ function pProgreso(){
   // semanas seguidas con al menos una visita
   let racha = 0; for (let w = 0; w < 52; w++) { const fin = Date.now() - w * 7 * 864e5, ini = fin - 7 * 864e5; if (DB.asistencias.some(a => a.s === s.id && a.t > ini && a.t <= fin) || Object.keys(E.dias).some(f => { const t = deStr(f).getTime(); return t > ini && t <= fin; })) racha++; else break; }
   const rec = Object.entries(E.hist).map(([id, h]) => { const c = CATALOGO[id]; if (!c || c.tipo && c.tipo !== "kg") return null; let best = null; h.forEach(x => x.sets.forEach(y => { if (!best || y.kg > best.kg) best = {kg:y.kg, reps:y.reps, f:x.f}; })); return best && {id, n:c.n, img:c.img, ...best}; }).filter(Boolean).sort((a, b) => b.kg - a.kg).slice(0, 8);
-  return cabecera("Tu progreso") + `<div class="stats" style="margin-bottom:14px"><div class="stat"><b>${visMes}</b><small>visitas este mes</small></div><div class="stat"><b>${total}</b><small>entrenamientos</small></div><div class="stat"><b>${racha}</b><small>semanas seguidas</small></div></div>
-    <div class="card"><b>🗓️ ${MES[new Date().getMonth()][0].toUpperCase() + MES[new Date().getMonth()].slice(1)}</b>${calendario(s.id)}<div class="small muted" style="margin-top:8px">Pintado = viniste · 💪 = entrenaste con la app</div></div>
-    <div class="card"><b>🥇 Tus mejores marcas</b>${rec.length ? rec.map(r => `<div class="fila"><img class="mini" src="${rutaFoto(r.img, 1)}" alt="" loading="lazy"><div class="sp"><b>${esc(r.n)}</b><div class="small muted">${fCorta(r.f)}</div></div><b style="font:800 22px var(--fd)">${fmtKg(r.kg)} kg</b></div>`).join("") : `<p class="muted small">Cuando entrenes con la app, acá aparecen tus récords.</p>`}</div>
-    <button class="btn sec" data-a="salir">Cerrar sesión</button>`;
+  return cabecera("Progreso") + `<div class="kpis"><div class="kpi"><span class="v">${visMes}</span><span class="l">visitas en el mes</span></div><div class="kpi"><span class="v">${total}</span><span class="l">entrenamientos</span></div><div class="kpi"><span class="v">${racha}</span><span class="l">semanas seguidas</span></div></div>
+    <div class="card"><div class="ct">${ic("calendario")} ${may(MES[new Date().getMonth()])}</div>${calendario(s.id)}<div class="row small muted" style="margin-top:12px;gap:14px"><span class="row" style="gap:6px"><span class="dot" style="background:var(--acSoft);box-shadow:inset 0 0 0 1px var(--line2)"></span>Visita</span><span class="row" style="gap:6px"><span class="dot" style="background:var(--ok);width:6px;height:6px"></span>Entrenamiento registrado</span></div></div>
+    <div class="card"><div class="ct">${ic("trofeo")} Mejores marcas</div>${rec.length ? rec.map(r => `<div class="fila"><img class="mini" src="${rutaFoto(r.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(r.n)}</b><div class="sub tab">${fCorta(r.f)}</div></div><b class="tab" style="font-size:17px">${fmtKg(r.kg)} kg</b></div>`).join("") : `<p class="sub" style="margin:8px 0 0">Tus récords aparecen cuando entrenes con la app.</p>`}</div>
+    <button class="btn ghost" data-a="salir">${ic("salir")} Cerrar sesión</button>`;
 }
 function calendario(sid){
   const hoy = new Date(), y = hoy.getFullYear(), m = hoy.getMonth(), dias = new Date(y, m + 1, 0).getDate(), off = (new Date(y, m, 1).getDay() + 6) % 7;
@@ -791,30 +885,30 @@ function pPanel(){
   const act = DB.socios.filter(s => estadoCuota(s).k !== "venc").length, venc = DB.socios.filter(s => estadoCuota(s).k === "venc").length;
   const pronto = DB.socios.filter(s => estadoCuota(s).k === "pronto").length, hoy0 = inicioDia();
   const hoyE = DB.asistencias.filter(a => a.t >= hoy0 && a.t <= Date.now());
-  const o = nivelOcupacion();
-  return cabecera("Panel del gimnasio") + `
-    <div class="grid2" style="margin-bottom:10px"><button class="btn" data-a="hojaEntrada">✅ Registrar entrada</button><button class="btn sec" data-a="nuevoSocio">＋ Nuevo socio</button></div>
-    <div class="stats" style="margin-bottom:8px">
-      <button class="stat" data-a="verSocios" data-f="todos"><b>${act}</b><small>socios activos</small></button>
-      <div class="stat"><b style="color:${o.col}">${o.n}</b><small>en el gym ahora</small></div>
-      <div class="stat"><b>${hoyE.length}</b><small>entradas hoy</small></div></div>
-    <div class="stats" style="margin-bottom:14px">
-      <button class="stat" data-a="verSocios" data-f="venc" style="border-color:#FF5C5C55"><b style="color:#FF8A8A">${venc}</b><small>cuotas vencidas</small></button>
-      <button class="stat" data-a="verSocios" data-f="pronto" style="border-color:#FFC24B55"><b style="color:var(--amar)">${pronto}</b><small>vencen pronto</small></button>
-      <div class="stat"><b style="font-size:21px;line-height:1.35">${plata(ingresosMes())}</b><small>cobrado en ${MES[new Date().getMonth()]}</small></div></div>
-    ${venc + pronto ? `<button class="btn wa" data-a="recordatorios" style="margin-bottom:14px">💬 Recordar cuotas por WhatsApp (${venc + pronto})</button>` : ""}
-    <div class="card"><b>📈 Entradas de los últimos 14 días</b>${graficoDias()}</div>
-    <div class="card"><b>🕐 Horas pico (${plural(DIA[new Date().getDay()].toLowerCase())})</b><p class="small muted" style="margin:2px 0 0">Promedio de entradas por hora, últimas 4 semanas.</p>${graficoHoras()}</div>
-    <div class="card"><b>🚪 Últimas entradas</b>${hoyE.slice(-6).reverse().map(a => { const s = socio(a.s); return s ? `<button class="fila" data-a="verSocio" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b>${esc(s.nombre)}</b><div class="small muted">${new Date(a.t).toLocaleTimeString("es-AR", {hour:"2-digit", minute:"2-digit"})}</div></div>${pillCuota(s)}</button>` : ""; }).join("") || `<p class="muted small">Todavía no entró nadie hoy.</p>`}</div>`;
+  const o = nivelOcupacion(), fecha = new Date().toLocaleDateString("es-AR", {weekday:"long", day:"numeric", month:"long"});
+  return cabecera("Panel", may(fecha)) + `
+    <div class="grid2" style="margin-bottom:12px"><button class="btn" data-a="hojaEntrada">${ic("entrar")} Entrada</button><button class="btn sec" data-a="nuevoSocio">${ic("mas")} Nuevo socio</button></div>
+    <div class="kpis" style="margin-bottom:8px">
+      <button class="kpi" data-a="verSocios" data-f="todos"><span class="v">${act}</span><span class="l">Socios activos</span></button>
+      <div class="kpi"><span class="v">${o.n}</span><span class="l"><span class="dot" style="background:${o.col};width:6px;height:6px"></span>En el gimnasio</span></div>
+      <div class="kpi"><span class="v">${hoyE.length}</span><span class="l">Entradas hoy</span></div></div>
+    <div class="kpis">
+      <button class="kpi" data-a="verSocios" data-f="venc"><span class="v" style="color:var(--rojoT)">${venc}</span><span class="l">Cuotas vencidas</span></button>
+      <button class="kpi" data-a="verSocios" data-f="pronto"><span class="v" style="color:var(--amarT)">${pronto}</span><span class="l">Vencen pronto</span></button>
+      <div class="kpi"><span class="v" style="font-size:18px;line-height:1.5">${plata(ingresosMes())}</span><span class="l">Cobrado en ${MES[new Date().getMonth()]}</span></div></div>
+    ${venc + pronto ? `<button class="btn sec" data-a="recordatorios" style="margin-bottom:12px">${ic("mensaje")} Enviar recordatorios de cuota (${venc + pronto})</button>` : ""}
+    <div class="card"><div class="ct">${ic("panel")} Entradas · últimos 14 días</div>${graficoDias()}</div>
+    <div class="card"><div class="ct">${ic("reloj")} Horas pico · ${plural(DIA[new Date().getDay()].toLowerCase())}</div><p class="sub" style="margin:4px 0 0">Promedio de entradas por hora en las últimas 4 semanas.</p>${graficoHoras()}</div>
+    <div class="card"><div class="ct">${ic("entrar")} Últimas entradas</div>${hoyE.slice(-6).reverse().map(a => { const s = socio(a.s); return s ? `<button class="fila" data-a="verSocio" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b style="font-size:14px">${esc(s.nombre)}</b><div class="sub tab">${hora(a.t)} h</div></div>${pillCuota(s)}</button>` : ""; }).join("") || `<p class="sub" style="margin:8px 0 0">Todavía no hay entradas hoy.</p>`}</div>`;
 }
 function barras(vals, etiquetas, resaltar){
-  const W = 560, H = 150, n = vals.length, max = Math.max(1, ...vals), bw = W / n;
-  return `<svg class="graf" viewBox="0 -18 ${W} ${H + 40}" style="margin-top:10px">${vals.map((v, i) => { const h = Math.round(v / max * H); return `<rect x="${i * bw + 3}" y="${H - h}" width="${bw - 6}" height="${Math.max(h, 2)}" rx="5" fill="${i === resaltar ? "var(--ac2)" : "var(--ac)"}" opacity="${i === resaltar ? 1 : .55}"/>
-    ${v ? `<text x="${i * bw + bw / 2}" y="${H - h - 4}" text-anchor="middle" font-size="13" font-weight="800" fill="#9A9EA6">${Math.round(v)}</text>` : ""}<text x="${i * bw + bw / 2}" y="${H + 17}" text-anchor="middle" font-size="12" font-weight="700" fill="#9A9EA6">${etiquetas[i]}</text>`; }).join("")}</svg>`;
+  const W = 560, H = 140, n = vals.length, max = Math.max(1, ...vals), bw = W / n;
+  return `<svg class="graf" viewBox="0 -18 ${W} ${H + 40}" style="margin-top:14px">${vals.map((v, i) => { const h = Math.round(v / max * H); return `<rect x="${i * bw + bw * .18}" y="${H - h}" width="${bw * .64}" height="${Math.max(h, 2)}" rx="4" fill="var(--ac)" opacity="${i === resaltar ? 1 : .32}"/>
+    ${v && (i === resaltar || v === max) ? `<text x="${i * bw + bw / 2}" y="${H - h - 6}" text-anchor="middle" font-size="12" font-weight="600" fill="#D4D4D8" font-family="Inter,sans-serif">${Math.round(v)}</text>` : ""}<text x="${i * bw + bw / 2}" y="${H + 17}" text-anchor="middle" font-size="11" fill="#8B8B94" font-family="Inter,sans-serif">${etiquetas[i]}</text>`; }).join("")}</svg>`;
 }
 function graficoDias(){
   const vals = [], et = [];
-  for (let k = 13; k >= 0; k--) { const f = sumarDias(hoyStr(), -k), t0 = deStr(f).setHours(0, 0, 0, 0), t1 = t0 + 864e5; vals.push(DB.asistencias.filter(a => a.t >= t0 && a.t < t1 && a.t <= Date.now()).length); et.push(DIA3[deStr(f).getDay()][0] + deStr(f).getDate()); }
+  for (let k = 13; k >= 0; k--) { const f = sumarDias(hoyStr(), -k), t0 = deStr(f).setHours(0, 0, 0, 0), t1 = t0 + 864e5; vals.push(DB.asistencias.filter(a => a.t >= t0 && a.t < t1 && a.t <= Date.now()).length); et.push(deStr(f).getDate()); }
   return barras(vals, et, 13);
 }
 function graficoHoras(){
@@ -823,62 +917,63 @@ function graficoHoras(){
   return barras(vals, et, d.getHours() - h[0]);
 }
 function resultadosEntrada(q){
-  q = (q || "").trim().toLowerCase(); if (!q) return `<p class="muted small">Escribí el nombre o el DNI.</p>`;
+  q = (q || "").trim().toLowerCase(); if (!q) return `<p class="sub" style="margin:10px 0 0">Buscá por nombre o DNI.</p>`;
   const r = DB.socios.filter(s => s.nombre.toLowerCase().includes(q) || s.dni.includes(q)).slice(0, 8);
-  return r.map(s => `<button class="fila" data-a="entradaDe" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b>${esc(s.nombre)}</b><div class="small muted">DNI ${esc(s.dni)}</div></div>${pillCuota(s)}</button>`).join("") || `<p class="muted small">No hay socios con ese nombre o DNI.</p>`;
+  return r.map(s => `<button class="fila" data-a="entradaDe" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b style="font-size:14px">${esc(s.nombre)}</b><div class="sub tab">DNI ${esc(s.dni)}</div></div>${pillCuota(s)}</button>`).join("") || `<p class="sub" style="margin:10px 0 0">No hay socios que coincidan.</p>`;
 }
 function hojaEntrada(){
-  abrirHoja(`<h2>✅ Registrar entrada</h2>${"BarcodeDetector" in window ? `<button class="btn sec" data-a="escanear" data-modo="staff" style="margin-top:12px">📷 Escanear pase QR</button>` : ""}
-    <input class="campo" id="buscaEntrada" placeholder="🔎 Nombre o DNI" style="margin-top:12px" autocomplete="off"><div id="resEntrada" style="margin-top:6px">${resultadosEntrada("")}</div>`);
+  abrirHoja(`<h2>Registrar entrada</h2>${"BarcodeDetector" in window ? `<button class="btn sec" data-a="escanear" data-modo="staff" style="margin-top:14px">${ic("qr")} Escanear pase QR</button>` : ""}
+    <div class="buscar" style="margin-top:12px">${ic("buscar")}<input class="campo" id="buscaEntrada" placeholder="Nombre o DNI" autocomplete="off"></div><div id="resEntrada" style="margin-top:4px">${resultadosEntrada("")}</div>`);
   setTimeout(() => { const i = $("#buscaEntrada"); i && i.focus(); }, 150);
 }
 function confirmarEntrada(sid, forzar){
   const s = socio(sid), c = estadoCuota(s);
-  if (c.k === "venc" && !forzar) return abrirHoja(`<div class="centro"><div style="font-size:56px">💳</div><h2>${esc(s.nombre)}</h2><p style="color:#FF8A8A;font-size:18px;margin:6px 0 14px">Cuota ${c.txt.toLowerCase()}</p></div>
-    <button class="btn ok" data-a="pagar" data-id="${s.id}">💵 Cobrar ahora</button><button class="btn sec" data-a="entradaForzada" data-id="${s.id}" style="margin-top:10px">Dejar pasar igual</button>`);
+  if (c.k === "venc" && !forzar) return abrirHoja(`<div class="centro" style="padding-top:6px"><div style="width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;background:rgba(239,68,68,.14);color:var(--rojo)">${ic("tarjeta", 'style="width:30px;height:30px"')}</div><h2>${esc(s.nombre)}</h2><p style="color:var(--rojoT);margin:6px 0 18px">Cuota ${c.txt.toLowerCase()}</p></div>
+    <button class="btn" data-a="pagar" data-id="${s.id}">${ic("dinero")} Cobrar cuota</button><button class="btn ghost" data-a="entradaForzada" data-id="${s.id}" style="margin-top:10px">Permitir el ingreso igualmente</button>`);
   const nueva = registrarEntrada(s.id); cerrarHoja(); sonar("listo");
-  toast(nueva ? `✅ Entrada de ${s.nombre.split(" ")[0]} registrada · ${c.corto}` : `${s.nombre.split(" ")[0]} ya entró hace un rato`);
+  toast(nueva ? `Entrada registrada: ${s.nombre.split(" ")[0]} · ${c.corto}` : `${s.nombre.split(" ")[0]} ya había ingresado hoy`, nueva ? "check" : "info");
   if (pestana === "panel") render();
 }
 function hojaRecordatorios(){
   const l = DB.socios.filter(s => estadoCuota(s).k !== "ok").sort((a, b) => a.vence.localeCompare(b.vence));
-  abrirHoja(`<h2>💬 Recordar cuotas</h2><p class="muted small" style="margin:4px 0 8px">Tocá cada uno: se abre WhatsApp con el mensaje listo para enviar.</p>
-    ${l.map(s => `<a class="fila" style="color:inherit;text-decoration:none" target="_blank" rel="noopener" data-a="waEnviado" data-id="${s.id}" href="${linkWa(s.tel, mensajeCuota(s))}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b>${esc(s.nombre)}</b><div class="small muted">${estadoCuota(s).txt}</div></div><span class="chip" id="wa-${s.id}">💬 Enviar</span></a>`).join("")}`);
+  abrirHoja(`<h2>Recordatorios de cuota</h2><p class="sub" style="margin:4px 0 6px">Cada uno abre WhatsApp con el mensaje listo para enviar.</p>
+    ${l.map(s => `<a class="fila" target="_blank" rel="noopener" data-a="waEnviado" data-id="${s.id}" href="${linkWa(s.tel, mensajeCuota(s))}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b style="font-size:14px">${esc(s.nombre)}</b><div class="sub">${estadoCuota(s).txt}</div></div><span class="chip" id="wa-${s.id}">${ic("mensaje")} Enviar</span></a>`).join("")}`);
 }
 
 /* ================= GIMNASIO: SOCIOS ================= */
 function pSocios(){
   const n = k => DB.socios.filter(s => k === "todos" || estadoCuota(s).k === k).length;
-  return cabecera(`${DB.socios.length} socios`) + `<div class="row" style="margin-bottom:10px"><input class="campo" id="busca" placeholder="🔎 Buscar por nombre o DNI" value="${esc(busca)}" autocomplete="off"><button class="btn chico" data-a="nuevoSocio" style="flex:none">＋</button></div>
-    <div class="chips">${[["todos","Todos"],["ok","Al día"],["pronto","Por vencer"],["venc","Vencidas"]].map(([k, t]) => `<button data-a="filtro" data-f="${k}" class="${filtroSocios === k ? "on" : ""}">${t} (${n(k)})</button>`).join("")}</div>
-    <div class="card" id="listaSocios" style="padding:4px 14px">${listaSocios()}</div>`;
+  return cabecera("Socios", `${DB.socios.length} registrados`, `<button class="ibtn" data-a="nuevoSocio" aria-label="Nuevo socio">${ic("mas")}</button>`) +
+    `<div class="buscar" style="margin-bottom:12px">${ic("buscar")}<input class="campo" id="busca" placeholder="Buscar por nombre o DNI" value="${esc(busca)}" autocomplete="off"></div>
+    <div class="chips">${[["todos","Todos"],["ok","Al día"],["pronto","Por vencer"],["venc","Vencidas"]].map(([k, t]) => `<button data-a="filtro" data-f="${k}" class="${filtroSocios === k ? "on" : ""}">${t} <span style="opacity:.6">${n(k)}</span></button>`).join("")}</div>
+    <div class="card" id="listaSocios" style="padding:2px 16px">${listaSocios()}</div>`;
 }
 function listaSocios(){
   const q = busca.trim().toLowerCase();
   const l = DB.socios.filter(s => (filtroSocios === "todos" || estadoCuota(s).k === filtroSocios) && (!q || s.nombre.toLowerCase().includes(q) || s.dni.includes(q)))
     .sort((a, b) => filtroSocios === "todos" ? a.nombre.localeCompare(b.nombre) : a.vence.localeCompare(b.vence));
-  return l.slice(0, 150).map(s => `<button class="fila" data-a="verSocio" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b>${esc(s.nombre)}</b><div class="small muted">${esc(planDe(s).n)}</div></div>${pillCuota(s)}</button>`).join("") || `<p class="muted small">No hay socios acá.</p>`;
+  return l.slice(0, 150).map(s => `<button class="fila" data-a="verSocio" data-id="${s.id}"><span class="av">${inicial(s.nombre)}</span><div class="sp"><b style="font-size:14px">${esc(s.nombre)}</b><div class="sub">${esc(planDe(s).n)}</div></div>${pillCuota(s)}</button>`).join("") || `<p class="sub" style="padding:14px 0">No hay socios en esta lista.</p>`;
 }
 let confirmarBaja = null;
 function hojaSocio(id){
   const s = socio(id); if (!s) return;
   const c = estadoCuota(s), R = s.rutina && rutinaDe(s.rutina.id), ult = DB.asistencias.filter(a => a.s === id).pop();
-  abrirHoja(`<div class="row"><span class="av" style="width:52px;height:52px;font-size:20px">${inicial(s.nombre)}</span><div class="sp"><h2>${esc(s.nombre)}</h2><div class="small muted">DNI ${esc(s.dni)} · 📱 ${esc(s.tel)}</div></div></div>
-    <div class="card" style="margin-top:12px;background:var(--s2)"><div class="row"><div class="sp"><div class="small muted">${esc(planDe(s).n)} · ${plata(planDe(s).precio)}</div><b style="color:${c.col};font-size:19px">${c.txt}</b></div></div></div>
-    <div class="stats" style="margin-bottom:12px"><div class="stat"><b>${entradasDe(id, inicioMes()).length}</b><small>visitas en el mes</small></div><div class="stat"><b style="font-size:18px;line-height:1.45">${ult ? fCorta(fstr(new Date(ult.t))) : "—"}</b><small>última visita</small></div><div class="stat"><b style="font-size:18px;line-height:1.45">${fCorta(s.alta)}</b><small>socio desde</small></div></div>
-    <div class="grid2"><button class="btn ok" data-a="pagar" data-id="${id}">💵 Cobrar cuota</button><a class="btn wa" style="text-decoration:none" target="_blank" rel="noopener" href="${linkWa(s.tel, mensajeCuota(s))}">💬 WhatsApp</a></div>
-    <div class="lbl">Rutina</div><button class="fila" data-a="elegirRutinaSocio" data-id="${id}" style="background:var(--s2);border-radius:14px;padding:12px"><span style="font-size:24px">📋</span><div class="sp"><b>${R ? esc(R.n) : "Sin rutina asignada"}</b><div class="small muted">${R ? `${R.dias.length} días · ${s.rutina.por === "profe" ? "asignada por el gimnasio" : "elegida por el socio"}` : "Tocá para asignarle una"}</div></div><span class="muted">›</span></button>
-    <div class="grid2" style="margin-top:12px"><button class="btn sec" data-a="entradaDe" data-id="${id}">✅ Entrada</button><button class="btn sec" data-a="editarSocio" data-id="${id}">✏️ Editar</button></div>
-    <button class="btn no" data-a="bajaSocio" data-id="${id}" style="margin-top:10px">${confirmarBaja === id ? "⚠️ Tocá de nuevo para dar de baja" : "🗑 Dar de baja"}</button>`);
+  abrirHoja(`<div class="row"><span class="av" style="width:48px;height:48px;font-size:16px;border-radius:12px">${inicial(s.nombre)}</span><div class="sp"><h2>${esc(s.nombre)}</h2><div class="sub tab">DNI ${esc(s.dni)} · ${esc(s.tel)}</div></div></div>
+    <div class="row" style="margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--s2);border:1px solid var(--line)"><div class="sp"><div class="sub">${esc(planDe(s).n)} · ${plata(planDe(s).precio)}</div><b style="color:${c.col}">${c.txt}</b></div></div>
+    <div class="kpis" style="margin:10px 0 12px"><div class="kpi"><span class="v">${entradasDe(id, inicioMes()).length}</span><span class="l">visitas en el mes</span></div><div class="kpi"><span class="v" style="font-size:17px;line-height:1.55">${ult ? fCorta(fstr(new Date(ult.t))) : "—"}</span><span class="l">última visita</span></div><div class="kpi"><span class="v" style="font-size:17px;line-height:1.55">${fCorta(s.alta)}</span><span class="l">socio desde</span></div></div>
+    <div class="grid2"><button class="btn" data-a="pagar" data-id="${id}">${ic("dinero")} Cobrar cuota</button><a class="btn sec" target="_blank" rel="noopener" href="${linkWa(s.tel, mensajeCuota(s))}">${ic("mensaje")} WhatsApp</a></div>
+    <div class="lbl">Rutina</div><button class="fila" data-a="elegirRutinaSocio" data-id="${id}" style="background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:12px"><span class="av">${ic("rutina")}</span><div class="sp"><b style="font-size:14px">${R ? esc(R.n) : "Sin rutina asignada"}</b><div class="sub">${R ? `${R.dias.length} días · ${s.rutina.por === "profe" ? "asignada por el gimnasio" : "elegida por el socio"}` : "Tocá para asignar una"}</div></div><span class="der">${ic("der")}</span></button>
+    <div class="grid2" style="margin-top:12px"><button class="btn sec" data-a="entradaDe" data-id="${id}">${ic("entrar")} Entrada</button><button class="btn sec" data-a="editarSocio" data-id="${id}">${ic("lapiz")} Editar</button></div>
+    <button class="btn no" data-a="bajaSocio" data-id="${id}" style="margin-top:10px">${confirmarBaja === id ? "Confirmar baja del socio" : "Dar de baja"}</button>`);
 }
 let pagoMetodo = "Efectivo";
 function hojaPago(id){
   const s = socio(id), p = planDe(s), base = s.vence < hoyStr() ? hoyStr() : s.vence;
-  abrirHoja(`<h2>💵 Cobrar cuota</h2><p class="muted" style="margin:4px 0 0">${esc(s.nombre)} · ${esc(p.n)}</p>
-    <div class="lbl">Monto</div><input class="campo" id="pMonto" type="number" inputmode="numeric" value="${p.precio}">
-    <div class="lbl">Cómo pagó</div><div class="seg">${["Efectivo","Transferencia","Mercado Pago"].map(m => `<button data-a="metodo" data-m="${m}" class="${m === pagoMetodo ? "on" : ""}">${m}</button>`).join("")}</div>
-    <div class="consejo">📅 Nuevo vencimiento: <b>${fCorta(sumarMes(base))}</b>${s.vence < hoyStr() ? " (cuenta desde hoy)" : ""}</div>
-    <button class="btn ok" data-a="confirmarPago" data-id="${id}" style="margin-top:14px">✓ Registrar pago</button>`);
+  abrirHoja(`<h2>Cobrar cuota</h2><p class="sub" style="margin:4px 0 0">${esc(s.nombre)} · ${esc(p.n)}</p>
+    <div class="lbl">Monto</div><input class="campo tab" id="pMonto" type="number" inputmode="numeric" value="${p.precio}">
+    <div class="lbl">Medio de pago</div><div class="seg">${["Efectivo","Transferencia","Mercado Pago"].map(m => `<button data-a="metodo" data-m="${m}" class="${m === pagoMetodo ? "on" : ""}">${m}</button>`).join("")}</div>
+    <div class="consejo">Nuevo vencimiento: <b>${fCorta(sumarMes(base))}</b>${s.vence < hoyStr() ? " (se cuenta desde hoy)" : ""}</div>
+    <button class="btn ok" data-a="confirmarPago" data-id="${id}" style="margin-top:16px">${ic("check")} Registrar pago</button>`);
 }
 function hojaFormSocio(id){
   const s = id ? socio(id) : {nombre:"", dni:"", tel:"", plan:DB.planes[0].id, vence:sumarMes(hoyStr()), rutina:null};
@@ -888,47 +983,47 @@ function hojaFormSocio(id){
     <div class="lbl">Plan</div><select class="campo" id="fPlan">${DB.planes.map(p => `<option value="${p.id}" ${p.id === s.plan ? "selected" : ""}>${esc(p.n)} · ${plata(p.precio)}</option>`).join("")}</select>
     <div class="lbl">Cuota paga hasta</div><input class="campo" id="fVence" type="date" value="${s.vence}">
     ${id ? "" : `<div class="lbl">Rutina</div><select class="campo" id="fRutina"><option value="">Sin rutina por ahora</option>${DB.rutinas.map(t => `<option value="${t.id}">${esc(t.n)}</option>`).join("")}</select>
-      <label class="row small" style="margin-top:12px"><input type="checkbox" id="fPago" checked style="width:20px;height:20px"> Registrar el pago del primer mes</label>`}
-    <button class="btn ok" data-a="guardarSocio" data-id="${id || ""}" style="margin-top:16px">✓ Guardar</button>`);
+      <label class="row small" style="margin-top:14px;color:var(--ink2)"><input type="checkbox" id="fPago" checked style="width:18px;height:18px;accent-color:var(--ac)"> Registrar el pago del primer mes</label>`}
+    <button class="btn" data-a="guardarSocio" data-id="${id || ""}" style="margin-top:18px">Guardar</button>`);
 }
 function guardarSocio(id){
   const nombre = $("#fNombre").value.trim(), dni = $("#fDni").value.replace(/\D/g, ""), tel = $("#fTel").value.trim(), plan = $("#fPlan").value, vence = $("#fVence").value;
-  if (nombre.length < 3) return toast("Escribí el nombre y apellido");
-  if (dni.length < 7) return toast("El DNI tiene que tener 7 u 8 números");
-  if (DB.socios.some(s => s.dni === dni && s.id !== id)) return toast("Ya hay un socio con ese DNI");
-  if (!vence) return toast("Elegí hasta cuándo tiene la cuota paga");
+  if (nombre.length < 3) return toast("Ingresá nombre y apellido", "info");
+  if (dni.length < 7) return toast("El DNI debe tener 7 u 8 números", "info");
+  if (DB.socios.some(s => s.dni === dni && s.id !== id)) return toast("Ya existe un socio con ese DNI", "alerta");
+  if (!vence) return toast("Indicá hasta cuándo tiene la cuota paga", "info");
   if (id) Object.assign(socio(id), {nombre, dni, tel, plan, vence});
   else {
     const s = {id:uid("s"), nombre, dni, tel, plan, vence, alta:hoyStr(), rutina:$("#fRutina").value ? {id:$("#fRutina").value, sig:0, por:"profe"} : null};
     DB.socios.push(s);
     if ($("#fPago").checked) DB.pagos.push({id:uid("pg"), s:s.id, f:hoyStr(), monto:planDe(s).precio, metodo:"Efectivo"});
   }
-  guardar(); cerrarHoja(); toast(id ? "✅ Datos guardados" : `✅ ${nombre.split(" ")[0]} ya es socio`); render();
+  guardar(); cerrarHoja(); toast(id ? "Datos actualizados" : `${nombre.split(" ")[0]} fue dado de alta`); render();
 }
 function hojaElegirRutinaSocio(id){
   const s = socio(id);
-  abrirHoja(`<h2>Rutina de ${esc(s.nombre.split(" ")[0])}</h2><p class="muted small" style="margin:4px 0 8px">Le aparece sola en su app.</p>
-    ${DB.rutinas.map(t => `<button class="fila" data-a="asignarUna" data-id="${id}" data-r="${t.id}"><span style="font-size:22px">${s.rutina && s.rutina.id === t.id ? "✅" : "📋"}</span><div class="sp"><b>${esc(t.n)}</b><div class="small muted">${t.dias.length} días · ${esc(t.nivel)}</div></div></button>`).join("")}
-    ${s.rutina ? `<button class="btn sec" data-a="asignarUna" data-id="${id}" data-r="" style="margin-top:12px">Quitar rutina</button>` : ""}`);
+  abrirHoja(`<h2>Rutina de ${esc(s.nombre.split(" ")[0])}</h2><p class="sub" style="margin:4px 0 6px">Aparece automáticamente en su app.</p>
+    ${DB.rutinas.map(t => `<button class="fila" data-a="asignarUna" data-id="${id}" data-r="${t.id}"><span class="av" style="${s.rutina && s.rutina.id === t.id ? "background:var(--ac);color:var(--acTxt)" : ""}">${ic(s.rutina && s.rutina.id === t.id ? "check" : "rutina")}</span><div class="sp"><b style="font-size:14px">${esc(t.n)}</b><div class="sub">${t.dias.length} días · ${esc(t.nivel)}</div></div></button>`).join("")}
+    ${s.rutina ? `<button class="btn ghost" data-a="asignarUna" data-id="${id}" data-r="" style="margin-top:14px">Quitar rutina</button>` : ""}`);
 }
 
 /* ================= GIMNASIO: RUTINAS ================= */
 function pRutinas(){
-  return cabecera("Rutinas") + `<button class="btn" data-a="nuevaRutina" style="margin-bottom:14px">＋ Crear rutina nueva</button>
-    <div class="consejo small" style="margin:0 0 14px">💡 Tocá una rutina para verla, asignarla a socios o editarla. Las que dicen «Lista» ya vienen armadas por profesores.</div>
-    ${DB.rutinas.map(t => tarjetaRutina(t, "verRutina")).join("")}`;
+  return cabecera("Rutinas", "Asigná una plantilla o creá rutinas propias con el catálogo de ejercicios.", `<button class="ibtn" data-a="nuevaRutina" aria-label="Nueva rutina">${ic("mas")}</button>`) +
+    `<button class="btn" data-a="nuevaRutina" style="margin-bottom:14px">${ic("mas")} Crear rutina</button>` +
+    DB.rutinas.map(t => tarjetaRutina(t, "verRutina")).join("");
 }
 let asigRutina = null, asigSel = new Set();
 function hojaAsignar(id){ asigRutina = id; asigSel = new Set(DB.socios.filter(s => s.rutina && s.rutina.id === id).map(s => s.id));
-  abrirHoja(`<h2>Asignar «${esc(rutinaDe(id).n)}»</h2><p class="muted small" style="margin:4px 0 8px">Marcá los socios. Les aparece sola en su app.</p>
-    <input class="campo" id="buscaAsig" placeholder="🔎 Buscar socio" autocomplete="off"><div id="listaAsig" style="margin-top:6px"></div>
-    <button class="btn ok" data-a="confirmarAsig" style="margin-top:12px;position:sticky;bottom:0">✓ Guardar</button>`);
+  abrirHoja(`<h2>Asignar rutina</h2><p class="sub" style="margin:4px 0 12px">${esc(rutinaDe(id).n)} · seleccioná los socios.</p>
+    <div class="buscar">${ic("buscar")}<input class="campo" id="buscaAsig" placeholder="Buscar socio" autocomplete="off"></div><div id="listaAsig" style="margin-top:4px"></div>
+    <button class="btn" data-a="confirmarAsig" style="margin-top:12px;position:sticky;bottom:0">Guardar asignación</button>`);
   pintarAsignar();
 }
 function pintarAsignar(){
   const q = ($("#buscaAsig") || {}).value || "", l = $("#listaAsig"); if (!l) return;
   l.innerHTML = DB.socios.filter(s => !q || s.nombre.toLowerCase().includes(q.toLowerCase())).sort((a, b) => a.nombre.localeCompare(b.nombre)).slice(0, 80)
-    .map(s => `<button class="fila" data-a="toggleAsig" data-id="${s.id}"><span style="font-size:22px">${asigSel.has(s.id) ? "✅" : "⬜"}</span><div class="sp"><b>${esc(s.nombre)}</b><div class="small muted">${s.rutina && rutinaDe(s.rutina.id) ? "Ahora: " + esc(rutinaDe(s.rutina.id).n) : "Sin rutina"}</div></div></button>`).join("");
+    .map(s => `<button class="fila" data-a="toggleAsig" data-id="${s.id}"><span class="av" style="${asigSel.has(s.id) ? "background:var(--ac);color:var(--acTxt)" : ""}">${asigSel.has(s.id) ? ic("check") : inicial(s.nombre)}</span><div class="sp"><b style="font-size:14px">${esc(s.nombre)}</b><div class="sub">${s.rutina && rutinaDe(s.rutina.id) ? esc(rutinaDe(s.rutina.id).n) : "Sin rutina"}</div></div></button>`).join("");
 }
 // Editor de rutinas: se trabaja sobre un borrador y se guarda al final
 let borr = null, selDia = 0, selGrupo = "pecho";
@@ -944,63 +1039,63 @@ function leerEditor(){
 }
 function pintarEditor(){
   const c0 = $("#capa .capa"), y = c0 ? c0.scrollTop : 0;
-  abrirCapa(`<div class="row"><button class="chip" data-a="edCancelar">✕ Cancelar</button><span class="sp"></span><button class="btn chico ok" data-a="edGuardar">✓ Guardar</button></div>
-    <h2 style="margin-top:12px">${borr.id ? "Editar rutina" : "Nueva rutina"}</h2>
-    <div class="lbl">Nombre</div><input class="campo" id="eNombre" value="${esc(borr.n)}" placeholder="Ej.: Fuerza 3 días">
+  abrirCapa(`<div class="row">${cerrarX("edCancelar")}<span class="sp centro small muted">${borr.id ? "Editar rutina" : "Nueva rutina"}</span><button class="btn chico" data-a="edGuardar">Guardar</button></div>
+    <div class="lbl" style="margin-top:20px">Nombre</div><input class="campo" id="eNombre" value="${esc(borr.n)}" placeholder="Ej.: Fuerza 3 días">
     <div class="grid2"><div><div class="lbl">Nivel</div><select class="campo" id="eNivel">${["Principiante","Intermedio","Avanzado","Todos los niveles"].map(n => `<option ${n === borr.nivel ? "selected" : ""}>${n}</option>`).join("")}</select></div>
     <div><div class="lbl">Objetivo</div><input class="campo" id="eMeta" value="${esc(borr.meta || "")}" placeholder="Ej.: ganar fuerza"></div></div>
-    ${borr.dias.map((D, i) => `<div class="card" style="margin-top:14px"><div class="row"><input class="campo" id="eDia${i}" value="${esc(D.n)}" style="font-weight:800"><button class="btn no chico" data-a="edBorrarDia" data-i="${i}" style="flex:none">🗑</button></div>
-      ${D.ej.map((x, k) => { const e = CATALOGO[x[0]]; return `<div class="ejRow"><img class="mini" style="width:50px;height:40px" src="${rutaFoto(e.img, 1)}" alt=""><div class="sp"><b class="small" style="display:block">${esc(e.n)}</b>
-        <div class="row" style="gap:6px;margin-top:4px">${e.tipo === "min" ? "" : `<div class="ctl"><button data-a="edSeries" data-i="${i}" data-k="${k}" data-d="-1">−</button></div><b style="min-width:30px;text-align:center" class="small">${x[1]}×</b><div class="ctl"><button data-a="edSeries" data-i="${i}" data-k="${k}" data-d="1">+</button></div>`}
-        <input class="inChico" id="eR${i}_${k}" value="${esc(x[2])}">${e.tipo === "min" || e.tipo === "seg" ? `<span class="small muted">${e.tipo}</span>` : ""}</div></div>
-        <div class="ctl" style="flex-direction:column"><button data-a="edMover" data-i="${i}" data-k="${k}" data-d="-1">↑</button><button data-a="edQuitar" data-i="${i}" data-k="${k}">✕</button></div></div>`; }).join("")}
-      <button class="btn sec" data-a="edAgregarEj" data-i="${i}" style="margin-top:10px">＋ Agregar ejercicio</button></div>`).join("")}
-    <button class="btn sec" data-a="edAgregarDia" style="margin-top:4px">＋ Agregar otro día</button>`);
+    ${borr.dias.map((D, i) => `<div class="card" style="margin-top:14px"><div class="row"><input class="campo" id="eDia${i}" value="${esc(D.n)}" style="font-weight:600"><button class="ibtn" data-a="edBorrarDia" data-i="${i}" aria-label="Eliminar día" style="color:var(--rojoT)">${ic("basura")}</button></div>
+      ${D.ej.length ? "" : `<p class="sub" style="margin:12px 0 0">Todavía no hay ejercicios en este día.</p>`}
+      ${D.ej.map((x, k) => { const e = CATALOGO[x[0]]; return `<div class="ejRow"><img class="mini" style="width:48px;height:38px" src="${rutaFoto(e.img, 1)}" alt=""><div class="sp"><div style="font-size:13px;font-weight:600;line-height:1.3">${esc(e.n)}</div>
+        <div class="row" style="gap:6px;margin-top:6px">${e.tipo === "min" ? "" : `<div class="ctl"><button data-a="edSeries" data-i="${i}" data-k="${k}" data-d="-1" aria-label="Menos series">${ic("menos")}</button></div><span class="small tab" style="min-width:26px;text-align:center;font-weight:600">${x[1]}×</span><div class="ctl"><button data-a="edSeries" data-i="${i}" data-k="${k}" data-d="1" aria-label="Más series">${ic("mas")}</button></div>`}
+        <input class="inChico" id="eR${i}_${k}" value="${esc(x[2])}">${e.tipo === "min" || e.tipo === "seg" ? `<span class="sub">${e.tipo}</span>` : ""}</div></div>
+        <div class="ctl" style="flex-direction:column"><button data-a="edMover" data-i="${i}" data-k="${k}" aria-label="Subir">${ic("arriba")}</button><button data-a="edQuitar" data-i="${i}" data-k="${k}" aria-label="Quitar">${ic("x")}</button></div></div>`; }).join("")}
+      <button class="btn ghost chico" data-a="edAgregarEj" data-i="${i}" style="margin-top:12px;width:100%">${ic("mas")} Agregar ejercicio</button></div>`).join("")}
+    <button class="btn sec" data-a="edAgregarDia" style="margin-top:2px">${ic("mas")} Agregar día</button>`);
   const c = $("#capa .capa"); if (c) c.scrollTop = y;
 }
 function pintarSelector(){
   const q = (($("#buscaEj") || {}).value || "").toLowerCase(), l = $("#listaEj"); if (!l) return;
   const ids = Object.entries(CATALOGO).filter(([id, e]) => q ? e.n.toLowerCase().includes(q) : e.g === selGrupo);
-  l.innerHTML = ids.map(([id, e]) => `<button class="fila" data-a="edElegirEj" data-id="${id}"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b>${esc(e.n)}</b><div class="small muted">🛠️ ${esc(e.eq)}</div></div><span style="font-size:22px">＋</span></button>`).join("") || `<p class="muted small">No encontramos ese ejercicio.</p>`;
+  l.innerHTML = ids.map(([id, e]) => `<button class="fila" data-a="edElegirEj" data-id="${id}"><img class="mini" src="${rutaFoto(e.img, 1)}" alt="" loading="lazy"><div class="sp"><b style="font-size:14px">${esc(e.n)}</b><div class="sub">${esc(e.eq)}</div></div><span class="ibtn" style="width:32px;height:32px">${ic("mas")}</span></button>`).join("") || `<p class="sub" style="margin:10px 0 0">No encontramos ese ejercicio.</p>`;
   $$("[data-a=edGrupo]").forEach(b => b.classList.toggle("on", !q && b.dataset.g === selGrupo));
 }
 function hojaSelector(){
-  abrirHoja(`<h2>Agregar a ${esc(borr.dias[selDia].n)}</h2><input class="campo" id="buscaEj" placeholder="🔎 Buscar ejercicio" style="margin-top:10px" autocomplete="off">
-    <div class="chips" style="margin-top:10px">${Object.entries(GRUPOS).map(([k, n]) => `<button data-a="edGrupo" data-g="${k}">${n}</button>`).join("")}</div><div id="listaEj"></div>`);
+  abrirHoja(`<h2>Agregar ejercicio</h2><p class="sub" style="margin:4px 0 12px">${esc(borr.dias[selDia].n)}</p><div class="buscar">${ic("buscar")}<input class="campo" id="buscaEj" placeholder="Buscar en el catálogo" autocomplete="off"></div>
+    <div class="chips" style="margin-top:12px">${Object.entries(GRUPOS).map(([k, n]) => `<button data-a="edGrupo" data-g="${k}">${n}</button>`).join("")}</div><div id="listaEj"></div>`);
   pintarSelector();
 }
 function guardarEditor(){
   leerEditor();
-  if (borr.n.trim().length < 3) return toast("Ponele un nombre a la rutina");
-  if (borr.dias.some(D => !D.ej.length)) return toast("Cada día tiene que tener al menos un ejercicio");
+  if (borr.n.trim().length < 3) return toast("Ingresá un nombre para la rutina", "info");
+  if (borr.dias.some(D => !D.ej.length)) return toast("Cada día necesita al menos un ejercicio", "info");
   borr.n = borr.n.trim();
   if (borr.id) { const i = DB.rutinas.findIndex(t => t.id === borr.id); DB.rutinas[i] = {...borr, base:0}; }
   else DB.rutinas.unshift({...borr, id:uid("r"), base:0});
-  guardar(); borr = null; cerrarCapa(); toast("✅ Rutina guardada"); render();
+  guardar(); borr = null; cerrarCapa(); toast("Rutina guardada"); render();
 }
 
 /* ================= GIMNASIO: CLASES ================= */
 function pClasesG(){
   const hoy = hoyStr();
-  return cabecera("Clases y cupos") + `<button class="btn" data-a="editarClase" data-id="" style="margin-bottom:14px">＋ Nueva clase</button>` +
+  return cabecera("Clases", "Horarios, cupos y reservas.", `<button class="ibtn" data-a="editarClase" data-id="" aria-label="Nueva clase">${ic("mas")}</button>`) +
     DB.clases.slice().sort((a, b) => a.h.localeCompare(b.h)).map(c => {
       let prox = null; for (let k = 0; k < 8 && !prox; k++) { const f = sumarDias(hoy, k); if (c.dias.includes(deStr(f).getDay()) && !claseYaPaso(c, f)) prox = f; }
       const res = prox ? claseReservas(c.id, prox).length : 0;
-      return `<button class="clase" data-a="verClase" data-id="${c.id}" style="width:100%;text-align:left"><div class="ico">${c.ico}</div><div class="sp"><b>${esc(c.n)} · ${c.h}</b><div class="small muted">${c.dias.map(d => DIA3[d]).join(", ")} · Profe ${esc(c.profe)}</div>
-        ${prox ? `<div class="small" style="margin-top:4px">Próxima (${diasEntre(hoy, prox) === 0 ? "hoy" : DIA3[deStr(prox).getDay()] + " " + fCorta(prox)}): <b>${res}/${c.cupo}</b> anotados</div>` : ""}</div><span class="muted">›</span></button>`;
-    }).join("");
+      return `<button class="clase" data-a="verClase" data-id="${c.id}"><div class="ico">${ic(c.ico)}</div><div class="sp"><b>${esc(c.n)}</b><div class="sub tab">${c.dias.map(d => DIA3[d]).join(", ")} · ${c.h} h · ${esc(c.profe)}</div>
+        ${prox ? `<div class="row" style="margin-top:8px;gap:8px"><div class="barra sp"><i style="width:${res / c.cupo * 100}%"></i></div><span class="sub tab">${res}/${c.cupo} · ${diasEntre(hoy, prox) === 0 ? "hoy" : DIA3[deStr(prox).getDay()].toLowerCase()}</span></div>` : ""}</div><span class="der">${ic("der")}</span></button>`;
+    }).join("") + `<button class="btn sec" data-a="editarClase" data-id="" style="margin-top:6px">${ic("mas")} Nueva clase</button>`;
 }
 function hojaClase(id){
   const c = DB.clases.find(x => x.id === id); let prox = null;
   for (let k = 0; k < 8 && !prox; k++) { const f = sumarDias(hoyStr(), k); if (c.dias.includes(deStr(f).getDay()) && !claseYaPaso(c, f)) prox = f; }
   const res = prox ? claseReservas(c.id, prox) : [];
-  abrirHoja(`<div class="row"><span style="font-size:40px">${c.ico}</span><div class="sp"><h2>${esc(c.n)}</h2><div class="small muted">${c.dias.map(d => DIA3[d]).join(", ")} · ${c.h} · ${c.dur} min · Profe ${esc(c.profe)}</div></div></div>
-    ${prox ? `<div class="lbl">Anotados para el ${DIA[deStr(prox).getDay()].toLowerCase()} ${fCorta(prox)} (${res.length}/${c.cupo})</div>${res.map(sid => { const s = socio(sid); return s ? `<div class="fila"><span class="av">${inicial(s.nombre)}</span><b class="sp">${esc(s.nombre)}</b></div>` : ""; }).join("") || `<p class="muted small">Todavía no se anotó nadie.</p>`}` : ""}
-    <button class="btn sec" data-a="editarClase" data-id="${c.id}" style="margin-top:12px">✏️ Editar clase</button>`);
+  abrirHoja(`<div class="row"><div class="av" style="width:48px;height:48px;border-radius:12px">${ic(c.ico)}</div><div class="sp"><h2>${esc(c.n)}</h2><div class="sub tab">${c.dias.map(d => DIA3[d]).join(", ")} · ${c.h} h · ${c.dur} min · ${esc(c.profe)}</div></div></div>
+    ${prox ? `<div class="lbl">Reservas · ${DIA[deStr(prox).getDay()].toLowerCase()} ${fCorta(prox)} · ${res.length}/${c.cupo}</div>${res.map(sid => { const s = socio(sid); return s ? `<div class="fila"><span class="av">${inicial(s.nombre)}</span><b class="sp" style="font-size:14px">${esc(s.nombre)}</b></div>` : ""; }).join("") || `<p class="sub">Todavía no hay reservas.</p>`}` : ""}
+    <button class="btn sec" data-a="editarClase" data-id="${c.id}" style="margin-top:14px">${ic("lapiz")} Editar clase</button>`);
 }
 let borrClase = null;
 function hojaFormClase(id){
-  const c = id ? DB.clases.find(x => x.id === id) : {n:"", ico:"🔥", dias:[], h:"19:00", dur:45, cupo:15, profe:""};
+  const c = id ? DB.clases.find(x => x.id === id) : {n:"", ico:"fuego", dias:[], h:"19:00", dur:45, cupo:15, profe:""};
   borrClase = JSON.parse(JSON.stringify(c));
   pintarFormClase();
 }
@@ -1008,50 +1103,50 @@ function pintarFormClase(){
   const c = borrClase;
   abrirHoja(`<h2>${c.id ? "Editar clase" : "Nueva clase"}</h2>
     <div class="lbl">Nombre</div><input class="campo" id="cN" value="${esc(c.n)}" placeholder="Ej.: Spinning">
-    <div class="lbl">Ícono</div><div class="chips">${ICONOS_CLASE.map(i => `<button data-a="cIco" data-i="${i}" class="${i === c.ico ? "on" : ""}" style="font-size:20px">${i}</button>`).join("")}</div>
+    <div class="lbl">Ícono</div><div class="chips">${ICONOS_CLASE.map(i => `<button data-a="cIco" data-i="${i}" class="${i === c.ico ? "on" : ""}" aria-label="${i}" style="width:42px;padding:0;justify-content:center">${ic(i)}</button>`).join("")}</div>
     <div class="lbl">Días</div><div class="dias7">${[1,2,3,4,5,6,0].map(d => `<button data-a="cDia" data-d="${d}" class="${c.dias.includes(d) ? "on" : ""}">${DIA3[d]}</button>`).join("")}</div>
     <div class="grid2"><div><div class="lbl">Hora</div><input class="campo" id="cH" type="time" value="${c.h}"></div><div><div class="lbl">Duración (min)</div><input class="campo" id="cD" type="number" inputmode="numeric" value="${c.dur}"></div></div>
-    <div class="grid2"><div><div class="lbl">Cupo</div><input class="campo" id="cC" type="number" inputmode="numeric" value="${c.cupo}"></div><div><div class="lbl">Profe</div><input class="campo" id="cP" value="${esc(c.profe)}"></div></div>
-    <button class="btn ok" data-a="guardarClase" style="margin-top:16px">✓ Guardar</button>
-    ${c.id ? `<button class="btn no" data-a="borrarClase" style="margin-top:10px">🗑 Borrar clase</button>` : ""}`);
+    <div class="grid2"><div><div class="lbl">Cupo</div><input class="campo" id="cC" type="number" inputmode="numeric" value="${c.cupo}"></div><div><div class="lbl">Profesor</div><input class="campo" id="cP" value="${esc(c.profe)}"></div></div>
+    <button class="btn" data-a="guardarClase" style="margin-top:18px">Guardar</button>
+    ${c.id ? `<button class="btn no" data-a="borrarClase" style="margin-top:10px">Eliminar clase</button>` : ""}`);
 }
 function leerClase(){ const c = borrClase; c.n = $("#cN").value.trim(); c.h = $("#cH").value; c.dur = +$("#cD").value || 45; c.cupo = +$("#cC").value || 10; c.profe = $("#cP").value.trim(); }
 
-/* ================= GIMNASIO: MÁS ================= */
+/* ================= GIMNASIO: AJUSTES ================= */
 let confirmarReinicio = false;
 function pMas(){
   const g = DB.gym;
-  return cabecera("Configuración") + `
-    <div class="card"><b>📣 Publicar un aviso</b><p class="small muted" style="margin:2px 0 8px">Les aparece a todos los socios en el inicio de la app.</p>
-      <textarea class="campo" id="aviso" placeholder="Ej.: El lunes feriado abrimos de 9 a 13"></textarea><button class="btn" data-a="publicarAviso" style="margin-top:10px">Publicar</button>
-      ${DB.avisos.map(a => `<div class="fila"><div class="sp">${esc(a.txt)}<div class="small muted">${fCorta(a.f)}</div></div><button class="chip" data-a="borrarAviso" data-id="${a.id}">🗑</button></div>`).join("")}</div>
-    <div class="card"><b>🏆 Desafío del mes</b><p class="small muted" style="margin:2px 0 8px">Los socios ven su avance y el ranking. Las visitas se cuentan solas con cada entrada.</p>
-      <div class="grid2"><div><div class="lbl">Visitas a cumplir</div><input class="campo" id="dMeta" type="number" inputmode="numeric" value="${DB.desafio.meta}"></div><div><div class="lbl">Premio</div><input class="campo" id="dPremio" value="${esc(DB.desafio.premio)}"></div></div>
-      <button class="btn sec" data-a="guardarDesafio" style="margin-top:10px">Guardar desafío</button></div>
-    <div class="card"><b>🎨 Marca del gimnasio</b><p class="small muted" style="margin:2px 0 8px">La app se ve con tu nombre, tu logo y tu color.</p>
-      <div class="row"><div class="logo" style="width:64px;height:64px;${logoCss()}"></div><label class="btn sec chico" style="cursor:pointer">📷 Cambiar logo<input type="file" accept="image/*" id="logoIn" hidden></label>${g.logo ? `<button class="chip" data-a="quitarLogo">Quitar</button>` : ""}</div>
+  return cabecera("Ajustes") + `
+    <div class="card"><div class="ct">${ic("megafono")} Avisos</div><p class="sub" style="margin:4px 0 12px">Se muestran a todos los socios en el inicio de la app.</p>
+      <textarea class="campo" id="aviso" placeholder="Ej.: El lunes feriado abrimos de 9 a 13"></textarea><button class="btn" data-a="publicarAviso" style="margin-top:10px">Publicar aviso</button>
+      ${DB.avisos.map(a => `<div class="fila"><div class="sp" style="font-size:14px;color:var(--ink2)">${esc(a.txt)}<div class="sub tab">${fCorta(a.f)}</div></div><button class="ibtn" data-a="borrarAviso" data-id="${a.id}" aria-label="Eliminar">${ic("basura")}</button></div>`).join("")}</div>
+    <div class="card"><div class="ct">${ic("trofeo")} Desafío del mes</div><p class="sub" style="margin:4px 0 0">Las visitas se cuentan automáticamente con cada entrada.</p>
+      <div class="grid2"><div><div class="lbl">Visitas objetivo</div><input class="campo tab" id="dMeta" type="number" inputmode="numeric" value="${DB.desafio.meta}"></div><div><div class="lbl">Premio</div><input class="campo" id="dPremio" value="${esc(DB.desafio.premio)}"></div></div>
+      <button class="btn sec" data-a="guardarDesafio" style="margin-top:12px">Guardar desafío</button></div>
+    <div class="card"><div class="ct">${ic("imagen")} Identidad del gimnasio</div><p class="sub" style="margin:4px 0 12px">La app se muestra con el nombre, el logo y el color de tu marca.</p>
+      <div class="row"><div class="logo" style="width:56px;height:56px;border-radius:14px;${logoCss()}"></div><label class="btn sec chico" style="cursor:pointer">${ic("camara")} Cambiar logo<input type="file" accept="image/*" id="logoIn" hidden></label>${g.logo ? `<button class="enlace" data-a="quitarLogo">Quitar</button>` : ""}</div>
       <div class="lbl">Nombre</div><input class="campo" id="gNombre" value="${esc(g.nombre)}">
-      <div class="lbl">Color</div><div class="row w">${Object.entries(COLORES).map(([n, c]) => `<button class="sw ${c.toLowerCase() === (g.color || "").toLowerCase() ? "on" : ""}" data-a="color" data-c="${c}" title="${n}" style="background:${c}"></button>`).join("")}</div>
+      <div class="lbl">Color de marca</div><div class="row w" style="gap:8px">${Object.entries(COLORES).map(([n, c]) => `<button class="sw ${c.toLowerCase() === (g.color || "").toLowerCase() ? "on" : ""}" data-a="color" data-c="${c}" title="${n}" aria-label="${n}" style="background:${c}"></button>`).join("")}</div>
       <div class="lbl">Dirección</div><input class="campo" id="gDir" value="${esc(g.direccion)}">
-      <div class="grid2"><div><div class="lbl">WhatsApp del gym</div><input class="campo" id="gWa" inputmode="tel" value="${esc(g.whatsapp)}"></div><div><div class="lbl">Alias para transferir</div><input class="campo" id="gAlias" value="${esc(g.alias)}"></div></div>
-      <div class="lbl">Capacidad (personas a la vez)</div><input class="campo" id="gCap" type="number" inputmode="numeric" value="${g.capacidad}">
-      <div class="lbl">Horario</div>${[1,2,3,4,5,6,0].map(d => { const h = g.horario[d]; return `<div class="row" style="margin-top:6px"><b style="width:44px">${DIA3[d]}</b><select class="campo" id="hA${d}" style="padding:8px">${horasOpt(h ? h[0] : -1, true)}</select><span class="muted">a</span><select class="campo" id="hC${d}" style="padding:8px">${horasOpt(h ? h[1] : -1)}</select></div>`; }).join("")}
-      <button class="btn" data-a="guardarMarca" style="margin-top:12px">Guardar marca y datos</button></div>
-    <div class="card"><b>💲 Planes y precios</b>${DB.planes.map((p, i) => `<div class="row" style="margin-top:8px"><input class="campo" id="plN${i}" value="${esc(p.n)}" style="flex:2"><input class="campo" id="plP${i}" type="number" inputmode="numeric" value="${p.precio}" style="flex:1"></div>`).join("")}
-      <div class="grid2" style="margin-top:10px"><button class="btn sec" data-a="agregarPlan">＋ Plan</button><button class="btn" data-a="guardarPlanes">Guardar precios</button></div></div>
-    <div class="card"><b>🖥️ Modo recepción</b><p class="small muted" style="margin:2px 0 10px">Dejá una tablet o un celular en la entrada: cada socio pone su DNI (o muestra su QR) y queda registrada la entrada. Si la cuota está vencida, le avisa.</p><button class="btn sec" data-a="entrarKiosco">Activar modo recepción</button></div>
-    <div class="card"><b>🔐 PIN del gimnasio</b><div class="row" style="margin-top:8px"><input class="campo" id="nuevoPin" inputmode="numeric" placeholder="Nuevo PIN (4 a 6 números)"><button class="btn sec chico" data-a="cambiarPin" style="flex:none">Cambiar</button></div></div>
-    ${DB.demo ? `<div class="card"><b>🧪 Demostración</b><p class="small muted" style="margin:2px 0 10px">Los datos son de ejemplo. Podés volver a los datos originales cuando quieras.</p><button class="btn no" data-a="reiniciar">${confirmarReinicio ? "⚠️ Tocá de nuevo para reiniciar" : "Reiniciar datos de ejemplo"}</button></div>` : ""}
-    <button class="btn sec" data-a="salir">Cerrar sesión</button>`;
+      <div class="grid2"><div><div class="lbl">WhatsApp</div><input class="campo" id="gWa" inputmode="tel" value="${esc(g.whatsapp)}"></div><div><div class="lbl">Alias de cobro</div><input class="campo" id="gAlias" value="${esc(g.alias)}"></div></div>
+      <div class="lbl">Capacidad simultánea</div><input class="campo tab" id="gCap" type="number" inputmode="numeric" value="${g.capacidad}">
+      <div class="lbl">Horario de atención</div>${[1,2,3,4,5,6,0].map(d => { const h = g.horario[d]; return `<div class="row" style="margin-top:6px"><span style="width:40px;font-size:13px;color:var(--ink2)">${DIA3[d]}</span><select class="campo" id="hA${d}" style="height:40px">${horasOpt(h ? h[0] : -1, true)}</select><span class="muted small">a</span><select class="campo" id="hC${d}" style="height:40px">${horasOpt(h ? h[1] : -1)}</select></div>`; }).join("")}
+      <button class="btn" data-a="guardarMarca" style="margin-top:14px">Guardar cambios</button></div>
+    <div class="card"><div class="ct">${ic("etiqueta")} Planes y precios</div>${DB.planes.map((p, i) => `<div class="row" style="margin-top:10px"><input class="campo" id="plN${i}" value="${esc(p.n)}" style="flex:2"><input class="campo tab" id="plP${i}" type="number" inputmode="numeric" value="${p.precio}" style="flex:1"></div>`).join("")}
+      <div class="grid2" style="margin-top:12px"><button class="btn sec" data-a="agregarPlan">${ic("mas")} Agregar plan</button><button class="btn" data-a="guardarPlanes">Guardar precios</button></div></div>
+    <div class="card"><div class="ct">${ic("monitor")} Modo recepción</div><p class="sub" style="margin:4px 0 12px">Dejá una tablet en la entrada: cada socio ingresa su DNI o muestra su QR y la entrada queda registrada. Si la cuota está vencida, se lo indica.</p><button class="btn sec" data-a="entrarKiosco">Activar modo recepción</button></div>
+    <div class="card"><div class="ct">${ic("candado")} PIN de acceso</div><div class="row" style="margin-top:12px"><input class="campo" id="nuevoPin" inputmode="numeric" placeholder="Nuevo PIN (4 a 6 números)"><button class="btn sec chico" data-a="cambiarPin" style="flex:none">Cambiar</button></div></div>
+    ${DB.demo ? `<div class="card"><div class="ct">${ic("info")} Demostración</div><p class="sub" style="margin:4px 0 12px">La app está cargada con datos de ejemplo.</p><button class="btn no" data-a="reiniciar">${confirmarReinicio ? "Confirmar: restaurar datos de ejemplo" : "Restaurar datos de ejemplo"}</button></div>` : ""}
+    <button class="btn ghost" data-a="salir">${ic("salir")} Cerrar sesión</button>${firma()}`;
 }
-function horasOpt(sel, conCerrado){ return (conCerrado ? `<option value="-1" ${sel === -1 ? "selected" : ""}>Cerrado</option>` : `<option value="-1" ${sel === -1 ? "selected" : ""}>—</option>`) + Array.from({length:24}, (_, h) => `<option value="${h}" ${h === sel ? "selected" : ""}>${h}:00</option>`).join(""); }
+function horasOpt(sel, conCerrado){ return (conCerrado ? `<option value="-1" ${sel === -1 ? "selected" : ""}>Cerrado</option>` : `<option value="-1" ${sel === -1 ? "selected" : ""}>—</option>`) + Array.from({length:24}, (_, h) => `<option value="${h}" ${h === sel ? "selected" : ""}>${pad(h)}:00</option>`).join(""); }
 document.addEventListener("change", e => {
   if (e.target.id !== "logoIn" || !e.target.files[0]) return;
   const fr = new FileReader();
   fr.onload = () => { const im = new Image(); im.onload = () => {
     const c = document.createElement("canvas"), L = 256; c.width = c.height = L; const x = c.getContext("2d");
     const s = Math.max(L / im.width, L / im.height), w = im.width * s, h = im.height * s; x.fillStyle = "#000"; x.fillRect(0, 0, L, L); x.drawImage(im, (L - w) / 2, (L - h) / 2, w, h);
-    DB.gym.logo = c.toDataURL("image/jpeg", .85); guardar(); render(); toast("✅ Logo actualizado");
+    DB.gym.logo = c.toDataURL("image/jpeg", .85); guardar(); render(); toast("Logo actualizado");
   }; im.src = fr.result; };
   fr.readAsDataURL(e.target.files[0]);
 });
@@ -1081,22 +1176,22 @@ function accion(a, b, ev){
     case "continuar": return abrirGuia();
     case "fichaEj": return hojaFicha(id);
     case "verPlantilla": return hojaRutina(id, "socio");
-    case "cambiarRutina": { const s = socioYo(); abrirHoja(`<h2>Cambiar de rutina</h2><p class="muted small" style="margin:4px 0 8px">${s.rutina.por === "profe" ? "⚠️ Esta rutina te la asignó tu profe. Si la cambiás, avisale." : "Elegí otra rutina."}</p>${DB.rutinas.map(t => `<button class="fila" data-a="verPlantilla" data-id="${t.id}"><span style="font-size:22px">${t.id === s.rutina.id ? "✅" : "📋"}</span><div class="sp"><b>${esc(t.n)}</b><div class="small muted">${t.dias.length} días · ${esc(t.nivel)}</div></div><span class="muted">›</span></button>`).join("")}`); return; }
-    case "usarRutina": { const s = socioYo(); s.rutina = {id, sig:0, por:"socio"}; guardar(); cerrarHoja(); toast("✅ Rutina elegida: ¡a entrenar!"); return ir("entrenar"); }
+    case "cambiarRutina": { const s = socioYo(); abrirHoja(`<h2>Cambiar rutina</h2><p class="sub" style="margin:4px 0 6px">${s.rutina.por === "profe" ? "Esta rutina te la asignó tu profesor. Si la cambiás, avisale." : "Elegí otra rutina del gimnasio."}</p>${DB.rutinas.map(t => `<button class="fila" data-a="verPlantilla" data-id="${t.id}"><span class="av" style="${t.id === s.rutina.id ? "background:var(--ac);color:var(--acTxt)" : ""}">${ic(t.id === s.rutina.id ? "check" : "rutina")}</span><div class="sp"><b style="font-size:14px">${esc(t.n)}</b><div class="sub">${t.dias.length} días · ${esc(t.nivel)}</div></div><span class="der">${ic("der")}</span></button>`).join("")}`); return; }
+    case "usarRutina": { const s = socioYo(); s.rutina = {id, sig:0, por:"socio"}; guardar(); cerrarHoja(); toast("Rutina seleccionada"); return ir("entrenar"); }
     case "diaClase": diaClase = +b.dataset.k; return render();
     case "reservar": {
-      const s = socioYo(); if (estadoCuota(s).k === "venc") return toast("💳 Tu cuota está vencida: renovala para reservar");
+      const s = socioYo(); if (estadoCuota(s).k === "venc") return toast("Tu cuota está vencida. Renovala para reservar.", "alerta");
       const k = id + "|" + b.dataset.f, c = DB.clases.find(x => x.id === id), l = DB.reservas[k] = DB.reservas[k] || [];
-      if (l.length >= c.cupo) return toast("Se llenó justo 😕");
-      l.push(s.id); guardar(); sonar("listo"); toast(`✅ Reservaste ${c.n}`); return render();
+      if (l.length >= c.cupo) return toast("La clase ya no tiene lugares", "alerta");
+      l.push(s.id); guardar(); sonar("listo"); toast(`Reserva confirmada: ${c.n}`); return render();
     }
-    case "cancelarClase": { const k = id + "|" + b.dataset.f; DB.reservas[k] = (DB.reservas[k] || []).filter(x => x !== YO.id); guardar(); toast("Reserva cancelada"); return render(); }
+    case "cancelarClase": { const k = id + "|" + b.dataset.f; DB.reservas[k] = (DB.reservas[k] || []).filter(x => x !== YO.id); guardar(); toast("Reserva cancelada", "info"); return render(); }
     // gimnasio
     case "hojaEntrada": return hojaEntrada();
     case "entradaDe": return confirmarEntrada(id);
     case "entradaForzada": return confirmarEntrada(id, true);
     case "recordatorios": return hojaRecordatorios();
-    case "waEnviado": setTimeout(() => { const c = $("#wa-" + id); if (c) { c.textContent = "✓ Abierto"; c.style.color = "var(--ok)"; } }, 300); return;
+    case "waEnviado": setTimeout(() => { const c = $("#wa-" + id); if (c) { c.innerHTML = ic("check") + " Abierto"; c.style.color = "var(--okT)"; } }, 300); return;
     case "verSocios": filtroSocios = b.dataset.f; busca = ""; return ir("socios");
     case "filtro": filtroSocios = b.dataset.f; return render();
     case "verSocio": confirmarBaja = null; return hojaSocio(id);
@@ -1105,72 +1200,72 @@ function accion(a, b, ev){
     case "guardarSocio": return guardarSocio(id || null);
     case "bajaSocio":
       if (confirmarBaja !== id) { confirmarBaja = id; return hojaSocio(id); }
-      DB.socios = DB.socios.filter(s => s.id !== id); confirmarBaja = null; guardar(); cerrarHoja(); toast("Socio dado de baja"); return render();
+      DB.socios = DB.socios.filter(s => s.id !== id); confirmarBaja = null; guardar(); cerrarHoja(); toast("Socio dado de baja", "info"); return render();
     case "pagar": return hojaPago(id);
     case "metodo": pagoMetodo = b.dataset.m; $$("[data-a=metodo]").forEach(x => x.classList.toggle("on", x === b)); return;
     case "confirmarPago": {
-      const s = socio(id), monto = +$("#pMonto").value || 0; if (!monto) return toast("Anotá el monto");
+      const s = socio(id), monto = +$("#pMonto").value || 0; if (!monto) return toast("Ingresá el monto", "info");
       s.vence = sumarMes(s.vence < hoyStr() ? hoyStr() : s.vence);
       DB.pagos.push({id:uid("pg"), s:id, f:hoyStr(), monto, metodo:pagoMetodo}); guardar(); sonar("fin");
-      toast(`✅ Pago registrado · vence el ${fCorta(s.vence)}`); cerrarHoja(); return render();
+      toast(`Pago registrado · vence el ${fCorta(s.vence)}`); cerrarHoja(); return render();
     }
     case "elegirRutinaSocio": return hojaElegirRutinaSocio(id);
-    case "asignarUna": { const s = socio(id); s.rutina = b.dataset.r ? {id:b.dataset.r, sig:0, por:"profe"} : null; guardar(); toast(b.dataset.r ? "✅ Rutina asignada" : "Rutina quitada"); return hojaSocio(id); }
+    case "asignarUna": { const s = socio(id); s.rutina = b.dataset.r ? {id:b.dataset.r, sig:0, por:"profe"} : null; guardar(); toast(b.dataset.r ? "Rutina asignada" : "Rutina quitada"); return hojaSocio(id); }
     case "verRutina": return hojaRutina(id, "staff");
     case "asignar": return hojaAsignar(id);
     case "toggleAsig": asigSel.has(id) ? asigSel.delete(id) : asigSel.add(id); return pintarAsignar();
     case "confirmarAsig": {
       let n = 0; DB.socios.forEach(s => { const tiene = s.rutina && s.rutina.id === asigRutina;
         if (asigSel.has(s.id) && !tiene) { s.rutina = {id:asigRutina, sig:0, por:"profe"}; n++; } else if (!asigSel.has(s.id) && tiene) s.rutina = null; });
-      guardar(); cerrarHoja(); toast(`✅ Rutina asignada${n ? ` a ${n} socio${n === 1 ? "" : "s"} más` : ""}`); return render();
+      guardar(); cerrarHoja(); toast(n ? `Rutina asignada a ${n} socio${n === 1 ? "" : "s"}` : "Asignación guardada"); return render();
     }
-    case "duplicarRutina": { const t = JSON.parse(JSON.stringify(rutinaDe(id))); t.id = uid("r"); t.n = t.n + " (copia)"; t.base = 0; DB.rutinas.unshift(t); guardar(); cerrarHoja(); toast("📄 Copia creada: ya la podés editar"); return render(); }
+    case "duplicarRutina": { const t = JSON.parse(JSON.stringify(rutinaDe(id))); t.id = uid("r"); t.n = t.n + " (copia)"; t.base = 0; DB.rutinas.unshift(t); guardar(); cerrarHoja(); toast("Copia creada"); return render(); }
     case "borrarRutina": {
-      if (DB.rutinas.length <= 1) return toast("Tiene que quedar al menos una rutina");
+      if (DB.rutinas.length <= 1) return toast("Tiene que quedar al menos una rutina", "info");
       const usan = DB.socios.filter(s => s.rutina && s.rutina.id === id);
-      if (b.dataset.ok !== "1") { b.dataset.ok = "1"; b.textContent = usan.length ? `⚠️ La usan ${usan.length}: tocá de nuevo` : "⚠️ Tocá de nuevo para borrar"; return; }
-      usan.forEach(s => s.rutina = null); DB.rutinas = DB.rutinas.filter(t => t.id !== id); guardar(); cerrarHoja(); toast("Rutina borrada"); return render();
+      if (b.dataset.ok !== "1") { b.dataset.ok = "1"; b.textContent = usan.length ? `La usan ${usan.length}: confirmar` : "Confirmar eliminación"; return; }
+      usan.forEach(s => s.rutina = null); DB.rutinas = DB.rutinas.filter(t => t.id !== id); guardar(); cerrarHoja(); toast("Rutina eliminada", "info"); return render();
     }
     case "nuevaRutina": return abrirEditor(null);
     case "editarRutina": cerrarHoja(); return abrirEditor(id);
     case "edCancelar": borr = null; return cerrarCapa();
     case "edGuardar": return guardarEditor();
     case "edAgregarDia": leerEditor(); borr.dias.push({n:"Día " + (borr.dias.length + 1), ej:[]}); return pintarEditor();
-    case "edBorrarDia": leerEditor(); if (borr.dias.length <= 1) return toast("La rutina necesita al menos un día"); borr.dias.splice(+b.dataset.i, 1); return pintarEditor();
+    case "edBorrarDia": leerEditor(); if (borr.dias.length <= 1) return toast("La rutina necesita al menos un día", "info"); borr.dias.splice(+b.dataset.i, 1); return pintarEditor();
     case "edSeries": { leerEditor(); const x = borr.dias[+b.dataset.i].ej[+b.dataset.k]; x[1] = Math.max(1, Math.min(10, x[1] + +b.dataset.d)); return pintarEditor(); }
     case "edMover": { leerEditor(); const L = borr.dias[+b.dataset.i].ej, k = +b.dataset.k; if (k > 0) [L[k - 1], L[k]] = [L[k], L[k - 1]]; return pintarEditor(); }
     case "edQuitar": leerEditor(); borr.dias[+b.dataset.i].ej.splice(+b.dataset.k, 1); return pintarEditor();
     case "edAgregarEj": leerEditor(); selDia = +b.dataset.i; return hojaSelector();
     case "edGrupo": selGrupo = b.dataset.g; if ($("#buscaEj")) $("#buscaEj").value = ""; return pintarSelector();
     case "edElegirEj": { const e = CATALOGO[id], def = e.tipo === "min" ? [id, 1, "10", 0] : e.tipo === "seg" ? [id, 3, "30", 45] : e.tipo === "pc" ? [id, 3, "12", 60] : [id, 3, "10–12", 90];
-      borr.dias[selDia].ej.push(def); toast(`＋ ${e.n}`); pintarEditor(); return; }
+      borr.dias[selDia].ej.push(def); toast(`Agregado: ${e.n}`); pintarEditor(); return; }
     case "verClase": return hojaClase(id);
     case "editarClase": return hojaFormClase(id || null);
     case "cIco": leerClase(); borrClase.ico = b.dataset.i; return pintarFormClase();
     case "cDia": { leerClase(); const d = +b.dataset.d, L = borrClase.dias; L.includes(d) ? L.splice(L.indexOf(d), 1) : L.push(d); return pintarFormClase(); }
     case "guardarClase": {
       leerClase(); const c = borrClase;
-      if (c.n.length < 2) return toast("Poné el nombre de la clase"); if (!c.dias.length) return toast("Elegí al menos un día"); if (!c.h) return toast("Elegí la hora");
+      if (c.n.length < 2) return toast("Ingresá el nombre de la clase", "info"); if (!c.dias.length) return toast("Elegí al menos un día", "info"); if (!c.h) return toast("Elegí la hora", "info");
       if (c.id) { const i = DB.clases.findIndex(x => x.id === c.id); DB.clases[i] = c; } else { c.id = uid("c"); DB.clases.push(c); }
-      guardar(); cerrarHoja(); toast("✅ Clase guardada"); return render();
+      guardar(); cerrarHoja(); toast("Clase guardada"); return render();
     }
     case "borrarClase":
-      if (b.dataset.ok !== "1") { b.dataset.ok = "1"; b.textContent = "⚠️ Tocá de nuevo para borrar"; return; }
-      DB.clases = DB.clases.filter(x => x.id !== borrClase.id); guardar(); cerrarHoja(); toast("Clase borrada"); return render();
-    case "publicarAviso": { const t = $("#aviso").value.trim(); if (t.length < 3) return toast("Escribí el aviso"); DB.avisos.unshift({id:uid("a"), f:hoyStr(), txt:t}); guardar(); toast("📣 Aviso publicado"); return render(); }
+      if (b.dataset.ok !== "1") { b.dataset.ok = "1"; b.textContent = "Confirmar eliminación"; return; }
+      DB.clases = DB.clases.filter(x => x.id !== borrClase.id); guardar(); cerrarHoja(); toast("Clase eliminada", "info"); return render();
+    case "publicarAviso": { const t = $("#aviso").value.trim(); if (t.length < 3) return toast("Escribí el aviso", "info"); DB.avisos.unshift({id:uid("a"), f:hoyStr(), txt:t}); guardar(); toast("Aviso publicado"); return render(); }
     case "borrarAviso": DB.avisos = DB.avisos.filter(x => x.id !== id); guardar(); return render();
-    case "guardarDesafio": DB.desafio = {meta:Math.max(1, +$("#dMeta").value || 12), premio:$("#dPremio").value.trim() || "Premio sorpresa"}; guardar(); return toast("✅ Desafío guardado");
+    case "guardarDesafio": DB.desafio = {meta:Math.max(1, +$("#dMeta").value || 12), premio:$("#dPremio").value.trim() || "Premio sorpresa"}; guardar(); return toast("Desafío guardado");
     case "color": DB.gym.color = b.dataset.c; guardar(); aplicarMarca(); $$(".sw").forEach(x => x.classList.toggle("on", x === b)); return;
     case "quitarLogo": DB.gym.logo = null; guardar(); return render();
     case "guardarMarca": {
-      const g = DB.gym, n = $("#gNombre").value.trim(); if (n.length < 2) return toast("Poné el nombre del gimnasio");
-      const hor = {}; for (const d of [0,1,2,3,4,5,6]) { const a1 = +$("#hA" + d).value, c1 = +$("#hC" + d).value; if (a1 < 0) { hor[d] = null; continue; } if (c1 <= a1) return toast(`Revisá el horario del ${DIA[d].toLowerCase()}`); hor[d] = [a1, c1]; }
+      const g = DB.gym, n = $("#gNombre").value.trim(); if (n.length < 2) return toast("Ingresá el nombre del gimnasio", "info");
+      const hor = {}; for (const d of [0,1,2,3,4,5,6]) { const a1 = +$("#hA" + d).value, c1 = +$("#hC" + d).value; if (a1 < 0) { hor[d] = null; continue; } if (c1 <= a1) return toast(`Revisá el horario del ${DIA[d].toLowerCase()}`, "alerta"); hor[d] = [a1, c1]; }
       Object.assign(g, {nombre:n, direccion:$("#gDir").value.trim(), whatsapp:$("#gWa").value.trim(), alias:$("#gAlias").value.trim(), capacidad:Math.max(1, +$("#gCap").value || 35), horario:hor});
-      guardar(); toast("✅ Datos del gimnasio guardados"); return render();
+      guardar(); toast("Cambios guardados"); return render();
     }
     case "agregarPlan": leerPlanes(); DB.planes.push({id:uid("p"), n:"Plan nuevo", precio:30000}); guardar(); return render();
-    case "guardarPlanes": leerPlanes(); guardar(); return toast("✅ Precios guardados");
-    case "cambiarPin": { const p = $("#nuevoPin").value.replace(/\D/g, ""); if (p.length < 4 || p.length > 6) return toast("El PIN tiene que tener de 4 a 6 números"); DB.pin = p; guardar(); $("#nuevoPin").value = ""; return toast("🔐 PIN cambiado"); }
+    case "guardarPlanes": leerPlanes(); guardar(); return toast("Precios guardados");
+    case "cambiarPin": { const p = $("#nuevoPin").value.replace(/\D/g, ""); if (p.length < 4 || p.length > 6) return toast("El PIN debe tener de 4 a 6 números", "info"); DB.pin = p; guardar(); $("#nuevoPin").value = ""; return toast("PIN actualizado"); }
     case "reiniciar":
       if (!confirmarReinicio) { confirmarReinicio = true; return render(); }
       confirmarReinicio = false; DB = semilla(); guardar(); simular(); toast("Datos de ejemplo restaurados"); return render();
@@ -1182,7 +1277,7 @@ function leerPlanes(){ DB.planes.forEach((p, i) => { const n = $("#plN" + i), v 
 render();
 (() => { const i = $("#intro"); if (!i) return; let ido = false;
   const irse = () => { if (ido) return; ido = true; i.classList.add("fuera"); setTimeout(() => i.remove(), 550); };
-  i.onclick = irse; setTimeout(irse, 1600); })();
+  i.onclick = irse; setTimeout(irse, 1500); })();
 if (YO && YO.rol === "socio" && socioYo()) { const ss = entrenoDe(YO.id).sesion; if (ss && ss.f === hoyStr() && ss.descansoHasta) abrirGuia(); }
 // En la demo, cada minuto entran socios nuevos (ocupación en vivo) y se refresca la pantalla si no estás escribiendo
 setInterval(() => {
@@ -1192,7 +1287,7 @@ setInterval(() => {
 }, 60000);
 </script>
 <script>
-const VERSION_APP = "20260930112427";
+const VERSION_APP = "20260930115141";
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
 }).catch(() => {}));
