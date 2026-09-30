@@ -154,7 +154,7 @@ button.stat{width:100%}
 <nav class="nav" id="nav"><div></div></nav>
 <div id="capa"></div>
 <div id="hoja"></div>
-<script src="catalogo.js?v=20260930112214"></script>
+<script src="catalogo.js?v=20260930112427"></script>
 <script src="qrcode.min.js"></script>
 <script>
 "use strict";
@@ -809,7 +809,7 @@ function pPanel(){
 }
 function barras(vals, etiquetas, resaltar){
   const W = 560, H = 150, n = vals.length, max = Math.max(1, ...vals), bw = W / n;
-  return `<svg class="graf" viewBox="0 0 ${W} ${H + 22}" style="margin-top:10px">${vals.map((v, i) => { const h = Math.round(v / max * H); return `<rect x="${i * bw + 3}" y="${H - h}" width="${bw - 6}" height="${Math.max(h, 2)}" rx="5" fill="${i === resaltar ? "var(--ac2)" : "var(--ac)"}" opacity="${i === resaltar ? 1 : .55}"/>
+  return `<svg class="graf" viewBox="0 -18 ${W} ${H + 40}" style="margin-top:10px">${vals.map((v, i) => { const h = Math.round(v / max * H); return `<rect x="${i * bw + 3}" y="${H - h}" width="${bw - 6}" height="${Math.max(h, 2)}" rx="5" fill="${i === resaltar ? "var(--ac2)" : "var(--ac)"}" opacity="${i === resaltar ? 1 : .55}"/>
     ${v ? `<text x="${i * bw + bw / 2}" y="${H - h - 4}" text-anchor="middle" font-size="13" font-weight="800" fill="#9A9EA6">${Math.round(v)}</text>` : ""}<text x="${i * bw + bw / 2}" y="${H + 17}" text-anchor="middle" font-size="12" font-weight="700" fill="#9A9EA6">${etiquetas[i]}</text>`; }).join("")}</svg>`;
 }
 function graficoDias(){
@@ -1192,7 +1192,7 @@ setInterval(() => {
 }, 60000);
 </script>
 <script>
-const VERSION_APP = "20260930112214";
+const VERSION_APP = "20260930112427";
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
 }).catch(() => {}));
