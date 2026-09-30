@@ -32,9 +32,15 @@ body{padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(92px + env(safe-
   background:linear-gradient(112deg,transparent 36%,rgba(203,213,225,.35) 44%,rgba(248,250,252,.98) 50%,rgba(203,213,225,.35) 56%,transparent 64%);
   background-size:260% 100%;background-position:100% 0;animation:brillo 3.8s ease-in-out .9s infinite}
 @keyframes brillo{0%,40%{background-position:100% 0}80%,100%{background-position:0% 0}}
+/* Acabado metálico (luces y sombras horizontales) sobre el logo */
+.brillo::before{content:"";position:absolute;inset:0;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;pointer-events:none;mix-blend-mode:soft-light;
+  background:linear-gradient(180deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 22%,rgba(0,0,0,.35) 46%,rgba(255,255,255,.55) 62%,rgba(0,0,0,.3) 82%,rgba(255,255,255,.4) 100%)}
+/* En la presentación el reflejo pasa dos veces mientras se ve el logo */
+#intro .brillo::after{animation:brilloIntro 1.05s cubic-bezier(.45,0,.25,1) .45s 2 both}
+@keyframes brilloIntro{from{background-position:100% 0}to{background-position:0% 0}}
 .logo{position:relative;overflow:hidden}
 .logo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 38%,rgba(241,245,249,.55) 50%,transparent 62%);background-size:260% 100%;background-position:100% 0;animation:brillo 5s ease-in-out 1.5s infinite;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.brillo::after,.logo::after{animation:none;opacity:0}}
+@media (prefers-reduced-motion:reduce){.brillo::after,#intro .brillo::after,.logo::after{animation:none;opacity:0}}
 /* Marca de agua con el emblema del gimnasio en el fondo */
 body::before{content:"";position:fixed;left:50%;bottom:4vh;width:min(125vw,760px);aspect-ratio:941/774;transform:translateX(-50%) rotate(-8deg);background:url(fondo-emblema.webp) center/contain no-repeat;opacity:.05;pointer-events:none;z-index:0}
 #app{position:relative;z-index:1}
@@ -216,7 +222,7 @@ details summary{list-style:none;cursor:pointer}details summary::-webkit-details-
 <nav class="nav" id="nav"><div></div></nav>
 <div id="capa"></div>
 <div id="hoja"></div>
-<script src="catalogo.js?v=20260930154907"></script>
+<script src="catalogo.js?v=20260930155632"></script>
 <script src="qrcode.min.js"></script>
 <script>
 "use strict";
@@ -1373,7 +1379,7 @@ function leerPlanes(){ DB.planes.forEach((p, i) => { const n = $("#plN" + i), v 
 render();
 (() => { const i = $("#intro"); if (!i) return; let ido = false;
   const irse = () => { if (ido) return; ido = true; i.classList.add("fuera"); setTimeout(() => i.remove(), 550); };
-  i.onclick = irse; setTimeout(irse, 2300); })();
+  i.onclick = irse; setTimeout(irse, 2800); })();
 if (YO && YO.rol === "socio" && socioYo()) { const ss = entrenoDe(YO.id).sesion; if (ss && ss.f === hoyStr() && ss.descansoHasta) abrirGuia(); }
 // En la demo, cada minuto entran socios nuevos (ocupación en vivo) y se refresca la pantalla si no estás escribiendo
 setInterval(() => {
@@ -1383,7 +1389,7 @@ setInterval(() => {
 }, 60000);
 </script>
 <script>
-const VERSION_APP = "20260930154907";
+const VERSION_APP = "20260930155632";
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
 }).catch(() => {}));
