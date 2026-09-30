@@ -26,6 +26,11 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--f);-webkit-font-smoothing:antialiased}
 body{padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(92px + env(safe-area-inset-bottom,0px));max-width:620px;margin:0 auto;min-height:100vh;background:radial-gradient(120% 320px at 50% -60px,var(--acGlow),transparent 70%) no-repeat,var(--bg)}
+/* Marca de agua con el emblema del gimnasio en el fondo */
+body::before{content:"";position:fixed;left:50%;bottom:4vh;width:min(125vw,760px);aspect-ratio:941/774;transform:translateX(-50%) rotate(-8deg);background:url(fondo-emblema.webp) center/contain no-repeat;opacity:.05;pointer-events:none;z-index:0}
+#app{position:relative;z-index:1}
+.capa::before{content:"";position:fixed;left:50%;bottom:4vh;width:min(125vw,760px);aspect-ratio:941/774;transform:translateX(-50%) rotate(-8deg);background:url(fondo-emblema.webp) center/contain no-repeat;opacity:.04;pointer-events:none}
+.capa .in{position:relative}
 body.sinNav{padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
 h1,h2,h3{margin:0;letter-spacing:-.02em;font-weight:700}
 h1{font-size:26px;line-height:1.15}h2{font-size:20px;line-height:1.2}h3{font-size:16px;line-height:1.3;font-weight:600}
@@ -202,7 +207,7 @@ details summary{list-style:none;cursor:pointer}details summary::-webkit-details-
 <nav class="nav" id="nav"><div></div></nav>
 <div id="capa"></div>
 <div id="hoja"></div>
-<script src="catalogo.js?v=20260930153803"></script>
+<script src="catalogo.js?v=20260930154137"></script>
 <script src="qrcode.min.js"></script>
 <script>
 "use strict";
@@ -1369,7 +1374,7 @@ setInterval(() => {
 }, 60000);
 </script>
 <script>
-const VERSION_APP = "20260930153803";
+const VERSION_APP = "20260930154137";
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) reg.update().catch(() => {}); });
 }).catch(() => {}));
